@@ -1,0 +1,39 @@
+<main>
+    <mat-grid-list cols="2" >
+        <mat-grid-tile class="login_grad">
+          <div class="login_form">
+            <div class="title">
+                <span>INICIO DE SESIÓN</span>
+                <div class="space"></div>
+            </div>
+            <div style="text-align:center">
+              <form>
+                  <mat-form-field class="form-input">
+                    <input matInput placeholder="Usuario" [formControl]="emailFormControl"
+                           [errorStateMatcher]="matcher">
+                    <mat-hint></mat-hint>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                      Este campo es <strong>obligatorio</strong>
+                    </mat-error>
+                  </mat-form-field> <br>
+                  <mat-form-field class="form-input">
+                    <input matInput type="password" placeholder="Contraseña">
+                  </mat-form-field>
+                  <div class="space"></div>
+                  <div>
+                      <button class="btn_submit" mat-raised-button color="primary">INGRESAR</button>
+                  </div>
+                  
+              </form>
+            </div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="login_back">
+          <div>
+            <p class="miclinica">MiClínica </p>
+            <p class="slogan">Lo más importante son tus pacientes</p>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+</main>

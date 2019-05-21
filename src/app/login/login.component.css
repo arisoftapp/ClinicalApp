@@ -1,0 +1,66 @@
+.container {
+    height: 100%;
+    width: 100%;
+  }
+
+.title{
+    text-align: center;
+    font-family: 'Raleway';
+    font-size: 17pt;
+
+}
+
+.login_back {
+    width: 50%;
+    background-image: url(../../assets/back_login.jpg);
+    background-size: cover;
+    background-position: right;
+}
+
+.login_grad{
+    width: 50%;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 100%);
+}
+
+.miclinica{
+    color: white;
+    font-family: 'Raleway';
+    font-weight: 700;
+    font-style: italic;
+    font-size: 50pt;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.slogan{
+    font-family: 'Raleway';
+    font-size: 15pt;
+    color: white;
+    margin-top: -15px;
+}
+
+.login_form {
+    width: 50%;
+}
+
+.space{
+    height: 115px;
+}
+
+.btn_submit{
+    border-radius: 0px;
+    width: 80%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Raleway';
+    font-weight: 700;
+    letter-spacing: 2pt;
+}
+
+.form-input{
+    width: 100%;
+    font-family: 'Raleway';
+    font-size: 115%;
+}

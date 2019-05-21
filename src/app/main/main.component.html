@@ -1,0 +1,23 @@
+  <mat-toolbar class="toolbar">
+    <img src="../../assets/MiClinica3.png" class="logo btn-toggle" (click)="snav.toggle()" alt="Mi Clínica">
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+                 <nav mat-tab-nav-bar>
+                  <a mat-tab-link
+                     *ngFor="let link of navLinks"
+                     [routerLink]="link.path"
+                     routerLinkActive #rla="routerLinkActive"
+                     [active]="rla.isActive">
+                    {{link.label}}
+                  </a>
+                </nav>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
