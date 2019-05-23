@@ -12,9 +12,9 @@ import { ConsultoriosComponent } from './consultorios/consultorios.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
 
 const routes: Routes = [
-  { path : '', component : MainComponent,
+  { path : 'main', component : MainComponent,
     children : [
-      { path : '', component : InicioComponent },
+      { path : 'inicio', component : InicioComponent },
       { path : 'citas', component : CitasComponent },
       { path : 'calendario', component : CalendarioComponent },
       { path : 'pacientes', component : PacientesComponent },
@@ -24,6 +24,7 @@ const routes: Routes = [
     ]
   },
   { path : 'login', component : LoginComponent },
+  { path: '**', redirectTo: 'main/inicio', pathMatch: 'full' },
 ];
 
 @NgModule({

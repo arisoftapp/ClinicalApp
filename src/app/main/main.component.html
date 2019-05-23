@@ -1,23 +1,41 @@
-  <mat-toolbar class="toolbar">
+  <mat-toolbar class="toolbar bar">
     <img src="../../assets/MiClinica3.png" class="logo btn-toggle" (click)="snav.toggle()" alt="Mi Clínica">
+    <span class="example-fill-remaining-space"></span>
+    <div class="toolbar-notifications">
+        <i class="fas fa-bell" matBadge="15" matBadgeColor="warn"></i>
+    </div>
+    <div >
+        <i class="fas fa-user-circle toolbar-user-icon"></i>
+    </div>
   </mat-toolbar>
 
-  <mat-sidenav-container class="sidenav-container"
-                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-                 <nav mat-tab-nav-bar>
-                  <a mat-tab-link
-                     *ngFor="let link of navLinks"
-                     [routerLink]="link.path"
-                     routerLinkActive #rla="routerLinkActive"
-                     [active]="rla.isActive">
-                    {{link.label}}
-                  </a>
-                </nav>
+  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav class="fixed blur" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <div class="header-sidenav">
+        <img src="../../assets/MiClinica3.png" class="logo img-sidenav" (click)="snav.toggle()" alt="Mi Clínica">
+      </div>
+      <nav mat-tab-nav-bar class="full nav-menu">
+        <table class="full table-menu">
+          <tbody class="full">
+            <tr *ngFor="let ruta of Rutas" class="full">
+              <a mat-tab-link class="menu-item nav-title"
+                [routerLink]="ruta.path"
+                routerLinkActive #rla="routerLinkActive"
+                [active]="rla.isActive" ng-class="active : rla.isActive">
+                <mat-icon *ngIf="ruta.material" class="menu-icon nav-icon">{{ruta.icon}} </mat-icon>
+                <i *ngIf="ruta.label === 'Médicos'" class="nav-icon fas fa-user-md image " ng-class="icon-active : rla.isActive"></i>
+                <i *ngIf="ruta.label === 'Consultorios'" class="nav-icon image fas fa-door-open" ng-class="icon-active : rla.isActive"></i>
+                {{ruta.label}}
+              </a>
+            </tr>
+          </tbody>
+        </table>
+      </nav>
     </mat-sidenav>
 
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
+    <mat-sidenav-content class="content-content">
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
