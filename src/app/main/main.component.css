@@ -4,6 +4,10 @@
   z-index: 2;
  
 }
+.td-table{
+  border-bottom-width: 0px; 
+    /* border-bottom-style: solid; */
+}
 
 .bar{
   background-color: white;
@@ -71,10 +75,44 @@ h1.app-name {
 
 .toolbar-notifications{
   margin-right: 35px;
+  color: #B6BAC5;
 }
 
 .toolbar-user-icon{
- font-size: 33pt;
+  font-size: 33pt;
+  margin-right: 10px;
+}
+
+.avaliable{
+  color: #1DE9B6;
+}
+
+.not-avaliable{
+  color: #E91E63
+}
+
+.busy{
+  color: #FF9800;
+}
+
+
+
+.toolbar-username{
+  font-weight: 700;
+  font-size: 11pt;
+  margin: 0;
+  margin-bottom: -10px;
+}
+
+.toolbar-user-status{
+  font-size: 9pt;
+  font-weight: 300;
+  color: #a6a9b2;
+  margin: 0;
+}
+
+.status-light{
+  margin-right: 5px;
 }
 
 .blur{

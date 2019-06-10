@@ -2,10 +2,31 @@
     <img src="../../assets/MiClinica3.png" class="logo btn-toggle" (click)="snav.toggle()" alt="Mi Clínica">
     <span class="example-fill-remaining-space"></span>
     <div class="toolbar-notifications">
-        <i class="fas fa-bell" matBadge="15" matBadgeColor="warn"></i>
-    </div>
+        <button mat-icon-button [matMenuTriggerFor]="notificationsMenu"><i class="fas fa-bell" matBadge="15" matBadgeColor="warn"></i></button>
+        <mat-menu #notificationsMenu="matMenu" xPosition="before">
+          <button mat-menu-item><i class="fas fa-circle status-light avaliable"></i>Disponible</button>
+          <button mat-menu-item><i class="fas fa-circle status-light not-avaliable"></i>No disponible</button>
+          <button mat-menu-item><i class="fas fa-circle status-light busy"></i>Ocupado</button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item>Cerrar sesión</button>
+        </mat-menu>
+      </div>
     <div >
-        <i class="fas fa-user-circle toolbar-user-icon"></i>
+        <i class="fas fa-user-circle toolbar-user-icon"></i><br>
+    </div>
+    <div>
+      <p class="toolbar-username">{{user.Username}}</p>
+      <p class="toolbar-user-status"><i class="fas fa-circle status-light" [style.color]="getStatus()" ></i>{{user.Puesto}}</p>
+    </div>
+    <div>
+        <button mat-icon-button [matMenuTriggerFor]="beforeMenu"><i class="fas fa-chevron-down"></i></button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item><i class="fas fa-circle status-light avaliable"></i>Disponible</button>
+            <button mat-menu-item><i class="fas fa-circle status-light not-avaliable"></i>No disponible</button>
+            <button mat-menu-item><i class="fas fa-circle status-light busy"></i>Ocupado</button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click) = "logout()">Cerrar sesión</button>
+        </mat-menu>
     </div>
   </mat-toolbar>
 

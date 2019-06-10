@@ -9,7 +9,13 @@ import {
     MatIconModule,
     MatListModule,
     MatTabsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatDialogModule
 
 } from '@angular/material';
 
@@ -23,7 +29,13 @@ import {
         MatIconModule,
         MatListModule,
         MatTabsModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatMenuModule,
+        MatDividerModule,
+        MatSnackBarModule,
+        MatTableModule,
+        MatTooltipModule,
+        MatDialogModule
     ],
     exports:[
         MatButtonModule,
@@ -34,7 +46,13 @@ import {
         MatIconModule,
         MatListModule,
         MatTabsModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatMenuModule,
+        MatDividerModule,
+        MatSnackBarModule,
+        MatTableModule,
+        MatTooltipModule,
+        MatDialogModule
     ]
 })
 

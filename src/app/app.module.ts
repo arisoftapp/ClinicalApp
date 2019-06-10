@@ -15,7 +15,7 @@ import { CalendarioComponent } from './calendario/calendario.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { ConsultoriosComponent } from './consultorios/consultorios.component';
-import { EspecialidadesComponent } from './especialidades/especialidades.component';
+import { EspecialidadesComponent, AddEspDialog, EditEspDialog } from './especialidades/especialidades.component';
 import { MainComponent } from './main/main.component'
 
 @NgModule({
@@ -29,15 +29,22 @@ import { MainComponent } from './main/main.component'
     MedicosComponent, 
     ConsultoriosComponent, 
     EspecialidadesComponent, 
-    MainComponent
+    MainComponent,
+    AddEspDialog,
+    EditEspDialog
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  entryComponents: [
+    AddEspDialog,
+    EditEspDialog
   ],
   providers: [],
   bootstrap: [AppComponent]

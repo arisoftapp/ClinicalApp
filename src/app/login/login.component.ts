@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+import { Usuario  } from '../models/UserModel'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -16,17 +20,82 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent implements OnInit {
   LoginForm : FormControl;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  public user : Usuario;
+  public Login : any;
+  public Resp : any;
+  public Success : boolean = true;
+  public Message : string;
+  public identity;
+  public texto;
+  public jey;
+  public hola;
+  public into;
+  LogForm : FormGroup;
   emailFormControl = new FormControl('', [
     Validators.required,
-    Validators.email,
   ]);
-
+  passFormControl = new FormControl('', [
+    Validators.required
+  ]);
   matcher = new MyErrorStateMatcher();
+
+  constructor(private router : Router, private form : FormBuilder, private service : UserService,
+    private _snackBar: MatSnackBar) {
+    this.user = new Usuario ();
+   }
+
+  ngOnInit() {
+    this.into = this.service.getLogin();
+      if (this.into){
+        this.router.navigate(['main/inicio']);
+      }
+      this.user = this.service.getIdentity(); 
+  }
+
+  onSubmit(){
+    try{
+      this.Login = this.SaveLogin();
+      //console.log(this.Login);
+      this.service.logUser(this.Login).subscribe(response => {
+        this.Resp = response;
+        this.texto = this.Resp._body;
+        this.jey = JSON.parse(this.texto);
+        this.Success = this.jey.success;
+        this.Message = this.jey.message;
+        this.hola = this.jey.hola;
+        this.openSnackBar(this.Message);
+        if (this.Success){
+          this.router.navigate(['/main/inicio']);
+          localStorage.setItem('into', JSON.stringify(this.Success));
+          localStorage.setItem('tok', JSON.stringify(this.jey.token));
+          localStorage.setItem('puesto', JSON.stringify(this.jey.puesto));
+          localStorage.setItem('user', JSON.stringify(this.jey.username));
+        }
+
+      })
+    } catch(error){
+      console.log('Error de logueo');
+    }
+  }
+
+  SaveLogin(){
+    const SaveLogin = {
+      Username : this.emailFormControl.value,
+      Password : this.passFormControl.value,
+    }
+    console.log(SaveLogin);
+
+    return SaveLogin;
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, "Ok", {
+      duration: 5000,
+    });
+  }
+
+  
+
+  
 
 }

@@ -12,6 +12,7 @@ import { ConsultoriosComponent } from './consultorios/consultorios.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
 
 const routes: Routes = [
+  
   { path : 'main', component : MainComponent,
     children : [
       { path : 'inicio', component : InicioComponent },

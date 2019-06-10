@@ -7,7 +7,7 @@
                 <div class="space"></div>
             </div>
             <div style="text-align:center">
-              <form>
+              <form (ngSubmit) = "onSubmit()">
                   <mat-form-field class="form-input">
                     <input matInput placeholder="Usuario" [formControl]="emailFormControl"
                            [errorStateMatcher]="matcher">
@@ -17,11 +17,15 @@
                     </mat-error>
                   </mat-form-field> <br>
                   <mat-form-field class="form-input">
-                    <input matInput type="password" placeholder="Contraseña">
+                    <input matInput type="password" placeholder="Contraseña" [formControl]="passFormControl"
+                    [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="passFormControl.hasError('required')">
+                      Este campo es <strong>obligatorio</strong>
+                    </mat-error>
                   </mat-form-field>
                   <div class="space"></div>
                   <div>
-                      <button class="btn_submit" mat-raised-button color="primary">INGRESAR</button>
+                      <button class="btn_submit" mat-raised-button color="primary" type="submit" >INGRESAR</button>
                   </div>
                   
               </form>
