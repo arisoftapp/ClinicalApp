@@ -1,0 +1,12 @@
+<h1 mat-dialog-title><i class="fas fa-door-open" ></i> Eliminar consultorio</h1>
+<div mat-dialog-content class="modal-container">
+  <div class="delete-data">
+    <span>Consultorio:</span><br>
+    <span class="delete-esp">{{data.nombre}}</span>
+  </div>
+  <p>¿Está seguro que desea eliminar este consultorio?</p>
+</div>
+<div mat-dialog-actions class="modal-actions">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data.nombre" color="primary" >Aceptar</button>
+</div>

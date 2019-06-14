@@ -15,7 +15,12 @@ import {
     MatSnackBarModule,
     MatTableModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    MatRadioModule
 
 } from '@angular/material';
 
@@ -35,7 +40,12 @@ import {
         MatSnackBarModule,
         MatTableModule,
         MatTooltipModule,
-        MatDialogModule
+        MatDialogModule,
+        MatExpansionModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCardModule,
+        MatRadioModule
     ],
     exports:[
         MatButtonModule,
@@ -52,7 +62,12 @@ import {
         MatSnackBarModule,
         MatTableModule,
         MatTooltipModule,
-        MatDialogModule
+        MatDialogModule,
+        MatExpansionModule,
+        MatDatepickerModule,
+        MatNativeDateModule, 
+        MatCardModule,
+        MatRadioModule
     ]
 })
 

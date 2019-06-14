@@ -1,3 +1,46 @@
-<p>
-  consultorios works!
-</p>
+<div class="container">
+    <div class="row">
+      <div class="title-row">
+        <h2>Consultorios </h2>
+        <button mat-flat-button class="btn-add" (click)="openAddDialog()"> <i class=" fas fa-plus"></i> nuevo consultorio</button>
+      </div>
+    </div>
+    <!--<mat-list>
+      <mat-list-item *ngFor="let esp of especialidades">
+        <mat-icon mat-list-icon>local_hospital</mat-icon>
+        <h4 mat-line class="title" style="font-weight: 500;"> {{esp.nombre_especialidad}} </h4>
+        <p mat-line class="subtitle" style="font-size: 9pt;">Identificador: {{esp.id_especialidad}} </p>
+      </mat-list-item>
+    </mat-list>-->
+  
+    <div style="width: 100%">
+        <table mat-table [dataSource]="consultorios" style="width: 100%; background: #f6f7fb;">
+            <!-- Position Column -->
+            <ng-container matColumnDef="identifier" >
+              <th mat-header-cell *matHeaderCellDef style="width: 10%"> ID </th>
+              <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;" > {{element.id_consultorio}} </td>
+            </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="name" >
+              <th mat-header-cell *matHeaderCellDef style="width: 60%;"> Consultorio </th>
+              <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px; "> {{element.nombre_consultorio}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="options">
+              <th mat-header-cell *matHeaderCellDef style="width: 20%"> Opciones </th>
+              <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px; ">
+                <button mat-icon-button color="primary" (click)="openEditDialog(element)" matTooltip="Editar" matTooltipPosition="left" aria-label="Editar nombre del consultorio">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="openDropDialog(element)" matTooltip="Eliminar" matTooltipPosition="right" aria-label="Eliminar consultorio">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+    </div>
+  </div>

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title><mat-icon mat-list-icon>local_hospital</mat-icon> Eliminar especialidad</h1>
+<div mat-dialog-content class="modal-container">
+  <div class="delete-data">
+    <span>Especialidad:</span><br>
+    <span class="delete-esp">{{data.nombre}}</span>
+  </div>
+  <p>¿Está seguro que desea eliminar esta especialidad?</p>
+</div>
+<div mat-dialog-actions class="modal-actions">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data.nombre" color="primary" >Aceptar</button>
+</div>

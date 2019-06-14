@@ -3,24 +3,23 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs';
 import { Global }  from '../models/global';
 import { UserService } from '../services/user.service';
-import { Especialidad } from '../models/EspecialidadModel';
+import { Consultorio } from '../models/ConsultorioModel';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class EspecialidadService {
-
+export class ConsultorioService {
   private token;
-
   public global : Global;
+  
   constructor(private _http : Http, private Uservice : UserService) {
     this.global = new Global;
   }
 
-  getEspecialidades(){
+  getConsultorios(){
     this.token = this.Uservice.getToken();
-    let URL = this.global.URL + 'especialidades/';
+    let URL = this.global.URL + 'consultorios/';
     const headers = new Headers(
       {
         'Content-Type' : 'application/json',
@@ -37,10 +36,10 @@ export class EspecialidadService {
       )
   }
 
-  postEspecialidad(esp: Especialidad)  {
+  postConsultorio(consul: Consultorio)  {
     this.token = this.Uservice.getToken();
-    let URL = this.global.URL + 'especialidad';
-    const newpres = JSON.stringify(esp);
+    let URL = this.global.URL + 'consultorio';
+    const newpres = JSON.stringify(consul);
     const headers = new Headers(
       {
         'Content-Type' : 'application/json',
@@ -57,10 +56,10 @@ export class EspecialidadService {
       )
   }
 
-  putEspecialidad(esp: Especialidad)  {
+  putConsultorio(consul: Consultorio)  {
     this.token = this.Uservice.getToken();
-    let URL = this.global.URL + 'especialidad';
-    const newpres = JSON.stringify(esp);
+    let URL = this.global.URL + 'consultorio';
+    const newpres = JSON.stringify(consul);
     const headers = new Headers(
       {
         'Content-Type' : 'application/json',
@@ -77,17 +76,16 @@ export class EspecialidadService {
       )
   }
 
-  deleteEspecialidad(esp: Especialidad)  {
+  deleteConsultorio(consul: Consultorio)  {
     this.token = this.Uservice.getToken();
-    let URL = this.global.URL + 'especialidad/' + esp.id_especialidad;
-    const newpres = JSON.stringify(esp);
+    let URL = this.global.URL + 'especialidad/' + consul.id_consultorio;
     const headers = new Headers(
       {
         'Content-Type' : 'application/json',
         'x-access-token' : this.token,
       }
     );
-
+    
     return this._http.delete(
       URL, {headers}).pipe(
         res => {

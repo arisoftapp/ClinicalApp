@@ -21,7 +21,7 @@ export class EspecialidadesComponent implements OnInit {
 
 
   constructor(private EspService : EspecialidadService, private _snackBar: MatSnackBar, public addDialog: MatDialog,
-    public editDialog: MatDialog) { }
+    public editDialog: MatDialog, public deleteDialog: MatDialog) { }
 
   displayedColumns = ['identifier', 'name', 'options'];
 
@@ -38,11 +38,8 @@ export class EspecialidadesComponent implements OnInit {
         if (!jey.success){
           this.success = jey.success;
           this.SnackBarError(jey.message);
-          console.log("ERROR EN LECTURA DE CONTEOS");
-          //console.log(this.jey.conteos);
         }else {
           this.especialidades = jey.data;
-          //console.log(this.conteos);
         }
       error => {
         console.log(<any>error);
@@ -52,6 +49,34 @@ export class EspecialidadesComponent implements OnInit {
 
   postEspecialidad(especialidad: Especialidad){
     this.EspService.postEspecialidad(especialidad).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto);
+        this.success = jey.success;
+        this.SnackBarError(jey.message);
+        if (jey.success){
+          this.getEspecidades();
+        }
+    });
+  }
+
+  editEspecialidad(especialidad: Especialidad){
+    this.EspService.putEspecialidad(especialidad).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto);
+        this.success = jey.success;
+        this.SnackBarError(jey.message);
+        if (jey.success){
+          this.getEspecidades();
+        }
+    });
+  }
+
+  dropEspecialidad(especialidad: Especialidad){
+    this.EspService.deleteEspecialidad(especialidad).subscribe(
       (response : any)  => {
         var Resp = response;
         var texto = Resp._body;
@@ -74,12 +99,14 @@ export class EspecialidadesComponent implements OnInit {
     this.especialidad = new Especialidad;
     const dialogRef = this.addDialog.open(AddEspDialog, {
       width: '500px',
-      data: {nombre: this.especialidad.nombre_especialidad}
+      data: { nombre: this.especialidad.nombre_especialidad }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.especialidad.nombre_especialidad = result;
-      this.postEspecialidad(this.especialidad);
+      if (result) {
+        this.especialidad.nombre_especialidad = result;
+        this.postEspecialidad(this.especialidad);
+      }
     });
   }
 
@@ -91,8 +118,24 @@ export class EspecialidadesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.especialidad.nombre_especialidad = result;
-      this.postEspecialidad(this.especialidad);
+      if (result){
+        this.especialidad.nombre_especialidad = result;
+        this.editEspecialidad(this.especialidad);
+      }
+    });
+  }
+
+  openDropDialog(esp : Especialidad) {
+    this.especialidad = esp;
+    const dialogRef = this.editDialog.open(DeleteEspDialog, {
+      width: '500px',
+      data: { nombre: this.especialidad.nombre_especialidad }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        this.dropEspecialidad(this.especialidad);
+      }
     });
   }
 
@@ -124,6 +167,22 @@ export class EditEspDialog {
 
   constructor(
     public editDialog: MatDialogRef<EditEspDialog>,
+    @Inject (MAT_DIALOG_DATA) public data: Especialidad) {}
+
+  onNoClick(): void {
+    this.editDialog.close();
+  }
+}
+
+@Component({
+  selector: 'delete-dialog',
+  templateUrl: './dialogs/delete.dialog.html',
+  styleUrls: ['./especialidades.component.css']
+})
+export class DeleteEspDialog { 
+
+  constructor(
+    public editDialog: MatDialogRef<DeleteEspDialog>,
     @Inject (MAT_DIALOG_DATA) public data: Especialidad) {}
 
   onNoClick(): void {

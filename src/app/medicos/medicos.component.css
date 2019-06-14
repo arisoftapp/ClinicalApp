@@ -1,0 +1,52 @@
+.btn-add{
+    margin-top: 20px;
+    margin-left: 20px;
+    background: transparent;
+    color: #1e88e5;
+}
+
+.subtitle{
+    font-size: 9pt;
+    color: #595e6f;
+}
+
+.title{
+    font-weight: bold;
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.modal-actions {
+    display: block;
+    text-align: right;
+}
+
+.delete-data{
+    margin-left: 20px;
+}
+
+.delete-esp{
+    font-weight: bold;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-form-field {
+  margin-right: 12px;
+}
+
+.row-item{
+    margin-right: 20px;
+}

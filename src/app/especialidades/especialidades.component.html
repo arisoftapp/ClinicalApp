@@ -14,7 +14,7 @@
   </mat-list>-->
 
   <div style="width: 100%">
-      <table mat-table [dataSource]="especialidades" style="width: 100%; background: transparent;">
+      <table mat-table [dataSource]="especialidades" style="width: 100%; background: #f6f7fb;">
           <!-- Position Column -->
           <ng-container matColumnDef="identifier" >
             <th mat-header-cell *matHeaderCellDef style="width: 10%"> ID </th>
@@ -33,7 +33,7 @@
               <button mat-icon-button color="primary" (click)="openEditDialog(element)" matTooltip="Editar" matTooltipPosition="left" aria-label="Editar nombre de la especialidad">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn"  matTooltip="Eliminar" matTooltipPosition="right" aria-label="Eliminar especialidad">
+              <button mat-icon-button color="warn" (click)="openDropDialog(element)" matTooltip="Eliminar" matTooltipPosition="right" aria-label="Eliminar especialidad">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

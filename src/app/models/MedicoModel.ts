@@ -1,0 +1,35 @@
+export class Medico{ 
+    id_medico;
+    nombre;
+    ap_paterno;
+    ap_materno;
+    RFC;
+    cedula_prof;
+    universidad;
+    especialidad_1;
+    especialidad_2;
+    tel_fijo;
+    tel_cel;
+    tel_adicional;
+    email;
+    id_consultorio;
+    calle;
+    no_ext;
+    no_int;
+    estado_id;
+    municipio_id;
+    ciudad;
+    colonia;
+    url_receta;
+    url_solic_analisis;
+    url_constacia;
+    url_cert_med;
+    url_fact;
+    certificado;
+    url_sello;
+    nombre_esp_1;
+    nombre_esp_2;
+    nombre_consultorio;
+    nombre_estado;
+    nombre_municipio;
+}
