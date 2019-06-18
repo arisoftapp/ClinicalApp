@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -57,7 +57,11 @@ import { MainComponent } from './main/main.component'
     AddMedicDialog
 
   ],
-  providers: [],
+  
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-MX' }
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

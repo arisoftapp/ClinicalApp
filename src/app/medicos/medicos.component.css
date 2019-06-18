@@ -49,4 +49,9 @@ mat-form-field {
 
 .row-item{
     margin-right: 20px;
+    color: #747474;
+}
+
+.medic-card{
+    margin-bottom: 30px;
 }

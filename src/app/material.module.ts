@@ -20,7 +20,8 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule
 
 } from '@angular/material';
 
@@ -45,7 +46,8 @@ import {
         MatDatepickerModule,
         MatNativeDateModule,
         MatCardModule,
-        MatRadioModule
+        MatRadioModule,
+        MatSelectModule
     ],
     exports:[
         MatButtonModule,
@@ -67,7 +69,8 @@ import {
         MatDatepickerModule,
         MatNativeDateModule, 
         MatCardModule,
-        MatRadioModule
+        MatRadioModule,
+        MatSelectModule
     ]
 })
 

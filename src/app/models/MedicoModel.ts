@@ -3,6 +3,8 @@ export class Medico{
     nombre;
     ap_paterno;
     ap_materno;
+    sexo;
+    fecha_nac;
     RFC;
     cedula_prof;
     universidad;
@@ -27,6 +29,10 @@ export class Medico{
     url_fact;
     certificado;
     url_sello;
+    tipo_sangre;
+    alergias;
+    enfermedad_cronica;
+    anotacion;
     nombre_esp_1;
     nombre_esp_2;
     nombre_consultorio;
