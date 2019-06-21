@@ -13,13 +13,15 @@ import { InicioComponent } from './inicio/inicio.component';
 import { CitasComponent } from './citas/citas.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
-import { MedicosComponent, AddMedicDialog } from './medicos/medicos.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicosListComponent } from './medicos/medicos-list/medicos-list.component';
+import { RegistrarMedicoComponent } from './medicos/registro/registro.component';
 import { ConsultoriosComponent, AddConsulDialog, EditConsulDialog, DeleteConsulDialog } from './consultorios/consultorios.component';
 import { EspecialidadesComponent, AddEspDialog, EditEspDialog, DeleteEspDialog } from './especialidades/especialidades.component';
-import { MainComponent } from './main/main.component'
+
 
 @NgModule({
-  declarations: [
+  declarations: [ 
     AppComponent,
     LoginComponent,
     InicioComponent, 
@@ -27,16 +29,16 @@ import { MainComponent } from './main/main.component'
     CalendarioComponent, 
     PacientesComponent, 
     MedicosComponent, 
+    MedicosListComponent,
+    RegistrarMedicoComponent,
     ConsultoriosComponent, 
-    EspecialidadesComponent, 
-    MainComponent,
+    EspecialidadesComponent,
     AddEspDialog,
     EditEspDialog,
     DeleteEspDialog,
     AddConsulDialog,
     EditConsulDialog,
-    DeleteConsulDialog,
-    AddMedicDialog
+    DeleteConsulDialog
   ],
   imports: [
     BrowserModule,
@@ -53,8 +55,7 @@ import { MainComponent } from './main/main.component'
     DeleteEspDialog,
     AddConsulDialog,
     EditConsulDialog,
-    DeleteConsulDialog,
-    AddMedicDialog
+    DeleteConsulDialog
 
   ],
   

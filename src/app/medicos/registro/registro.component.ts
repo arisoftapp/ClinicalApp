@@ -1,19 +1,19 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ConsultorioService } from '../services/consultorio.service';
+import { ConsultorioService } from '../../services/consultorio.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Medico } from '../models/MedicoModel';
+import { Medico } from '../../models/MedicoModel';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MedicoService } from '../services/medico.service';
-import { EntidadService } from '../services/entidad.service';
+import { MedicoService } from '../../services/medico.service';
+import { EntidadService } from '../../services/entidad.service';
 import localeMX from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
-import { Entidad } from '../models/EntidadModel';
-import { Municipio } from '../models/MunicipioModel';
-import { Especialidad } from '../models/EspecialidadModel';
-import { EspecialidadService } from '../services/especialidad.service';
+import { Entidad } from '../../models/EntidadModel';
+import { Municipio } from '../../models/MunicipioModel';
+import { Especialidad } from '../../models/EspecialidadModel';
+import { EspecialidadService } from '../../services/especialidad.service'; 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -23,105 +23,20 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-medicos',
-  templateUrl: './medicos.component.html',
-  styleUrls: ['./medicos.component.css']
+  selector: 'app-registro',
+  templateUrl: './registro.component.html',
+  styleUrls: ['./registro.component.css']
 })
 
-export class MedicosComponent implements OnInit {
-  medicos : Medico [];
-  medico : Medico;
-  private success : boolean;
-  private message : string;
-  private nombre_esp : string;
-  displayedColumns = ['identifier', 'name', 'consul', 'phone', 'email', 'options'];
-  public recetaPath;
-  recetaURL: any;
-  email = new FormControl('', [
-    Validators.required,
-    Validators.email
-  ]);
-
-  constructor(private medic_service : MedicoService, private _snackBar: MatSnackBar, public addDialog: MatDialog,
-    public editDialog: MatDialog, public deleteDialog: MatDialog, private router : Router) {
-      registerLocaleData(localeMX);
-    }
-
-  ngOnInit() {
-    this.getMedicos();
-  }
-
-  getMedicos(){
-    this.medic_service.getMedicos().subscribe(
-    (response : any)  => {
-      var Resp = response;
-      var texto = Resp._body;
-      var jey = JSON.parse(texto); 
-      if (!jey.success){
-        this.success = jey.success; 
-        this.SnackBarError(jey.message);
-      }else {
-        this.medicos = jey.data;
-      }
-    error => {
-      console.log(<any>error);
-    }
-    });
-  }
-
-  postMedico(medico: Medico){
-    console.log(medico);
-    this.medic_service.postMedico(medico).subscribe(
-      (response : any)  => {
-        var Resp = response;
-        var texto = Resp._body;
-        var jey = JSON.parse(texto);
-        this.success = jey.success;
-        this.SnackBarError(jey.message);
-        if (jey.success){
-          this.getMedicos();
-        }
-    });
-  }
-
-  SnackBarError(message: string) {
-    this._snackBar.open(message, "Aceptar", {
-      duration: 5000,
-    });
-  }
-
-  openAddDialog(): void {
-    this.router.navigate(['/registrarMedico']);
-    /*this.medico = new Medico;
-    const dialogRef = this.addDialog.open(AddMedicDialog, {
-      width: '80%',
-      data: { medico : this.medico }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.medico = result;
-        this.postMedico(this.medico);
-      }
-    });*/
-  }
-
-
-}
-
-@Component({
-  selector: 'add-dialog',
-  templateUrl: './dialogs/add.dialog.html',
-  styleUrls: ['./medicos.component.css'],
-})
-export class AddMedicDialog implements OnInit{
-  
+export class RegistrarMedicoComponent implements OnInit {
+  public funcion : string = "";
   public recetaPath;
   public analisisPath;
   public constanciaPath;
   public certifPath;
   public facturaPath;
   public selloPath;
+  medico : Medico;
   recetaURL: any;
   analisisURL: any;
   constanciaURL: any;
@@ -133,6 +48,7 @@ export class AddMedicDialog implements OnInit{
   Municipios : Municipio [];
   Especialidades : Especialidad [];
   Especialidades2 : Especialidad [];
+  success;
   
   nombre_fc = new FormControl('', [
     Validators.required,
@@ -172,15 +88,24 @@ export class AddMedicDialog implements OnInit{
 
   matcher = new MyErrorStateMatcher();
 
-  constructor(
-    public dialogRef: MatDialogRef<AddMedicDialog>, public entidad_serv : EntidadService, public especialidad_serv : EspecialidadService,
-    @Inject (MAT_DIALOG_DATA) public data: Medico) { registerLocaleData(localeMX); }
-
-  onNoClick(): void {
-    this.dialogRef.close();
+  constructor( public entidad_serv : EntidadService, public especialidad_serv : EspecialidadService,
+    private router: ActivatedRoute, private medic_service : MedicoService, private _snackBar: MatSnackBar ) { 
+    registerLocaleData(localeMX); 
+    
   }
 
   ngOnInit(){
+    this.medico = new Medico;
+    this.medico.id_medico = this.router.snapshot.paramMap.get('claveMedico');
+    console.log("Medico: " + this.medico.id_medico);
+    if (this.medico.id_medico === "0"){
+      this.funcion = "Registar médico"
+    } else {
+      this.funcion = "Detalles de médico"
+      this.getMedico();
+      console.log("Medico: " + this.medico);
+    }
+
     this.getEstados();
     this.getEspecialidades();
   }
@@ -198,6 +123,27 @@ export class AddMedicDialog implements OnInit{
         console.log(<any>error);
       }
       });
+  }
+
+  getMedico(){
+    this.medic_service.getMedico(this.medico.id_medico).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto); 
+        if (!jey.success){
+          this.success = jey.success; 
+          this.SnackBarError(jey.message);
+          this.medico = new Medico();
+        }else {
+          this.medico = jey.data[0];
+          console.log("Medico: " + jey.data[0]);
+
+        }
+      error => {
+        console.log(<any>error);
+      }
+    });
   }
 
   getEspecialidades(){
@@ -242,6 +188,12 @@ export class AddMedicDialog implements OnInit{
       error => {
         console.log(<any>error);
       }
+    });
+  }
+
+  SnackBarError(message: string) {
+    this._snackBar.open(message, "Aceptar", {
+      duration: 5000,
     });
   }
 
@@ -308,3 +260,4 @@ export class AddMedicDialog implements OnInit{
   }
 
 }
+

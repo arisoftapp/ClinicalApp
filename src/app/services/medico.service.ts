@@ -35,6 +35,25 @@ export class MedicoService {
       )
   }
 
+  getMedico(id_med){
+    this.token = this.Uservice.getToken();
+    let URL = this.global.URL + 'medico/' + id_med;
+    const headers = new Headers(
+      {
+        'Content-Type' : 'application/json',
+        'x-access-token' : this.token,
+      }
+    );
+
+    return this._http.get(
+      URL, {headers}).pipe(
+        res => {
+          res => res.json();
+          return res;
+        }
+      )
+  }
+
   postMedico(med: Medico)  {
     this.token = this.Uservice.getToken();
     let URL = this.global.URL + 'medico';
