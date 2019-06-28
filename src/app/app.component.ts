@@ -46,7 +46,7 @@ export class AppComponent {
   ngOnInit() {
     this.into = this.service.getLogin();
     if (!this.into){
-      this.router.navigate(['login']);
+      this.router.navigate(['/login']);
     }
     this.user = this.service.getIdentity();
   }
@@ -73,7 +73,7 @@ export class AppComponent {
     localStorage.clear();
     this.into = null;
     this.token = null;
-    this.router.navigate(['login']);
+    this.router.navigate(['/login']);
   }
   
 }

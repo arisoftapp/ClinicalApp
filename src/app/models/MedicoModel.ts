@@ -3,7 +3,7 @@ export class Medico{
     nombre = "";
     ap_paterno = "";
     ap_materno = "";
-    sexo = 1;
+    sexo = "1";
     fecha_nac = "";
     RFC = "";
     cedula_prof = "";

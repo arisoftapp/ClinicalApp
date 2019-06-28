@@ -18,7 +18,7 @@ import { EspecialidadService } from '../../services/especialidad.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (isSubmitted));
+    return !!(control && control.invalid && control.touched);
   }
 }
 
@@ -88,15 +88,15 @@ export class RegistrarMedicoComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  constructor( public entidad_serv : EntidadService, public especialidad_serv : EspecialidadService,
-    private router: ActivatedRoute, private medic_service : MedicoService, private _snackBar: MatSnackBar ) { 
+  constructor( public entidad_serv : EntidadService, public especialidad_serv : EspecialidadService, private router : Router,
+    private actiavatedRouter: ActivatedRoute, private medic_service : MedicoService, private _snackBar: MatSnackBar ) { 
     registerLocaleData(localeMX); 
     
   }
 
   ngOnInit(){
     this.medico = new Medico;
-    this.medico.id_medico = this.router.snapshot.paramMap.get('claveMedico');
+    this.medico.id_medico = this.actiavatedRouter.snapshot.paramMap.get('claveMedico');
     console.log("Medico: " + this.medico.id_medico);
     if (this.medico.id_medico === "0"){
       this.funcion = "Registar médico"
@@ -108,7 +108,7 @@ export class RegistrarMedicoComponent implements OnInit {
 
     this.getEstados();
     this.getEspecialidades();
-  }
+  } 
 
   getEstados(){
     this.entidad_serv.getEntidades().subscribe(
@@ -144,6 +144,24 @@ export class RegistrarMedicoComponent implements OnInit {
         console.log(<any>error);
       }
     });
+  }
+
+  postMedico(medico: Medico){
+    this.medic_service.postMedico(medico).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto);
+        this.success = jey.success;
+        this.SnackBarError(jey.message);
+        if (jey.success){
+          this.router.navigate(['medicos']);
+        }
+    });
+  }
+
+  onSubmit(){
+    this.SnackBarError("OnSubmit");
   }
 
   getEspecialidades(){
@@ -189,7 +207,7 @@ export class RegistrarMedicoComponent implements OnInit {
         console.log(<any>error);
       }
     });
-  }
+  } 
 
   SnackBarError(message: string) {
     this._snackBar.open(message, "Aceptar", {

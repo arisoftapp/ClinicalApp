@@ -13,6 +13,8 @@ import { InicioComponent } from './inicio/inicio.component';
 import { CitasComponent } from './citas/citas.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
+import { PacientesListComponent } from './pacientes/pacientes-list/pacientes-list.component';
+import { PacientesRegistroComponent } from './pacientes/pacientes-registro/pacientes-registro.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicosListComponent } from './medicos/medicos-list/medicos-list.component';
 import { RegistrarMedicoComponent } from './medicos/registro/registro.component';
@@ -28,6 +30,8 @@ import { EspecialidadesComponent, AddEspDialog, EditEspDialog, DeleteEspDialog }
     CitasComponent, 
     CalendarioComponent, 
     PacientesComponent, 
+    PacientesListComponent,
+    PacientesRegistroComponent,
     MedicosComponent, 
     MedicosListComponent,
     RegistrarMedicoComponent,

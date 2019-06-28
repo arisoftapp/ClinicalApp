@@ -3,8 +3,8 @@
       <h2>{{funcion}}</h2>
     </div>
 </div>
-
-<mat-card class="medic-card">
+<form #medicoForm="ngForm"  (ngSubmit)="onSubmit()">
+  <mat-card class="medic-card">
     <mat-card-header>
       <mat-card-subtitle>Datos generales</mat-card-subtitle>
     </mat-card-header>
@@ -13,34 +13,40 @@
         <mat-form-field appearance="outline" style="width: 300px" >
           <mat-label>Nombre</mat-label>
           <input matInput [(ngModel)]="medico.nombre"  required cdkFocusInitial [formControl]="nombre_fc"
-          [errorStateMatcher]="matcher">
+          [errorStateMatcher]="matcher" name="nombre">
           <mat-error *ngIf="nombre_fc.hasError('required')">
               Este campo es <strong>obligatorio</strong>
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 250px" >
           <mat-label>Apellido paterno</mat-label>
-          <input matInput [(ngModel)]="medico.ap_paterno" required [formControl]="apaterno_fc"
+          <input matInput [(ngModel)]="medico.ap_paterno" required [formControl]="apaterno_fc" name="apellidop"
           [errorStateMatcher]="matcher">
+          <mat-error *ngIf="apaterno_fc.hasError('required')">
+              Este campo es <strong>obligatorio</strong>
+          </mat-error>
         </mat-form-field>            
         <mat-form-field appearance="outline" style="width: 250px">
           <mat-label>Apellido materno</mat-label>
-          <input matInput [(ngModel)]="medico.ap_materno" required [formControl]="amaterno_fc"
+          <input matInput [(ngModel)]="medico.ap_materno" required [formControl]="amaterno_fc" name="apellidom"
           [errorStateMatcher]="matcher">
+          <mat-error *ngIf="amaterno_fc.hasError('required')">
+              Este campo es <strong>obligatorio</strong>
+          </mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="outline" style="width: 250px" >
           <mat-label>Fecha de nacimiento</mat-label>
-          <input matInput [matDatepicker]="fecha_nac" [(ngModel)]="medico.fecha_nac" disabled required>
+          <input matInput [matDatepicker]="fecha_nac" [(ngModel)]="medico.fecha_nac" disabled required name="nac">
           <mat-datepicker-toggle matSuffix [for]="fecha_nac"></mat-datepicker-toggle>
           <mat-datepicker #fecha_nac disabled="false"></mat-datepicker>
         </mat-form-field>
       </div>
       <div>
         <label class="row-item" >Sexo:</label>
-        <mat-radio-group aria-label="Sexo" [(ngModel)]="medico.sexo" required>
-          <mat-radio-button value="1" class="row-item" mat-radio-checked >Masculino</mat-radio-button>
+        <mat-radio-group aria-label="Sexo" [(ngModel)]="medico.sexo" required name="sexo">
+          <mat-radio-button value="1" class="row-item" [checked]="medico.sexo === '1'"  >Masculino</mat-radio-button>
           <mat-radio-button value="2" class="row-item">Femenino</mat-radio-button>
         </mat-radio-group>
       </div>
@@ -58,25 +64,25 @@
       <div>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Calle</mat-label>
-          <input matInput [(ngModel)]="medico.calle">
+          <input matInput [(ngModel)]="medico.calle" name="calle">
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 100px">
           <mat-label>No. exterior</mat-label>
-          <input matInput [(ngModel)]="medico.no_ext" [formControl]="noext_fc"
+          <input matInput [(ngModel)]="medico.no_ext" [formControl]="noext_fc" name="ext"
           [errorStateMatcher]="matcher">
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 100px">
           <mat-label>No. interior</mat-label>
-          <input matInput [(ngModel)]="medico.no_int" [formControl]="noint_fc"
+          <input matInput [(ngModel)]="medico.no_int" [formControl]="noint_fc" name="int"
           [errorStateMatcher]="matcher">
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Localidad</mat-label>
-          <input matInput [(ngModel)]="medico.ciudad">
+          <input matInput [(ngModel)]="medico.ciudad" name="localidad">
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Colonia</mat-label>
-          <input matInput [(ngModel)]="medico.colonia">
+          <input matInput [(ngModel)]="medico.colonia" name="colonia">
         </mat-form-field>
       </div>
       <div>
@@ -108,32 +114,29 @@
       <div>
         <mat-form-field appearance="outline" style="width: 400px">
           <mat-label>Correo electrónico</mat-label>
-          <input matInput [(ngModel)]="medico.email" required [formControl]="email"
+          <input matInput [(ngModel)]="medico.email" required [formControl]="email" name="email"
           [errorStateMatcher]="matcher">
-          <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+          <mat-error *ngIf="email.hasError('email') || email.hasError('required')">
             Ingrese una dirección de correo válida
           </mat-error>
-          <mat-error *ngIf="email.hasError('required')">
-            Email is <strong>required</strong>
-          </mat-error>
         </mat-form-field>
-      </div>
+      </div> 
       <div>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Teléfono</mat-label>
-          <input matInput [(ngModel)]="medico.tel_fijo" required [formControl]="telefono_fc"
+          <input matInput [(ngModel)]="medico.tel_fijo" required [formControl]="telefono_fc" name="telefono"
           [errorStateMatcher]="matcher">
           <mat-hint align="end" >{{medico.tel_fijo.length}} / 10</mat-hint>
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Celular</mat-label>
-          <input matInput [(ngModel)]="medico.tel_cel"  required [formControl]="celular_fc"
+          <input matInput [(ngModel)]="medico.tel_cel"  required [formControl]="celular_fc" name="celular"
           [errorStateMatcher]="matcher">
           <mat-hint align="end" >{{medico.tel_cel.length}} / 10</mat-hint>
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Teléfono adicional</mat-label>
-          <input matInput [(ngModel)]="medico.tel_adicional" [formControl]="adicional_fc"
+          <input matInput [(ngModel)]="medico.tel_adicional" [formControl]="adicional_fc" name="adicional"
           [errorStateMatcher]="matcher">
           <mat-hint align="end" >{{medico.tel_adicional.length}} / 10</mat-hint>
         </mat-form-field>
@@ -149,7 +152,7 @@
       <div>
         <mat-form-field appearance="outline" style="width: 400px">
           <mat-label>Universidad</mat-label>
-          <input matInput [(ngModel)]="medico.universidad">
+          <input matInput [(ngModel)]="medico.universidad" name="universidad">
         </mat-form-field>
       </div>
       <div>
@@ -173,7 +176,7 @@
       <div>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>No. de cédula profesional</mat-label>
-          <input matInput [(ngModel)]="medico.cedula_prof" maxlength="8">
+          <input matInput [(ngModel)]="medico.cedula_prof" maxlength="8" name="cedula">
           <mat-hint align="end" >{{medico.cedula_prof.length}} / 8</mat-hint>
         </mat-form-field>
       </div>
@@ -188,21 +191,21 @@
         <div>
           <mat-form-field appearance="outline" style="width: 150px">
             <mat-label>Grupo sanguineo</mat-label>
-            <input matInput [(ngModel)]="medico.tipo_sangre">
+            <input matInput [(ngModel)]="medico.tipo_sangre" name="sangre">
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="outline" style="width: 300px">
             <mat-label>Alergias</mat-label>
-            <textarea matInput [(ngModel)]="medico.alergias"></textarea>
+            <textarea matInput [(ngModel)]="medico.alergias" name="alergia"></textarea>
           </mat-form-field>
           <mat-form-field appearance="outline" style="width: 300px">
             <mat-label>Enfermedades crónicas</mat-label>
-            <textarea matInput [(ngModel)]="medico.enfermedad_cronica"></textarea>
+            <textarea matInput [(ngModel)]="medico.enfermedad_cronica" name="cronica"></textarea>
           </mat-form-field>
           <mat-form-field appearance="outline" style="width: 300px">
             <mat-label>Anotaciones</mat-label>
-            <textarea matInput [(ngModel)]="medico.tel_anotacion"></textarea>
+            <textarea matInput [(ngModel)]="medico.tel_anotacion" name="anotacion"></textarea>
           </mat-form-field>
         </div>
       </mat-card-content>
@@ -250,3 +253,17 @@
       </div>
     </mat-card-content>
   </mat-card>
+  <!--  ******* OPCIONES ******-->
+  <mat-card class="medic-card">
+      <mat-card-content>
+        <div style="text-align: right;">
+            <button mat-button (click)="onNoClick()">Cancelar</button>
+            <button mat-button color="primary" [disabled]="!medicoForm.form.valid">Guardar</button>
+            <mat-error *ngIf="!medicoForm.form.valid">
+                Complete todos los campos requeridos
+            </mat-error>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+</form>

@@ -6,6 +6,8 @@ import { InicioComponent } from './inicio/inicio.component';
 import { CitasComponent } from './citas/citas.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
+import { PacientesListComponent } from './pacientes/pacientes-list/pacientes-list.component';
+import { PacientesRegistroComponent } from './pacientes/pacientes-registro/pacientes-registro.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { RegistrarMedicoComponent } from './medicos/registro/registro.component';
 import { MedicosListComponent } from './medicos/medicos-list/medicos-list.component';
@@ -16,12 +18,14 @@ const routes: Routes = [
   { path : 'inicio', component : InicioComponent },
   { path : 'citas', component : CitasComponent },
   { path : 'calendario', component : CalendarioComponent },
-  { path : 'pacientes', component : PacientesComponent },
+  { path : 'pacientes', component : PacientesComponent, children : [
+    { path : '', component : PacientesListComponent },
+    { path : 'registrarPaciente/:clavePaciente', component : PacientesRegistroComponent }
+  ]},
   { path : 'medicos', component : MedicosComponent, children : [
     { path : '', component : MedicosListComponent },
     { path : 'registrarMedico/:claveMedico', component : RegistrarMedicoComponent }
   ]},
-  //{ path : 'registrarMedico', component : RegistrarMedicoComponent},
   { path : 'consultorios', component : ConsultoriosComponent },
   { path : 'especialidades', component : EspecialidadesComponent },
   { path : 'login', component : LoginComponent },

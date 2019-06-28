@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.into = this.service.getLogin();
       if (this.into){
-        this.router.navigate(['main/inicio']);
+        this.router.navigate(['inicio']);
       }
       this.user = this.service.getIdentity(); 
   }
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
         this.hola = this.jey.hola;
         this.openSnackBar(this.Message);
         if (this.Success){
-          this.router.navigate(['/main/inicio']);
+          this.router.navigate(['/inicio']);
           localStorage.setItem('into', JSON.stringify(this.Success));
           localStorage.setItem('tok', JSON.stringify(this.jey.token));
           localStorage.setItem('puesto', JSON.stringify(this.jey.puesto));

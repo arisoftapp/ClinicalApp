@@ -1,18 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ConsultorioService } from '../../services/consultorio.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Medico } from '../../models/MedicoModel';
 import { MedicoService } from '../../services/medico.service';
-import { EntidadService } from '../../services/entidad.service';
 import localeMX from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
-import { Entidad } from '../../models/EntidadModel';
-import { Municipio } from '../../models/MunicipioModel';
-import { Especialidad } from '../../models/EspecialidadModel';
-import { EspecialidadService } from '../../services/especialidad.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -35,10 +29,7 @@ export class MedicosListComponent implements OnInit  {
   displayedColumns = ['identifier', 'name', 'consul', 'phone', 'email', 'options'];
   public recetaPath;
   recetaURL: any;
-  email = new FormControl('', [
-    Validators.required,
-    Validators.email
-  ]);
+  
 
   constructor(private medic_service : MedicoService, private _snackBar: MatSnackBar,
     private router : Router) {
@@ -90,18 +81,6 @@ export class MedicosListComponent implements OnInit  {
 
   openAddDialog(id_medico): void {
     this.router.navigate(['medicos/registrarMedico/' + id_medico]);
-    /*this.medico = new Medico;
-    const dialogRef = this.addDialog.open(AddMedicDialog, {
-      width: '80%',
-      data: { medico : this.medico }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.medico = result;
-        this.postMedico(this.medico);
-      }
-    });*/
   }
 
 
