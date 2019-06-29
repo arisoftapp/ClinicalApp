@@ -55,7 +55,7 @@ export class PacienteService {
       )
   }
 
-  postMedico(pac: Paciente)  {
+  postPaciente(pac: Paciente)  {
     this.token = this.Uservice.getToken();
     let URL = this.global.URL + 'paciente';
     const newpres = JSON.stringify(pac);
@@ -75,9 +75,9 @@ export class PacienteService {
       )
   }
 
-  putMedico(pac: Paciente)  {
+  putPaciente(pac: Paciente)  {
     this.token = this.Uservice.getToken();
-    let URL = this.global.URL + 'medico';
+    let URL = this.global.URL + 'paciente';
     const newpres = JSON.stringify(pac);
     const headers = new Headers(
       {
@@ -95,9 +95,9 @@ export class PacienteService {
       )
   }
 
-  deleteMedico(pac: Paciente)  {
+  deletePaciente(pac: Paciente)  {
     this.token = this.Uservice.getToken();
-    let URL = this.global.URL + 'medico/' + pac.id_paciente;
+    let URL = this.global.URL + 'paciente/' + pac.id_paciente;
     const headers = new Headers({
       'Content-Type' : 'application/json',
       'x-access-token' : this.token

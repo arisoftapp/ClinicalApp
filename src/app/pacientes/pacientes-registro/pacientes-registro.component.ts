@@ -125,8 +125,31 @@ export class PacientesRegistroComponent implements OnInit {
     });
   }
 
+  onSubmit(){
+    if( this.paciente.id_paciente === "0" ) {
+      this.postPaciente();
+    } else {
+      this.putPaciente();
+    }
+  }
+
+  putPaciente(){
+    this.pac_service.putPaciente(this.paciente).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto);
+        this.success = jey.success;
+        this.SnackBarError(jey.message);
+        if (jey.success){
+          this.router.navigate(['pacientes']);
+        }
+    });
+
+  }
+
   postPaciente(){
-    this.pac_service.postMedico(this.paciente).subscribe(
+    this.pac_service.postPaciente(this.paciente).subscribe(
       (response : any)  => {
         var Resp = response;
         var texto = Resp._body;
