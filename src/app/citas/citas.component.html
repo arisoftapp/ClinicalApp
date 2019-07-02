@@ -2,7 +2,52 @@
   <div class="row">
     <div class="title-row">
       <h2>Citas </h2>
+      <mat-form-field class="combo" appearance=" ">
+        <span matPrefix class="nav-icon fas fa-user-md combo-icon"></span>
+        <mat-select [(value)]="medico.id_medico" #medico (selectionChange)='getMedicoCitas(medico.id_medico)' placeholder="-- Seleccione médico --">
+          <mat-option *ngFor="let medico of Medicos" [value]="medico.id_medico">
+            {{medico.nombre}} {{medico.ap_paterno}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="combo" appearance=" ">
+          <span matPrefix class="nav-icon far fa-calendar combo-icon"></span>
+          <mat-select [(value)]="dia" (selectionChange)='getCitasDia(dia)' style="padding-bottom: 10px">
+            <mat-option value = "1">Hoy</mat-option>
+            <mat-option value = "2">Mañana</mat-option>
+            <mat-option value = "3">Otra fecha</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf = "dia === '3'">
+            <mat-form-field class="combo" appearance=" " style="width: 150px" >
+              <input matInput [matDatepicker]="fecha_nac" [(ngModel)]="medico.fecha_nac" disabled required name="nac" placeholder="Fecha">
+              <mat-datepicker-toggle matSuffix [for]="fecha_nac"></mat-datepicker-toggle>
+              <mat-datepicker #fecha_nac disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
       <button mat-flat-button class="btn-add" (click)="openAddDialog(0)"><i class=" fas fa-plus"></i> nueva cita</button>
     </div>
   </div>
+
+  <mat-card *ngFor="let cita of citas" class="example-card" >
+      <mat-card-header>
+        <div mat-card-avatar class="header-image"></div>
+        <mat-card-title class="card-name" style="margin-bottom: 8px;">Jesus Montoya</mat-card-title>
+        <mat-card-subtitle class="card-type">Consulta</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="cita.status === '1'" class="card-type"><mat-icon color="primary" class="check">check_circle</mat-icon><i class="material-icons-outlined cancel">cancel</i></mat-card-subtitle>
+        <mat-card-subtitle *ngIf="cita.status === '2'" class="card-type"><mat-icon class="check">check_circle_outline</mat-icon><mat-icon class="cancel" color="warn">cancel</mat-icon></mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <span>11:30</span> <span style="text-align: right">{{cita.fecha}}</span>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions style="text-align: center;">
+        <button mat-button color="primary">Ver detalles</button>
+      </mat-card-actions>
+    </mat-card>
+
+
+
+
 </div>

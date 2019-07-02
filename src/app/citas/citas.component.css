@@ -55,3 +55,64 @@ mat-form-field {
 .medic-card{
     margin-bottom: 30px;
 }
+
+.combo {
+    width: 225px;
+    margin-left: 20px;
+    font-size: 12px;
+    background: #f0f1f3;
+    border-radius: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 30px;
+    font-weight: 500;
+    border: #e4e4e4;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.combo-icon {
+    font-size: 13pt;
+    color: #1f88e5;
+    margin-right: 10px;
+}
+
+.mat-form-field-infix {
+    border-top: 5px solid transparent;
+}
+
+.example-card {
+    max-width: 200px;
+  }
+  
+  .header-image {
+    background-image: url('../../assets/account_circle.svg');
+    background-size: cover;
+  }
+
+.card-name{
+    font-family: 'Open Sans';
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.card-type{
+    font-family: 'Open Sans';
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.check{
+    font-size: 18px;
+    margin-right: 3px;
+}
+
+.cancel{
+    font-size: 18px;
+}
+
+.material-icons-outlined,
+.material-icons.material-icons--outlined {
+  font-family: 'Material Icons Outlined';
+}

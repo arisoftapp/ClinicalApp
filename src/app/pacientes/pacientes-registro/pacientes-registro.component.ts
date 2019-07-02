@@ -49,12 +49,7 @@ export class PacientesRegistroComponent implements OnInit {
   amaterno_fc = new FormControl('', [
     Validators.required
   ]);
-  noext_fc = new FormControl('', [
-    Validators.pattern("^[0-9]*$")
-  ]);
-  noint_fc = new FormControl('', [
-    Validators.pattern("^[0-9]*$")
-  ]);
+  
   email = new FormControl('', [
     Validators.required,
     Validators.email
@@ -100,6 +95,7 @@ export class PacientesRegistroComponent implements OnInit {
       this.getPaciente();
       console.log("Medico: " + this.paciente);
     }
+    console.log(this.paciente);
 
     this.getEstados();
   } 

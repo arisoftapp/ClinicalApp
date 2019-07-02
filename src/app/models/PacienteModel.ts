@@ -13,8 +13,8 @@ export class Paciente {
     calle = "";
     no_ext = "";
     no_int = "";
-    id_edo = 0;
-    id_mun = 0;
+    id_edo : number = 0;
+    id_mun : number = 0;
     ciudad = "";
     colonia = "";
     datos_fact = 1;

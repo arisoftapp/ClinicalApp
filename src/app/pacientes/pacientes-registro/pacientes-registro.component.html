@@ -65,13 +65,11 @@
       </mat-form-field>
       <mat-form-field appearance="outline" style="width: 100px">
         <mat-label>No. exterior</mat-label>
-        <input matInput [(ngModel)]="paciente.no_ext" [formControl]="noext_fc"
-        [errorStateMatcher]="matcher">
+        <input matInput [(ngModel)]="paciente.no_ext">
       </mat-form-field>
       <mat-form-field appearance="outline" style="width: 100px">
         <mat-label>No. interior</mat-label>
-        <input matInput [(ngModel)]="paciente.no_int" [formControl]="noint_fc"
-        [errorStateMatcher]="matcher">
+        <input matInput [(ngModel)]="paciente.no_int">
       </mat-form-field>
       <mat-form-field appearance="outline" style="width: 300px">
         <mat-label>Localidad</mat-label>
@@ -124,7 +122,7 @@
         <input matInput [(ngModel)]="paciente.tel_fijo" required [formControl]="telefono_fc"
         [errorStateMatcher]="matcher" maxlength="10">
         <mat-hint align="end" >{{paciente.tel_fijo.length}} / 10</mat-hint>
-        <mat-error *ngIf="telefono_fc.hasError('required') || celular_fc.value?.length < 7">
+        <mat-error *ngIf="telefono_fc.hasError('required') || telefono_fc.value?.length < 7">
           Ingrese un número telefónico válido
         </mat-error>
       </mat-form-field>
@@ -209,13 +207,11 @@
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 100px">
           <mat-label>No. exterior</mat-label>
-          <input matInput [(ngModel)]="paciente.fact_ext" [formControl]="noext_fc"
-          [errorStateMatcher]="matcher">
+          <input matInput [(ngModel)]="paciente.fact_ext" >
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 100px">
           <mat-label>No. interior</mat-label>
-          <input matInput [(ngModel)]="paciente.fact_int" [formControl]="noint_fc"
-          [errorStateMatcher]="matcher">
+          <input matInput [(ngModel)]="paciente.fact_int" >
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Localidad</mat-label>
@@ -263,7 +259,7 @@
 <mat-card class="medic-card">
     <mat-card-content>
       <div style="text-align: right;">
-          <button mat-button>Cancelar</button>
+          <button mat-button routerLink="/pacientes">Cancelar</button>
           <button mat-button color="primary" (click)="onSubmit()" >Guardar</button>
       </div>
     </mat-card-content>

@@ -55,7 +55,7 @@ export class MedicosListComponent implements OnInit  {
     error => {
       console.log(<any>error);
     }
-    });
+    }); 
   }
 
   postMedico(medico: Medico){
