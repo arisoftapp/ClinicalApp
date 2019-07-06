@@ -22,7 +22,8 @@ import {
     MatCardModule,
     MatRadioModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatButtonToggleModule
 
 } from '@angular/material';
 
@@ -49,7 +50,8 @@ import {
         MatCardModule,
         MatRadioModule,
         MatSelectModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatButtonToggleModule
     ],
     exports:[
         MatButtonModule,
@@ -74,6 +76,7 @@ import {
         MatRadioModule,
         MatSelectModule,
         MatSlideToggleModule,
+        MatButtonToggleModule
     ]
 })
 
