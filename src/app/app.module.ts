@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material.module';
+import { SchedulerModule } from './scheduler.module';
 import { LoginComponent } from './login/login.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { CitasComponent } from './citas/citas.component';
@@ -50,6 +51,7 @@ import { EspecialidadesComponent, AddEspDialog, EditEspDialog, DeleteEspDialog }
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    SchedulerModule,
     FormsModule,
     ReactiveFormsModule
   ],

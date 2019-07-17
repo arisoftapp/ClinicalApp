@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { registerLocaleData } from '@angular/common';
+import localeMX from '@angular/common/locales/es-MX';
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarioComponent implements OnInit {
 
-  constructor() { }
+  
+
+  constructor() { 
+    registerLocaleData(localeMX); 
+  }
 
   ngOnInit() {
   }

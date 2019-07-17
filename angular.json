@@ -24,7 +24,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/theme.sass"
+              "src/theme.sass",
+              "./node_modules/@syncfusion/ej2-material-theme/styles/material.css"
             ],
             "scripts": []
           },
