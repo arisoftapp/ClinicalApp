@@ -23,7 +23,7 @@
         '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
         '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
         '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
-  
+   
         // syncfusion bundles
           "@syncfusion/ej2-base": "syncfusion:ej2-base/dist/ej2-base.umd.min.js",
           "@syncfusion/ej2-schedule": "syncfusion:ej2-schedule/dist/ej2-schedule.umd.min.js",

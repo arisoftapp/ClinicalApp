@@ -31,7 +31,7 @@ import { EspecialidadesComponent, AddEspDialog, EditEspDialog, DeleteEspDialog }
     CitasComponent, 
     CalendarioComponent, 
     PacientesComponent, 
-    PacientesListComponent,
+    PacientesListComponent, 
     PacientesRegistroComponent,
     MedicosComponent, 
     MedicosListComponent,

@@ -5,7 +5,7 @@ import {
     AgendaService, 
     DayService, 
     WeekService, 
-    WorkWeekService, 
+    WorkWeekService,  
     MonthService
    
 } from '@syncfusion/ej2-angular-schedule';

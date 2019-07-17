@@ -10,7 +10,7 @@ export class CalendarioComponent implements OnInit {
 
   
 
-  constructor() { 
+  constructor() {  
     registerLocaleData(localeMX); 
   }
 

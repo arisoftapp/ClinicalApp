@@ -42,7 +42,7 @@ export class AppComponent {
     this.mobileQuery.addListener(this._mobileQueryListener);
     registerLocaleData(localeMX);
   }
-
+ 
   ngOnInit() {
     this.into = this.service.getLogin();
     if (!this.into){
