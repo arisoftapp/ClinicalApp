@@ -107,7 +107,10 @@ export class RegistrarMedicoComponent implements OnInit {
     }
 
     this.getEstados();
+    
     this.getEspecialidades();
+    this.getEspecialidadesDos();
+    
   } 
 
   getEstados(){
@@ -126,6 +129,7 @@ export class RegistrarMedicoComponent implements OnInit {
   }
 
   getMedico(){
+    console.log(this.medico.id_medico)
     this.medic_service.getMedico(this.medico.id_medico).subscribe(
       (response : any)  => {
         var Resp = response;
@@ -137,7 +141,7 @@ export class RegistrarMedicoComponent implements OnInit {
           this.medico = new Medico();
         }else {
           this.medico = jey.data[0];
-          console.log("Medico: " + jey.data[0]);
+          console.log(jey.data[0]);
 
         }
       error => {
@@ -146,8 +150,24 @@ export class RegistrarMedicoComponent implements OnInit {
     });
   }
 
-  postMedico(medico: Medico){
-    this.medic_service.postMedico(medico).subscribe(
+  putMedico(){
+    console.log(this.medico);
+    this.medic_service.putMedico(this.medico).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto);
+        this.success = jey.success;
+        this.SnackBarError(jey.message);
+        if (jey.success){
+          this.router.navigate(['medicos']);
+        }
+    });
+  } 
+   
+  postMedico(){
+    
+    this.medic_service.postMedico(this.medico).subscribe(
       (response : any)  => {
         var Resp = response;
         var texto = Resp._body;
@@ -161,7 +181,13 @@ export class RegistrarMedicoComponent implements OnInit {
   }
 
   onSubmit(){
+    console.log(this.medico);
     this.SnackBarError("OnSubmit");
+    if( this.medico.id_medico === "0" ) {
+      this.postMedico();
+    } else {
+      this.putMedico();
+    }
   }
 
   getEspecialidades(){
@@ -179,8 +205,8 @@ export class RegistrarMedicoComponent implements OnInit {
     });
   }
 
-  getEspecialidadesDos(id_esp){
-    this.especialidad_serv.getEspecialidadDos(id_esp).subscribe(
+  getEspecialidadesDos(){
+    this.especialidad_serv.getEspecialidades().subscribe(
       (response : any)  => {
         var Resp = response;
         var texto = Resp._body;

@@ -47,7 +47,7 @@
         <label class="row-item" >Sexo:</label>
         <mat-radio-group aria-label="Sexo" [(ngModel)]="medico.sexo" required name="sexo">
           <mat-radio-button value="1" class="row-item" [checked]="medico.sexo === '1'"  >Masculino</mat-radio-button>
-          <mat-radio-button value="2" class="row-item">Femenino</mat-radio-button>
+          <mat-radio-button value="2" class="row-item"  >Femenino</mat-radio-button>
         </mat-radio-group>
       </div>
       <div>
@@ -88,7 +88,7 @@
       <div>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Estado</mat-label>
-          <mat-select [(value)]="medico.id_estado" #entidad (selectionChange)='getMunicipios(entidad.value)'>
+          <mat-select  [(value)]="medico.estado_id" #entidad (selectionChange)='getMunicipios(entidad.value)'>
             <mat-option *ngFor="let estado of Estados" [value]="estado.id_estado">
               {{estado.nombre_estado}}
             </mat-option>
@@ -96,7 +96,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Municipio</mat-label>
-          <mat-select [(value)]="medico.id_municipio">
+          <mat-select [(value)]="medico.municipio_id">
             <mat-option *ngFor="let mun of Municipios" [value]="mun.id_municipio">
               {{mun.nombre_municipio}}
             </mat-option>
@@ -205,7 +205,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline" style="width: 300px">
             <mat-label>Anotaciones</mat-label>
-            <textarea matInput [(ngModel)]="medico.tel_anotacion" name="anotacion"></textarea>
+            <textarea matInput [(ngModel)]="medico.anotacion" name="anotacion"></textarea>
           </mat-form-field>
         </div>
       </mat-card-content>

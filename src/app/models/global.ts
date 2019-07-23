@@ -1,3 +1,3 @@
 export class Global {
-    URL = 'http://192.168.1.65:3005/';
+    URL = 'http://localhost:3005/';
 }

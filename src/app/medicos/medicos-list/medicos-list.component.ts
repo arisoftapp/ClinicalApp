@@ -43,6 +43,7 @@ export class MedicosListComponent implements OnInit  {
   getMedicos(){
     this.medic_service.getMedicos().subscribe(
     (response : any)  => {
+      console.log(response)
       var Resp = response;
       var texto = Resp._body;
       var jey = JSON.parse(texto); 

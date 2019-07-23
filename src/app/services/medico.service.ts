@@ -36,6 +36,7 @@ export class MedicoService {
   }
 
   getMedico(id_med){
+    console.log(id_med)
     this.token = this.Uservice.getToken();
     let URL = this.global.URL + 'medico/' + id_med;
     const headers = new Headers(
