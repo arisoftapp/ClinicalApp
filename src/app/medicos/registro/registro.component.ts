@@ -43,6 +43,7 @@ export class RegistrarMedicoComponent implements OnInit {
   certifURL: any;
   facturaURL: any;
   selloURL: any;
+  detalles: boolean;
   public message : string;
   Estados : Entidad [];
   Municipios : Municipio [];
@@ -87,6 +88,8 @@ export class RegistrarMedicoComponent implements OnInit {
   ]);
 
   matcher = new MyErrorStateMatcher();
+  est_respaldo: any;
+  mun_respaldo: any;
 
   constructor( public entidad_serv : EntidadService, public especialidad_serv : EspecialidadService, private router : Router,
     private actiavatedRouter: ActivatedRoute, private medic_service : MedicoService, private _snackBar: MatSnackBar ) { 
@@ -97,20 +100,19 @@ export class RegistrarMedicoComponent implements OnInit {
   ngOnInit(){
     this.medico = new Medico;
     this.medico.id_medico = this.actiavatedRouter.snapshot.paramMap.get('claveMedico');
-    console.log("Medico: " + this.medico.id_medico);
     if (this.medico.id_medico === "0"){
+      this.detalles = false;
       this.funcion = "Registar médico"
     } else {
+      this.detalles = true;
       this.funcion = "Detalles de médico"
       this.getMedico();
-      console.log("Medico: " + this.medico);
+
     }
 
     this.getEstados();
-    
     this.getEspecialidades();
     this.getEspecialidadesDos();
-    
   } 
 
   getEstados(){
@@ -129,7 +131,6 @@ export class RegistrarMedicoComponent implements OnInit {
   }
 
   getMedico(){
-    console.log(this.medico.id_medico)
     this.medic_service.getMedico(this.medico.id_medico).subscribe(
       (response : any)  => {
         var Resp = response;
@@ -142,7 +143,8 @@ export class RegistrarMedicoComponent implements OnInit {
         }else {
           this.medico = jey.data[0];
           console.log(jey.data[0]);
-
+          this.est_respaldo = jey.data[0].id_estado;
+          this.mun_respaldo = jey.data[0].id_municipio;
         }
       error => {
         console.log(<any>error);
@@ -151,7 +153,10 @@ export class RegistrarMedicoComponent implements OnInit {
   }
 
   putMedico(){
-    console.log(this.medico);
+   if(!this.medico.estado_id){
+     this.medico.estado_id = this.est_respaldo;
+     this.medico.municipio_id = this.mun_respaldo;
+   }
     this.medic_service.putMedico(this.medico).subscribe(
       (response : any)  => {
         var Resp = response;
@@ -165,8 +170,7 @@ export class RegistrarMedicoComponent implements OnInit {
     });
   } 
    
-  postMedico(){
-    
+  postMedico(){ 
     this.medic_service.postMedico(this.medico).subscribe(
       (response : any)  => {
         var Resp = response;
@@ -181,7 +185,6 @@ export class RegistrarMedicoComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.medico);
     this.SnackBarError("OnSubmit");
     if( this.medico.id_medico === "0" ) {
       this.postMedico();

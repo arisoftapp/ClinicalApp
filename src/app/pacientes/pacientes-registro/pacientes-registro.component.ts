@@ -112,7 +112,7 @@ export class PacientesRegistroComponent implements OnInit {
           this.paciente = new Paciente();
         }else {
           this.paciente = jey.data[0];
-          console.log("Medico: " + jey.data[0]);
+          console.log(jey.data[0]);
 
         }
       error => {

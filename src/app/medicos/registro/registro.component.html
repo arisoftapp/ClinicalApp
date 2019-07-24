@@ -45,13 +45,10 @@
       </div>
       <div>
         <label class="row-item" >Sexo:</label>
-        <mat-radio-group aria-label="Sexo" [(ngModel)]="medico.sexo" required name="sexo">
-          <mat-radio-button value="1" class="row-item" [checked]="medico.sexo === '1'"  >Masculino</mat-radio-button>
+        <mat-radio-group aria-label="Sexo" [(ngModel)]="medico.sexo" name="sexo" required>
+          <mat-radio-button value="1" class="row-item" [checked]="medico.sexo === '1'" >Masculino</mat-radio-button>
           <mat-radio-button value="2" class="row-item"  >Femenino</mat-radio-button>
         </mat-radio-group>
-      </div>
-      <div>
-
       </div>
     </mat-card-content>
   </mat-card>
@@ -103,6 +100,7 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <label [hidden]="!detalles" >Entidad Federetiva Actual: {{medico.nombre_municipio}}, {{medico.nombre_estado}} </label>
     </mat-card-content>
   </mat-card>
   <!-- ******* CONTACTO ******* -->
