@@ -39,7 +39,7 @@ export class PacientesRegistroComponent implements OnInit {
   Fact_municipios : Municipio [];
   funcion : string;
   success;
-
+  detalles: boolean;
   nombre_fc = new FormControl('', [
     Validators.required,
   ]);
@@ -89,8 +89,10 @@ export class PacientesRegistroComponent implements OnInit {
     this.paciente.id_paciente = this.activatedRouter.snapshot.paramMap.get('clavePaciente');
     console.log("Medico: " + this.paciente.id_paciente);
     if (this.paciente.id_paciente === "0"){
+      this.detalles = false;
       this.funcion = "Registar paciente"
     } else {
+      this.detalles = true;
       this.funcion = "Detalles de paciente"
       this.getPaciente();
       console.log("Medico: " + this.paciente);

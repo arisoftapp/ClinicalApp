@@ -8,6 +8,7 @@ import { MedicoService } from '../services/medico.service';
 import localeMX from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
 import { Cita } from '../models/CitaModel';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
@@ -30,9 +31,10 @@ export class CitasComponent implements OnInit {
     {id_cita: 2, id_tipo_cita : '1', tipo_cita: "Consulta", id_paciente : 1, nombre_pac: 'Azucena', apellido_pac : 'Reyes', id_medico : 1, fecha : '02/07/2019', status : "2"},
     {id_cita: 2, id_tipo_cita : '1', tipo_cita: "Consulta", id_paciente : 1, nombre_pac: 'María', apellido_pac : 'Contreras', id_medico : 1, fecha : '02/07/2019', status : "2"}
   ];
+  cita: Cita;
 
   constructor(private medic_service : MedicoService, private _snackBar: MatSnackBar,
-    private router : Router) { }
+    private router : Router, public addDialog: MatDialog) { }
 
   ngOnInit() {
     this.getMedicos();
@@ -68,6 +70,10 @@ export class CitasComponent implements OnInit {
     this._snackBar.open(message, "Aceptar", {
       duration: 5000,
     });
+  }
+
+  openAddDialog(): void {
+    this.router.navigate(['citas/registrarCita/']);
   }
 
 }

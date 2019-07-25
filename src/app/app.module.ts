@@ -11,7 +11,7 @@ import { MaterialModule } from './material.module';
 import { SchedulerModule } from './scheduler.module';
 import { LoginComponent } from './login/login.component';
 import { InicioComponent } from './inicio/inicio.component';
-import { CitasComponent } from './citas/citas.component';
+import { CitasComponent} from './citas/citas.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { PacientesListComponent } from './pacientes/pacientes-list/pacientes-list.component';
@@ -21,6 +21,10 @@ import { MedicosListComponent } from './medicos/medicos-list/medicos-list.compon
 import { RegistrarMedicoComponent } from './medicos/registro/registro.component';
 import { ConsultoriosComponent, AddConsulDialog, EditConsulDialog, DeleteConsulDialog } from './consultorios/consultorios.component';
 import { EspecialidadesComponent, AddEspDialog, EditEspDialog, DeleteEspDialog } from './especialidades/especialidades.component';
+import { CitasListComponent } from './citas/citas-list/citas-list.component';
+import {RegistroCitaComponent} from './citas/modulos/registro-cita/registro-cita.component'
+
+
 
 
 @NgModule({
@@ -43,7 +47,11 @@ import { EspecialidadesComponent, AddEspDialog, EditEspDialog, DeleteEspDialog }
     DeleteEspDialog,
     AddConsulDialog,
     EditConsulDialog,
-    DeleteConsulDialog
+    DeleteConsulDialog,
+    CitasListComponent,
+    RegistroCitaComponent
+  
+    
   ],
   imports: [
     BrowserModule,

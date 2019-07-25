@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="title-row">
+    <h2>{{funcion}}</h2>
+  </div>
+</div>
+<form #citaForm="ngForm"  (ngSubmit)="onSubmit()">
+<mat-card class="medic-card">
+  <mat-form-field appearance="outline" style="width: 300px">
+    <mat-label>Estado</mat-label>
+      <mat-select  [(value)]="cita.id_paciente" #entidad (selectionChange)='getMunicipios(entidad.value)'>
+        <mat-option *ngFor="let pas of Pacientes" [value]="pas.id_paciente">
+          {{pas.nombre}}
+        </mat-option>
+      </mat-select>
+  </mat-form-field>
+</mat-card>
+
+<!-- ******* INFORMACIÓN DE LA CITA ******* -->
+<mat-card class="medic-card">
+    <mat-card-header>
+      <mat-card-subtitle>Información médica</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <mat-form-field appearance="outline" style="width: 300px">
+          <mat-label>Alergias</mat-label>
+          <textarea matInput [(ngModel)]="alergias" name="alergia"></textarea>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+</mat-card>
+
+<!--  ******* OPCIONES ******-->
+<mat-card class="medic-card">
+    <mat-card-content>
+      <div style="text-align: right;">
+          <button mat-button (click)="onNoClick()">Cancelar</button>
+          <button mat-button color="primary" [disabled]="!citaForm.form.valid">Guardar</button>
+          <mat-error *ngIf="!citaForm.form.valid">
+              Complete todos los campos requeridos
+          </mat-error>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</form>

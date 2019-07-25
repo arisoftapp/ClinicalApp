@@ -13,10 +13,15 @@ import { RegistrarMedicoComponent } from './medicos/registro/registro.component'
 import { MedicosListComponent } from './medicos/medicos-list/medicos-list.component';
 import { ConsultoriosComponent } from './consultorios/consultorios.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
+import { RegistroCitaComponent } from './citas/modulos/registro-cita/registro-cita.component';
+import { CitasListComponent } from './citas/citas-list/citas-list.component';
 
 const routes: Routes = [
   { path : 'inicio', component : InicioComponent },
-  { path : 'citas', component : CitasComponent },
+  { path : 'citas', component : CitasListComponent, children: [
+    {path : '', component : CitasComponent},
+    {path : "registrarCita", component : RegistroCitaComponent}
+  ] },
   { path : 'calendario', component : CalendarioComponent },
   { path : 'pacientes', component : PacientesComponent, children : [
     { path : '', component : PacientesListComponent },
