@@ -24,13 +24,7 @@ export class CitasComponent implements OnInit {
   private success : boolean;
   dia = '1';
   displayedColumns = ['time', 'pacient', 'consul', 'status', 'options'];
-  citas : Cita [] = [
-    {id_cita: 1, id_tipo_cita : '1', tipo_cita: "Consulta", id_paciente : 1, nombre_pac: 'Jorge', apellido_pac : 'Gutierrez', id_medico : 1, fecha : '02/07/2019', status : "1"},
-    {id_cita: 2, id_tipo_cita : '1', tipo_cita: "Consulta", id_paciente : 1, nombre_pac: 'Lidia', apellido_pac : 'Lau', id_medico : 1, fecha : '02/07/2019', status : "2"},
-    {id_cita: 1, id_tipo_cita : '1', tipo_cita: "Consulta", id_paciente : 1, nombre_pac: 'Pablo', apellido_pac : 'Leyva', id_medico : 1, fecha : '02/07/2019', status : "1"},
-    {id_cita: 2, id_tipo_cita : '1', tipo_cita: "Consulta", id_paciente : 1, nombre_pac: 'Azucena', apellido_pac : 'Reyes', id_medico : 1, fecha : '02/07/2019', status : "2"},
-    {id_cita: 2, id_tipo_cita : '1', tipo_cita: "Consulta", id_paciente : 1, nombre_pac: 'María', apellido_pac : 'Contreras', id_medico : 1, fecha : '02/07/2019', status : "2"}
-  ];
+  citas : Cita [];
   cita: Cita;
 
   constructor(private medic_service : MedicoService, private _snackBar: MatSnackBar,
