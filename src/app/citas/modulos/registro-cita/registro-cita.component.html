@@ -45,13 +45,33 @@
           </mat-form-field>
       </div>
       <div>
+          <mat-form-field appearance="outline" style="width: 300px;">
+              <mat-label>Tipo de Cita</mat-label>
+                  <mat-select matInput [(ngModel)]="cita.id_tipo" name="tipo" >
+                    <mat-option *ngFor="let tipo of Tipos" [value]="tipo.id_tipo">
+                      {{tipo.tipo}} 
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+      <div>
           <mat-form-field appearance="outline" style="width: 250px" >
             <mat-label>Fecha de inicio</mat-label>
-            <input matInput [matDatepicker]="fecha_ini" [(ngModel)]="cita.fecha_ini" name="fecha" (change)="prueba()">
-            <mat-datepicker-toggle matSuffix [for]="fecha_ini"></mat-datepicker-toggle>
-            <mat-datepicker #fecha_ini disabled="false"></mat-datepicker>
+            <input matInput [matDatepicker]="fecha" [(ngModel)]="cita.fecha" name="fecha" (change)="prueba()">
+            <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
+            <mat-datepicker #fecha disabled="false"></mat-datepicker>
           </mat-form-field>
-        </div>
+      </div>
+      <div class="time-container">
+          <mat-form-field appearance="outline" style="width: 300px;">
+              <mat-label>Hora de la Cita</mat-label>
+                  <mat-select matInput [(ngModel)]="cita.hora" name="hora" >
+                    <mat-option *ngFor="let hora of horas" [value]="hora">
+                      {{hora}} 
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+      </div>
       <div>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Sintomas</mat-label>

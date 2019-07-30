@@ -6,13 +6,16 @@ import {
     DayService, 
     WeekService, 
     WorkWeekService,  
-    MonthService
+    MonthService,
    
 } from '@syncfusion/ej2-angular-schedule';
 
+
+
 @NgModule({
     imports:[
-        ScheduleModule
+        ScheduleModule,
+       
         
     ],
     exports:[

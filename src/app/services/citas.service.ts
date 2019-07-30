@@ -35,6 +35,44 @@ export class CitasService {
       )
   }
 
+  getTipo(){
+    this.token = this.Uservice.getToken();
+    let URL = this.global.URL + 'tipo/';
+    const headers = new Headers(
+      {
+        'Content-Type' : 'application/json',
+        'x-access-token' : this.token,
+      }
+    );
+    
+    return this._http.get(
+      URL, {headers}).pipe(
+        res => {
+          res => res.json();
+          return res;
+        }
+      )
+  }
+
+  getCita(){
+    this.token = this.Uservice.getToken();
+    let URL = this.global.URL + 'citas/';
+    const headers = new Headers(
+      {
+        'Content-Type' : 'application/json',
+        'x-access-token' : this.token,
+      }
+    );
+
+    return this._http.get(
+      URL, {headers}).pipe(
+        res => {
+          res => res.json();
+          return res;
+        }
+      )
+  }
+
   postCita(cita: Cita)  {
     this.token = this.Uservice.getToken();
     let URL = this.global.URL + 'citas';

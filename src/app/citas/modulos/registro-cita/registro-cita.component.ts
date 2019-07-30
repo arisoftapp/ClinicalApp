@@ -18,12 +18,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class RegistroCitaComponent implements OnInit {
   Pacientes: Paciente [];
+  Tipos: any [];
   Estados : Entidad [];
   paciente : Paciente;
   cita : Cita;
   medicos: Medico[];
   success: any;
   prioridades: any;
+  horas: any = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30']
 
   constructor(private citas_serv: CitasService,private _snackBar: MatSnackBar, private paciente_serv: PacienteService,
     private medic_service: MedicoService, private  entidad_serv: EntidadService,  private router : Router) { }
@@ -33,10 +35,11 @@ export class RegistroCitaComponent implements OnInit {
     this.getPacientes();
     this.getMedicos();
     this.getPrioriadad();
+    this.getTipo();
   }
+
+
   onSubmit(){
-   
-    
   }
 
   getPacientes(){
@@ -65,7 +68,43 @@ export class RegistroCitaComponent implements OnInit {
         var jey = JSON.parse(texto); 
         if (jey.success){
           this.prioridades = jey.data;
+          this.prioridades.sort(function (a, b) {
+            if (a.prioridad > b.prioridad) {
+              return 1;
+            }
+            if (a.prioridad < b.prioridadd) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
           console.log(this.prioridades)
+        }
+      error => {
+        console.log(<any>error);
+      }
+      });
+  }
+
+  getTipo(){
+    this.citas_serv.getTipo().subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto); 
+        if (jey.success){
+          this.Tipos = jey.data;
+          this.Tipos.sort(function (a, b) {
+            if (a.id_tipo > b.id_tipo) {
+              return 1;
+            }
+            if (a.id_tipo < b.id_tipo) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
+          console.log(this.Tipos)
         }
       error => {
         console.log(<any>error);
@@ -118,7 +157,7 @@ export class RegistroCitaComponent implements OnInit {
   }
 
   prueba(){
-    console.log(this.cita.fecha_ini);
+    console.log(this.cita.fecha);
     
   }
 }

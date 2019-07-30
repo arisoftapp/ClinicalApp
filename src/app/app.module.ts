@@ -24,6 +24,7 @@ import { EspecialidadesComponent, AddEspDialog, EditEspDialog, DeleteEspDialog }
 import { CitasListComponent } from './citas/citas-list/citas-list.component';
 import {RegistroCitaComponent} from './citas/modulos/registro-cita/registro-cita.component'
 
+import { TimePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 
 
@@ -61,7 +62,8 @@ import {RegistroCitaComponent} from './citas/modulos/registro-cita/registro-cita
     MaterialModule,
     SchedulerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TimePickerModule
   ],
   entryComponents: [
     AddEspDialog,
