@@ -1,3 +1,21 @@
+.matMsg{
+  position: fixed;
+  padding: 1em;
+}
+.div-back{
+  z-index:1; 
+}
+.div-fix{
+  margin-left: 85%;
+  position: fixed;
+  z-index:3; 
+  margin-top: 45%;
+}
+
+.menuMensaje{
+  height: 150px !important;
+  width: 150px !important;
+}
 .is-mobile .toolbar {
     position: fixed;
     /* Make sure the toolbar will stay on top of the content as it scrolls past. */
@@ -27,6 +45,7 @@
     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
     flex: 1;
     height: 100%;
+    overflow: hidden;
   }
     
   .is-mobile .sidenav-container {

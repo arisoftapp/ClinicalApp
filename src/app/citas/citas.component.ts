@@ -33,7 +33,7 @@ export class CitasComponent implements OnInit {
   respaldo_citas: any [] =[];
   cita: Cita;
 
-  constructor(private medic_service : MedicoService, private citas_serv : CitasService, private _snackBar: MatSnackBar,
+  constructor(private medic_service : MedicoService, public citas_serv : CitasService, private _snackBar: MatSnackBar,
     private router : Router, public addDialog: MatDialog) { }
 
   ngOnInit() {
@@ -64,7 +64,6 @@ export class CitasComponent implements OnInit {
             return 0;
           });
           this.respaldo_citas = this.citas;
-          console.log(this.citas)
           this.getCitasDia(this.dia);
         }
       error => {
@@ -176,4 +175,59 @@ export class CitasComponent implements OnInit {
     this.CitasDia(this.mas_citas, this.id_medico)
   }
 
+  openDialog(cita: any) {
+    const dialogRef = this.addDialog.open(CitaDetalle, {
+      data:{cita}
+    });
+  }
+}
+
+@Component({
+  selector: 'dialog-detalle-cita',
+  templateUrl: './dialogs/detalles_cita.html',
+  styleUrls: ['./citas.component.css']
+})
+export class CitaDetalle{
+  dtl_cita: any;
+  dtl_status: boolean;
+  success: any;
+  constructor( public citas_serv : CitasService, private _snackBar: MatSnackBar, private router : Router,
+    public CitaDialog: MatDialogRef<CitaDetalle>,
+    @Inject (MAT_DIALOG_DATA) public data: any) {
+      this.dtl_cita = data.cita;
+      if(this.dtl_cita.status == 1){
+        this.dtl_status = true;
+      }else{
+        this.dtl_status = false;
+      };
+    }
+
+    putStatus(){
+      if(this.dtl_status == false){
+        this.dtl_cita.status = 1;
+      }else if(this.dtl_status == true){
+        this.dtl_cita.status = 2;
+      }
+       this.citas_serv.putStatus(this.dtl_cita).subscribe(
+         (response : any)  => {
+           var Resp = response;
+           var texto = Resp._body;
+           var jey = JSON.parse(texto);
+           this.success = jey.success;
+           this.SnackBarError(jey.message);
+           if (jey.success){
+             this.router.navigate(['citas']);
+           }
+       });
+     } 
+
+     SnackBarError(message: string) {
+      this._snackBar.open(message, "Aceptar", {
+        duration: 5000,
+      });
+    }
+
+  onNoClick(): void {
+  
+  }
 }

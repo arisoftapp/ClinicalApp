@@ -61,6 +61,7 @@ export class UserService {
   }
 
   getLogin(){
+    
     let into = JSON.parse(localStorage.getItem('into'));
     if (this.into != "undefined"){
       this.into = into;

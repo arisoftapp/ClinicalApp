@@ -65,11 +65,13 @@ export class LoginComponent implements OnInit {
         this.hola = this.jey.hola;
         this.openSnackBar(this.Message);
         if (this.Success){
+          console.log(this.jey)
           this.router.navigate(['/inicio']);
           localStorage.setItem('into', JSON.stringify(this.Success));
           localStorage.setItem('tok', JSON.stringify(this.jey.token));
           localStorage.setItem('puesto', JSON.stringify(this.jey.puesto));
           localStorage.setItem('user', JSON.stringify(this.jey.username));
+          localStorage.setItem('id', JSON.stringify(this.jey.id));
         }
 
       })

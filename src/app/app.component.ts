@@ -7,12 +7,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Usuario } from './models/UserModel';
 import { UserService } from './services/user.service';
 
+import { isObject } from '@syncfusion/ej2-base';
+import { MedicoService } from './services/medico.service';
+import { MatSnackBar } from '@angular/material';
+import { Medico } from './models/MedicoModel';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'ClinicalApp';
   public token;
   public into;
@@ -20,6 +25,7 @@ export class AppComponent {
   public empresa : string;
   public usuario : string;
   mobileQuery: MediaQueryList;
+  existoken: boolean;
   
   fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
 
@@ -30,17 +36,22 @@ export class AppComponent {
     new Ruta("pacientes", "Pacientes", "people", true),
     new Ruta("medicos", "Médicos", "", false),
     new Ruta("consultorios", "Consultorios", "", false),
-    new Ruta("especialidades", "Especialidades", "local_hospital", true)
+    new Ruta("especialidades", "Especialidades", "local_hospital", true),
+    new Ruta("chat", "Chat", "forum", true)
   ]
 
   
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router : Router, private service : UserService) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
+    private medic_service : MedicoService,  private _snackBar: MatSnackBar,
+    private router : Router, private service : UserService ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     registerLocaleData(localeMX);
+    this.token =JSON.parse(localStorage.getItem("tok"));
+  
   }
  
   ngOnInit() {
@@ -50,12 +61,10 @@ export class AppComponent {
     }
     this.user = this.service.getIdentity();
   }
-
   
   ngDoCheck(){
     this.into = this.service.getLogin();
   }
-
 
   getStatus(){
     this.user.Status = 'Disponible'

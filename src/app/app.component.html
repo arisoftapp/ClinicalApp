@@ -1,3 +1,4 @@
+<script src= "http://localhost:3005/socket.io/socket.io.js" charset="utf-8" ></script>
 <mat-toolbar class="toolbar bar">
         <img src="../../assets/MiClinica3.png" class="logo btn-toggle" (click)="snav.toggle()" alt="Mi Clínica">
         <span class="example-fill-remaining-space"></span>
@@ -11,7 +12,7 @@
               <button mat-menu-item>Cerrar sesión</button>
             </mat-menu>
           </div>
-        <div >
+        <div>
             <i class="fas fa-user-circle toolbar-user-icon"></i><br>
         </div>
         <div>
@@ -29,7 +30,8 @@
             </mat-menu>
         </div>
       </mat-toolbar>
-    
+      
+      
       <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav class="fixed blur" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
           <div class="header-sidenav">
@@ -60,7 +62,9 @@
     
         <mat-sidenav-content class="content-content">
           <div class="content">
-            <router-outlet></router-outlet>
+            <router-outlet>
+          </router-outlet>
           </div>
         </mat-sidenav-content>
       </mat-sidenav-container>
+      

@@ -11,7 +11,7 @@ import { MaterialModule } from './material.module';
 import { SchedulerModule } from './scheduler.module';
 import { LoginComponent } from './login/login.component';
 import { InicioComponent } from './inicio/inicio.component';
-import { CitasComponent} from './citas/citas.component';
+import { CitasComponent, CitaDetalle} from './citas/citas.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { PacientesListComponent } from './pacientes/pacientes-list/pacientes-list.component';
@@ -23,8 +23,9 @@ import { ConsultoriosComponent, AddConsulDialog, EditConsulDialog, DeleteConsulD
 import { EspecialidadesComponent, AddEspDialog, EditEspDialog, DeleteEspDialog } from './especialidades/especialidades.component';
 import { CitasListComponent } from './citas/citas-list/citas-list.component';
 import {RegistroCitaComponent} from './citas/modulos/registro-cita/registro-cita.component'
-
 import { TimePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { DateTimePicker } from '@syncfusion/ej2-calendars';
+import { ChatComponent } from './chat/chat.component';
 
 
 
@@ -50,9 +51,10 @@ import { TimePickerModule } from '@syncfusion/ej2-angular-calendars';
     EditConsulDialog,
     DeleteConsulDialog,
     CitasListComponent,
-    RegistroCitaComponent
-  
-    
+    RegistroCitaComponent,
+    CitaDetalle,
+    ChatComponent,
+     
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,8 @@ import { TimePickerModule } from '@syncfusion/ej2-angular-calendars';
     DeleteEspDialog,
     AddConsulDialog,
     EditConsulDialog,
-    DeleteConsulDialog
+    DeleteConsulDialog,
+    CitaDetalle
 
   ],
   

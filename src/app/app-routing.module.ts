@@ -15,8 +15,10 @@ import { ConsultoriosComponent } from './consultorios/consultorios.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
 import { RegistroCitaComponent } from './citas/modulos/registro-cita/registro-cita.component';
 import { CitasListComponent } from './citas/citas-list/citas-list.component';
+import{ChatComponent} from './chat/chat.component'
 
 const routes: Routes = [
+  { path : 'chat', component : ChatComponent },
   { path : 'inicio', component : InicioComponent },
   { path : 'citas', component : CitasListComponent, children: [
     {path : '', component : CitasComponent},

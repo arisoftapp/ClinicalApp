@@ -1,0 +1,35 @@
+<mat-card class="" style="width: 35rem;">
+<mat-card-header >
+        <mat-card-title>Detalles de la cita</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+</mat-card-header>
+
+<mat-card-content>
+<div>
+    <p>Estado:</p> 
+    <mat-card-subtitle *ngIf="dtl_cita.status === 1" class="card-type he"><mat-icon color="primary" class="check">check_circle</mat-icon><i class="material-icons-outlined cancel">cancel</i></mat-card-subtitle>
+    <mat-card-subtitle *ngIf="dtl_cita.status === 2" class="card-type he"><mat-icon class="check">check_circle_outline</mat-icon><mat-icon class="cancel" color="warn">cancel</mat-icon></mat-card-subtitle>
+  </div>
+<div mat-dialog-content  >
+  <h4>Medico: {{dtl_cita.medico}} {{dtl_cita.ap_medico}} </h4>  
+
+  <h4>Paciente: {{dtl_cita.paciente}} {{dtl_cita.ap_paciente}}</h4>
+
+  <h4>Fecha de la cita: {{dtl_cita.fecha  | date:'MM/dd/yyyy'}}</h4>
+ 
+  <h4>Hora de la cita: {{dtl_cita.hora}} </h4>
+
+  <h4>Prioridad: {{dtl_cita.prioridad}} </h4> 
+
+  <h4>Tipo: {{dtl_cita.tipo}} </h4> 
+
+  <h4>Sintomas:  </h4> <h5>{{dtl_cita.sintomas}}</h5>
+
+</div>
+</mat-card-content>
+<mat-card-actions>
+  <button  mat-raised-button (click)="putStatus()"> <a [hidden] ="!dtl_status" > Cancelar Cita </a> <a [hidden] ="dtl_status" > Activar Cita </a></button>
+ 
+  <button mat-button (click)="onNoClick()"cdkFocusInitial>Install</button>
+</mat-card-actions>
+</mat-card>

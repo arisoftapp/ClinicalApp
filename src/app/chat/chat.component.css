@@ -1,0 +1,44 @@
+.mnj_envio{
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 20px;
+    background :rgb(238, 238, 238);
+    left :0;
+    margin-top: 10px;
+    width:100%;
+}
+
+.contenedor{
+    height: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 0 10px 0 10px 0!important;
+    overflow-x:hidden;
+    overflow-y: auto;
+    margin-bottom: 100px;
+}
+
+.chat{
+    position: relative;
+    border-radius: .4em;
+    padding: 10px;
+    margin-top: 20px;
+}
+.matMsg{
+    position: fixed;
+    padding: 1em;
+  }
+  .div-back{
+    z-index:1; 
+  }
+  .div-fix{
+    margin-left: 85%;
+    position: fixed;
+    z-index:3; 
+    margin-top: 35%;
+  }
+  
+  .menuMensaje{
+    height: 150px !important;
+    width: 150px !important;
+  }

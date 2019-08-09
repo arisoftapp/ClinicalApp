@@ -1,0 +1,27 @@
+<div class="div-fix">
+    <mat-menu #appMenu="matMenu" class="menuMensaje">
+    <button mat-menu-item (click)="prueba(medico.nombre,medico.ap_paterno,medico.id_medico)" *ngFor="let medico of Medicos">{{medico.nombre}} {{medico.ap_paterno}}</button>     
+  </mat-menu>
+  
+  <button class="matMsg" mat-icon-button [matMenuTriggerFor]="appMenu">
+    <mat-icon>forum</mat-icon>
+  </button>
+  </div>
+  <p class="">
+    inicio works!
+  </p>
+  
+  
+  
+  
+  <div id="contenedor" class="contenedor">
+    <div class="chat">
+      <div id="output">
+        
+      </div>
+  </div>
+  </div>
+  <div>
+    <textarea matInput placeholder="Escribe Mensaje" [(ngModel)]="mensaje.mensaje" style="width: 300px !important"></textarea>
+    <button (click)="sendMessage()" >SEND</button>
+  </div>

@@ -19,6 +19,9 @@
     flex-direction: column;
 }
 
+.mat-dialog-title{
+   
+}
 
 .modal-actions {
     display: block;

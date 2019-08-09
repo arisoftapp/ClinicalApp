@@ -9,6 +9,28 @@ import { Cita } from 'src/app/models/CitaModel';
   providedIn: 'root'
 })
 export class CitasService {
+
+  putStatus(cita: any) {
+    this.token = this.Uservice.getToken();
+    let URL = this.global.URL + 'status';
+    const newpres = JSON.stringify(cita);
+    const headers = new Headers(
+      {
+        'Content-Type' : 'application/json',
+        'x-access-token' : this.token,
+      }
+    );
+
+    return this._http.put(
+      URL, newpres, {headers}).pipe(
+        res => {
+          res => res.json();
+          
+          return res;
+        }
+      )
+
+  }
   private token;
   public global : Global;
   
