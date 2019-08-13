@@ -72,6 +72,8 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('puesto', JSON.stringify(this.jey.puesto));
           localStorage.setItem('user', JSON.stringify(this.jey.username));
           localStorage.setItem('id', JSON.stringify(this.jey.id));
+          localStorage.setItem('permisos', JSON.stringify(this.jey.permisos));
+          window.location.reload();
         }
 
       })

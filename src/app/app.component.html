@@ -41,6 +41,7 @@
             <table class="full table-menu">
               <tbody class="full">
                 <tr *ngFor="let ruta of Rutas" class="full">
+                  <div *ngIf ="ruta.permitido">
                   <a mat-tab-link class="menu-item nav-title"
                     [routerLink]="ruta.path"
                     routerLinkActive #rla="routerLinkActive"
@@ -54,6 +55,7 @@
                         {{ruta.label}}
                     </th>
                   </a>
+                </div>
                 </tr>
               </tbody>
             </table>

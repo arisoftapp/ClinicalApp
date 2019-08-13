@@ -15,26 +15,27 @@ import { ConsultoriosComponent } from './consultorios/consultorios.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
 import { RegistroCitaComponent } from './citas/modulos/registro-cita/registro-cita.component';
 import { CitasListComponent } from './citas/citas-list/citas-list.component';
-import{ChatComponent} from './chat/chat.component'
+import{ChatComponent} from './chat/chat.component';
+import {AuthService} from './services/auth.service';
 
 const routes: Routes = [
-  { path : 'chat', component : ChatComponent },
-  { path : 'inicio', component : InicioComponent },
-  { path : 'citas', component : CitasListComponent, children: [
+  { path : 'chat', component : ChatComponent, canActivate: [AuthService]  },
+  { path : 'inicio', component : InicioComponent, canActivate: [AuthService]},
+  { path : 'citas', component : CitasListComponent, canActivate: [AuthService], children: [
     {path : '', component : CitasComponent},
     {path : "registrarCita", component : RegistroCitaComponent}
   ] },
-  { path : 'calendario', component : CalendarioComponent },
-  { path : 'pacientes', component : PacientesComponent, children : [
+  { path : 'calendario', component : CalendarioComponent , canActivate: [AuthService]},
+  { path : 'pacientes', component : PacientesComponent, canActivate: [AuthService], children : [
     { path : '', component : PacientesListComponent },
     { path : 'registrarPaciente/:clavePaciente', component : PacientesRegistroComponent }
   ]},
-  { path : 'medicos', component : MedicosComponent, children : [
+  { path : 'medicos', component : MedicosComponent, canActivate: [AuthService], children : [
     { path : '', component : MedicosListComponent },
     { path : 'registrarMedico/:claveMedico', component : RegistrarMedicoComponent }
   ]},
-  { path : 'consultorios', component : ConsultoriosComponent },
-  { path : 'especialidades', component : EspecialidadesComponent },
+  { path : 'consultorios', component : ConsultoriosComponent, canActivate: [AuthService] },
+  { path : 'especialidades', component : EspecialidadesComponent, canActivate: [AuthService] },
   { path : 'login', component : LoginComponent },
   { path: '**', redirectTo: 'inicio', pathMatch: 'full' },
 ];

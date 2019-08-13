@@ -157,6 +157,7 @@ export class RegistrarMedicoComponent implements OnInit {
      this.medico.estado_id = this.est_respaldo;
      this.medico.municipio_id = this.mun_respaldo;
    }
+   console.log(this.medico)
     this.medic_service.putMedico(this.medico).subscribe(
       (response : any)  => {
         var Resp = response;
