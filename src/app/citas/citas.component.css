@@ -19,9 +19,7 @@
     flex-direction: column;
 }
 
-.mat-dialog-title{
-   
-}
+
 
 .modal-actions {
     display: block;
@@ -145,6 +143,17 @@ mat-form-field {
 .material-icons,
 .material-icons.material-icons {
   font-family: 'Material Icons';
+}
+
+.material-icons-rounded,
+.material-icons.material-icons--rounded {
+  font-family: 'Material Icons Round' !important;
+}
+
+.span-nocitas{
+    font-family: 'Raleway';
+    font-size: 10pt;
+    color: #e3165b;
 }
 
 .time{

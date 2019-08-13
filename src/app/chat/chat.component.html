@@ -1,27 +1,36 @@
-<div class="div-fix">
-    <mat-menu #appMenu="matMenu" class="menuMensaje">
-    <button mat-menu-item (click)="prueba(medico.nombre,medico.ap_paterno,medico.id_medico)" *ngFor="let medico of Medicos">{{medico.nombre}} {{medico.ap_paterno}}</button>     
-  </mat-menu>
-  
-  <button class="matMsg" mat-icon-button [matMenuTriggerFor]="appMenu">
-    <mat-icon>forum</mat-icon>
-  </button>
-  </div>
-  <p class="">
-    inicio works!
-  </p>
-  
-  
-  
-  
-  <div id="contenedor" class="contenedor">
-    <div class="chat">
-      <div id="output">
+
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav opened mode="side" position="end">
+        <mat-nav-list>
+            <a mat-list-item (click)="prueba(medico.nombre,medico.ap_paterno,medico.id_medico)" *ngFor="let medico of Medicos">{{medico.nombre}} {{medico.ap_paterno}} </a>
+         </mat-nav-list>
+    </mat-sidenav>
+    <div class="chat-title">
+        <div>
+            <i class="fas fa-user-circle toolbar-user-icon"></i><br>
+        </div>
+        <div>
+            <p align='left' class="chat-destiny">{{mensaje.receptor}}</p>
+        </div>
         
+    </div>
+    
+    <div id="contenedor" class="contenedor">
+      <div class="chat">
+        <div *ngFor='let chat of Chats'>
+            <span style='font-size: 11pt;' > <strong>{{chat.emisor}}</strong> {{chat.mensaje}} </span><br>
+        </div>
+        <div id="output">
+          
+        </div>
       </div>
-  </div>
-  </div>
-  <div>
-    <textarea matInput placeholder="Escribe Mensaje" [(ngModel)]="mensaje.mensaje" style="width: 300px !important"></textarea>
-    <button (click)="sendMessage()" >SEND</button>
-  </div>
+    </div>
+    <form class="message-input-box">
+        <mat-form-field class="full-width">
+          <textarea matInput placeholder="Escribe tu mensaje" [(ngModel)]="mensaje.mensaje"></textarea>
+        </mat-form-field>
+        <button class="btn-send" mat-fab color="accent" (click)="sendMessage()" ><mat-icon>send</mat-icon></button>
+    </form>
+
+</mat-sidenav-container>
+

@@ -45,7 +45,7 @@
     </div>
     <div>
       <label class="row-item" >Sexo:</label>
-      <mat-radio-group aria-label="Sexo" [(ngModel)]="paciente.sexo" required>
+      <mat-radio-group aria-label="Sexo" [(ngModel)]="paciente.sexo" name="sexo" required>
         <mat-radio-button value="1" class="row-item" [checked]="paciente.sexo === '1'"  >Masculino</mat-radio-button>
         <mat-radio-button value="2" class="row-item">Femenino</mat-radio-button>
       </mat-radio-group>
