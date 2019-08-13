@@ -22,6 +22,7 @@ export class ChatComponent implements OnInit {
   user: any;
   id_user: any;
   Medicos : Medico [];
+  Chats;
   private success : boolean;
   constructor(private chat_serv: ChatService, private medico_serv: MedicoService
     ,private _snackBar: MatSnackBar,
@@ -145,8 +146,8 @@ export class ChatComponent implements OnInit {
 
   getChat(id_receptor: any){
     this.mensajes= [];
-    let output = document.getElementById('output')
-    output.innerHTML = `<p class="mnj_envio" > <strong></strong> . </p>` 
+    let output = document.getElementById('output');
+    //output.innerHTML = `<span style='font-size: 11pt;' > <strong></strong> . </span>` 
     let chat;
     let existe: boolean = false;
     
@@ -174,9 +175,10 @@ export class ChatComponent implements OnInit {
       }
      }
      if(existe == true){
-     for(let chats of chat){
-      output.innerHTML += `<p class="mnj_envio" > <strong>${chats.emisor}</strong> . ${chats.mensaje} </p>` 
-      } 
+       this.Chats = chat;
+     //for(let chats of chat){
+      //output.innerHTML += `<span style='font-size: 11pt;' > <strong>${chats.emisor}</strong> . ${chats.mensaje} </span><br>` 
+      //} 
     }
   }
 }

@@ -28,8 +28,8 @@
       <button mat-flat-button class="btn-add" (click)="openAddDialog(cita)"><i class=" fas fa-plus"></i> nueva cita</button>
     </div>
   </div> 
-  <div [hidden]="(citas).length" style="text-align: center;" ><h3> ¡No Se Encontraron Citas Para Este Dia!</h3></div>
-  <div align = "right">
+  <div [hidden]="(citas).length" style="text-align: center;" ><span class="span-nocitas"> <mat-icon class="material-icons-rounded">warning</mat-icon> <p>No hay citas registradas para este día</p> </span></div>
+  <div align = "right" [hidden]="!(citas).length">
     <mat-button-toggle-group  #view="matButtonToggleGroup" value="card">
       <mat-button-toggle value="card" aria-label="Text align left" >
         <mat-icon>view_module</mat-icon>
