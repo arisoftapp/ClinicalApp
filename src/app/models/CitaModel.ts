@@ -7,8 +7,10 @@ export class Cita{
     nombre_pac;
     apellido_pac;
     id_medico;
+    duracion;
     fecha;
     hora;
+    hora_f;
     sintoma;
     status;
 }

@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material';
 import { Medico } from '../models/MedicoModel';
 
 
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -41,24 +42,31 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.chat_serv.messages.subscribe(msg => {
-    console.log(msg.id)
-    let output = document.getElementById('output')
-    output.innerHTML = `<p>  <strong></strong> </p>`
-  
+    this.chat_serv.messages.subscribe(async msg => {
     if( msg.receptor == this.user ){
     this.getItem(msg.id, msg);
-    output = document.getElementById('output')
-    output.innerHTML += `<p>  <strong>${msg.emisor}</strong> ${msg.mensaje} </p>`}
+    
+    }
     })
   }
 
-  sendMessage() {
+  async sendMessage() {
     this.chat_serv.sendMsg(this.mensaje);
-    console.log(this.mensaje)
-    this.setItem(this.mensaje.id_receptor, this.mensaje)
-    let output = document.getElementById('output')
-    output.innerHTML += `<p class="mnj_envio"> <strong>${this.mensaje.emisor}</strong> . ${this.mensaje.mensaje} </p>`
+    this.setItem(this.mensaje.id_receptor, this.mensaje);
+    this.getChat(this.mensaje.id_receptor);
+
+    await new Promise((resolve, reject) => {
+      setTimeout(function() {
+        let objDiv = document.getElementById("contenedor");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        resolve();
+      }, 100);
+    });
+  }
+ 
+  scrollEndChat(){
+    let objDiv = document.getElementById("contenedor");
+    objDiv.scrollTop = objDiv.scrollHeight;
   }
 
   getMedicos(){
@@ -95,13 +103,25 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  prueba(nombre: any, apellido: any,id_receptor: any){
+  async prueba(nombre: any, apellido: any,id_receptor: any){
     this.mensaje.receptor = nombre+" "+apellido
     this.mensaje.id_receptor= id_receptor;
-    this.getChat(id_receptor)
+    this.getChat(id_receptor);
+    
+    await new Promise((resolve, reject) => {
+      setTimeout(function() {
+        let objDiv = document.getElementById("contenedor");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        resolve();
+      }, 100);
+    });
+
+  
   }
 
-  getItem(id_receptor: any, msg: any){
+  async getItem(id_receptor: any, msg: any){
+    console.log(id_receptor);
+    
     let chat;
     if(this.id_user<id_receptor){
       if (localStorage.getItem(this.id_user+""+id_receptor) === null) { 
@@ -110,8 +130,6 @@ export class ChatComponent implements OnInit {
       } else{ 
         chat = JSON.parse(localStorage.getItem(this.id_user+""+id_receptor)) ;
         this.mensajes=chat;
-        console.log(this.mensajes);
-
       }
     }else{
       if (localStorage.getItem(id_receptor+""+this.id_user) === null) { 
@@ -119,16 +137,22 @@ export class ChatComponent implements OnInit {
         this.mensajes = []
       } else{
         chat = JSON.parse(localStorage.getItem(id_receptor+""+this.id_user)) ;
-        this.mensajes=chat;
-        console.log(this.mensajes);
-        
+        this.mensajes=chat;    
       }
-     }
-     this.setItem(msg.id, msg);
+    }
+    this.setItem(msg.id, msg);
+    this.getChat(msg.id_receptor);
+
+    await new Promise((resolve, reject) => {
+      setTimeout(function() {
+        let objDiv = document.getElementById("contenedor");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        resolve();
+      }, 100);
+    });
   }
 
   setItem(id: any, mensaje: any){
-    console.log(mensaje)
     this.mensajes=[...this.mensajes, {
       'emisor': mensaje.emisor,
       'receptor': mensaje.receptor,
@@ -141,44 +165,37 @@ export class ChatComponent implements OnInit {
     }else{
       localStorage.setItem(id+""+this.id_user, JSON.stringify(this.mensajes));
     }
-   
   }
 
   getChat(id_receptor: any){
+    console.log(id_receptor)
     this.mensajes= [];
-    let output = document.getElementById('output');
-    //output.innerHTML = `<span style='font-size: 11pt;' > <strong></strong> . </span>` 
     let chat;
     let existe: boolean = false;
-    
     if(this.id_user<id_receptor){
       if (localStorage.getItem(this.id_user+""+id_receptor) === null) { 
         console.log("no existe");
       } else{ 
         existe= true;
-        chat = JSON.parse(localStorage.getItem(this.id_user+""+id_receptor)) ;
-        output = document.getElementById('output');
+        chat = JSON.parse(localStorage.getItem(this.id_user+""+id_receptor)) ; 
         this.mensajes=chat;
-        console.log(this.mensajes);
-
       }
     }else{
       if (localStorage.getItem(id_receptor+""+this.id_user) === null) { 
-        console.log("no existe");
-      } else{
+      }else{
         existe= true;
         chat = JSON.parse(localStorage.getItem(id_receptor+""+this.id_user)) ;
-        output = document.getElementById('output');
-        this.mensajes=chat;
-        console.log(this.mensajes);
-        
+        this.mensajes=chat;      
       }
-     }
-     if(existe == true){
-       this.Chats = chat;
-     //for(let chats of chat){
+    }
+    if(existe == true){
+      this.Chats = chat;
+      return 0;
+      //for(let chats of chat){
       //output.innerHTML += `<span style='font-size: 11pt;' > <strong>${chats.emisor}</strong> . ${chats.mensaje} </span><br>` 
       //} 
+    }else{
+      this.Chats = [];
     }
   }
 }

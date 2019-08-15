@@ -9,8 +9,10 @@
 }
 
 .contenedor{
-    height: 493px;
-    overflow: auto;
+    height: 23rem;
+    overflow-y: scroll;
+    overflow-x: 5rem  !important;
+  
 }
 .example-container {
   position: static;
@@ -24,6 +26,7 @@
     position: relative;
     border-radius: .4em;
     padding: 10px;
+    height:15rem !important;
     
 }
 .matMsg{

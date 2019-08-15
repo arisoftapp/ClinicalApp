@@ -3,6 +3,7 @@ export class Paciente {
     nombre = "";
     ap_paterno = "";
     ap_materno = "";
+    completo = "";
     fecha_nac = "";
     sexo = "1";
     tel_fijo = "";

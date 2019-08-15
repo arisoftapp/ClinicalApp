@@ -20,6 +20,7 @@
 }
 
 
+
 .modal-actions {
     display: block;
     text-align: right;
@@ -54,4 +55,131 @@ mat-form-field {
 
 .medic-card{
     margin-bottom: 30px;
+}
+
+.combo {
+    width: 225px;
+    margin-left: 20px;
+    font-size: 12px;
+    background: #f0f1f3;
+    border-radius: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 30px;
+    font-weight: 500;
+    border: #e4e4e4;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.combo-icon {
+    font-size: 13pt;
+    color: #1f88e5;
+    margin-right: 10px;
+}
+
+.mat-form-field-infix {
+    border-top: 5px solid transparent;
+}
+
+.example-card {
+    max-width: 185px;
+    min-width: 178px;
+    display: inline-table;
+    border-radius: 10px;
+    min-height: 183px;
+    margin: 10px;
+  }
+  
+  .header-image {
+    background-image: url('../../../assets/account_circle.svg');
+    background-size: cover;
+  }
+
+.card-name{
+    font-family: 'Open Sans';
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.card-type{
+    font-family: 'Open Sans';
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.he{
+    
+    height: 27px;
+
+}
+
+::ng-deep .mat-card-header-text {
+    margin: 0 7px !important ;
+}
+
+::ng-deep .mat-card:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+}
+
+::ng-deep .mat-form-field-infix {
+    padding: 0.1em 0;
+}
+
+.check{
+    font-size: 19px;
+    margin-right: 2px;
+}
+
+.cancel{
+    font-size: 19px;
+}
+
+.material-icons-outlined,
+.material-icons.material-icons--outlined {
+  font-family: 'Material Icons Outlined';
+}
+.material-icons,
+.material-icons.material-icons {
+  font-family: 'Material Icons';
+}
+
+.material-icons-rounded,
+.material-icons.material-icons--rounded {
+  font-family: 'Material Icons Round' !important;
+}
+
+.span-nocitas{
+    font-family: 'Raleway';
+    font-size: 10pt;
+    color: #e3165b;
+}
+
+.time{
+    font-size: 26px;
+    font-family: 'Open Sans';
+}
+
+.date{
+    font-size: 14px;
+    font-family: 'Open Sans';
+    text-align: 'right';
+}
+
+
+::ng-deep .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    color: #1e88e5;
+}
+::ng-deep .mat-button-toggle-group-appearance-standard .mat-button-toggle + .mat-button-toggle {
+    border-left: none;
+}
+
+::ng-deep .mat-button-toggle {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.mat-button-toggle-standalone.mat-button-toggle-appearance-standard, .mat-button-toggle-group-appearance-standard {
+    border: none;
 }

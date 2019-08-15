@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Medico } from '../models/MedicoModel';
@@ -34,11 +34,13 @@ export class CitasComponent implements OnInit {
   cita: Cita;
 
   constructor(private medic_service : MedicoService, public citas_serv : CitasService, private _snackBar: MatSnackBar,
-    private router : Router, public addDialog: MatDialog) { }
+    private router : Router, public addDialog: MatDialog) { 
+        
+    }
 
   ngOnInit() {
     this.getMedicos();
-    this.getCitas();  
+    this.getCitas();
     
   }
 
@@ -202,7 +204,7 @@ export class CitaDetalle{
       };
     }
 
-    putStatus(){
+    putStatus(id: number){
       if(this.dtl_status == false){
         this.dtl_cita.status = 1;
       }else if(this.dtl_status == true){
@@ -216,10 +218,20 @@ export class CitaDetalle{
            this.success = jey.success;
            this.SnackBarError(jey.message);
            if (jey.success){
-             this.router.navigate(['citas']);
+             if(id != 2){
+              this.router.navigate(['citas']);
+             }
            }
        });
      } 
+
+     reagendar(){
+      if(this.dtl_status == true){
+        this.putStatus(2);
+      }
+        localStorage.setItem("reagendar",  JSON.stringify(this.dtl_cita))
+        this.router.navigate(['/citas/registrarCita']); 
+     }
 
      SnackBarError(message: string) {
       this._snackBar.open(message, "Aceptar", {

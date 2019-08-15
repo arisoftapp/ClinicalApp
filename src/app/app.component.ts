@@ -37,7 +37,7 @@ export class AppComponent implements OnInit{
     new Ruta("pacientes", "Pacientes", "people", true, true),
     new Ruta("medicos", "Médicos", "", false, true),
     new Ruta("consultorios", "Consultorios", "", false, true),
-    new Ruta("especialidades", "Especialidades", "local_hospital", true, false),
+    new Ruta("especialidades", "Especialidades", "local_hospital", true, true),
     new Ruta("chat", "Chat", "forum", true, true)
   ]
 
@@ -47,17 +47,18 @@ export class AppComponent implements OnInit{
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
     private medic_service : MedicoService,  private _snackBar: MatSnackBar,
     private router : Router, private service : UserService ) {
+    
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     registerLocaleData(localeMX);
     this.token =JSON.parse(localStorage.getItem("tok"));
     this.permisos =JSON.parse(localStorage.getItem("permisos"));
-    this.setPermisos();
-
+    this.setPermisos()
   }
  
   setPermisos(){
+    
     let Ruts: Ruta [] = [];
     let permiso: any [];
     

@@ -33,11 +33,11 @@
       
       
       <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav class="fixed blur" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+        <mat-sidenav class="fixed blur" #snav [mode]="mobileQuery.matches ? 'side' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
           <div class="header-sidenav">
             <img src="../../assets/MiClinica3.png" class="logo img-sidenav" (click)="snav.toggle()" alt="Mi Clínica">
           </div>
-          <nav mat-tab-nav-bar class="full nav-menu">
+          <nav mat-tab-nav-bar  class="full nav-menu">
             <table class="full table-menu">
               <tbody class="full">
                 <tr *ngFor="let ruta of Rutas" class="full">

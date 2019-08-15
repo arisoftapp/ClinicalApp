@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material';
 import { Medico } from '../models/MedicoModel';
 import {AuthService} from '../services/auth.service';
 
+
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -20,39 +21,29 @@ export class InicioComponent implements OnInit {
   user: any;
   id_user: any;
   Medicos : Medico [];
+  permisos: any;
   private success : boolean;
+
   constructor(private chat: ChatService,private medico_serv: MedicoService
-    ,  private _snackBar: MatSnackBar,
-    private router : Router, private service : UserService, private auth_serv: AuthService  ){ 
+    ,private _snackBar: MatSnackBar, private router : Router, private service : UserService,
+    private auth_serv: AuthService){ 
     this.mensaje = new Mensaje;
     this.getMedicos();
+
   if (typeof(Storage) !== "undefined") {
       this.user =JSON.parse(localStorage.getItem("user"));
       this.id_user =JSON.parse(localStorage.getItem("id"));
       this.mensaje.emisor = this.user;
       
   } else {
-   
       console.log("Local Storage No Esta Disponible En Este Navegador")
       alert("Local Storage No Esta Disponible En Este Navegador")
   }
+    this.router.navigate(['/citas']); 
   }
 
   ngOnInit() {
-    this.chat.messages.subscribe(msg => {
-      console.log(msg);
-
-      if( msg.receptor == this.user ){
-      let output = document.getElementById('output')
-      output.innerHTML += `<p>  <strong>${msg.emisor}</strong> ${msg.text} </p>`}
-    })
-  }
-
-  sendMessage() {
-    console.log(this.mensaje)
-    this.chat.sendMsg(this.mensaje);
-    let output = document.getElementById('output')
-    output.innerHTML += `<p class="mnj_envio"> <strong>${this.mensaje.emisor}</strong> . ${this.mensaje.mensaje} </p>`
+   
   }
 
   getMedicos(){
@@ -89,9 +80,4 @@ export class InicioComponent implements OnInit {
     });
   }
 
-  prueba(nombre: any, apellido: any){
-    this.mensaje.receptor = nombre+" "+apellido
-    console.log( this.mensaje.receptor);
-    
-  }
 }

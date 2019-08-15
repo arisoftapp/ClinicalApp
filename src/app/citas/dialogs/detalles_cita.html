@@ -28,8 +28,8 @@
 </div>
 </mat-card-content>
 <mat-card-actions>
-  <button  mat-raised-button (click)="putStatus()"> <a [hidden] ="!dtl_status" > Cancelar Cita </a> <a [hidden] ="dtl_status" > Activar Cita </a></button>
+  <button  mat-raised-button (click)="putStatus(1)" matDialogClose> <a [hidden] ="!dtl_status" > Cancelar Cita </a> <a [hidden] ="dtl_status" > Activar Cita </a></button>
  
-  <button mat-button (click)="onNoClick()"cdkFocusInitial>Install</button>
+  <button mat-raised-button color="primary" (click)="reagendar()" matDialogClose>Reagendar cita</button>
 </mat-card-actions>
 </mat-card>

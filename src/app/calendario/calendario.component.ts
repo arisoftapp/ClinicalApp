@@ -136,12 +136,12 @@ export class CalendarioComponent implements OnInit {
       }
       if(mn < 10){
         mn = +(mn.substring(1));
-        endhh = hh
-        endmn = mn +30
+        endhh =  cita.hora_f.substring(0,2)
+        endmn = cita.hora_f.substring(3,5)
       }else{
         mn = +(mn)
-        endmn = 0 
-        endhh = hh + 1
+        endmn = cita.hora_f.substring(3,5)
+        endhh =  cita.hora_f.substring(0,2)
       }
       if(mm < 10){
        mm = +(mm.substring(1))-1;
@@ -175,6 +175,7 @@ export class CalendarioComponent implements OnInit {
   openAddDialog(): void {
     this.router.navigate(['citas/registrarCita/']);
   }
+
   SnackBarError(message: string) {
     this._snackBar.open(message, "Aceptar", {
       duration: 5000,

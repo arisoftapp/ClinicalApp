@@ -23,6 +23,7 @@ import {
     MatSelectModule,
     MatSlideToggleModule,
     MatButtonToggleModule,
+    MatAutocompleteModule
     
 
 } from '@angular/material';
@@ -51,7 +52,8 @@ import {
         MatRadioModule,
         MatSelectModule,
         MatSlideToggleModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        MatAutocompleteModule
     ],
     exports:[
         MatButtonModule,
@@ -76,7 +78,8 @@ import {
         MatRadioModule,
         MatSelectModule,
         MatSlideToggleModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        MatAutocompleteModule
     ]
 })
 
