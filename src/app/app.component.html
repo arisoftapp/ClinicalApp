@@ -1,8 +1,9 @@
 <script src= "http://localhost:3005/socket.io/socket.io.js" charset="utf-8" ></script>
-<mat-toolbar class="toolbar bar">
+
+<mat-toolbar [hidden]="!existoken" class="toolbar bar">
         <img src="../../assets/MiClinica3.png" class="logo btn-toggle" (click)="snav.toggle()" alt="Mi Clínica">
         <span class="example-fill-remaining-space"></span>
-        <div class="toolbar-notifications">
+        <div [hidden]="!existoken" class="toolbar-notifications">
             <button mat-icon-button [matMenuTriggerFor]="notificationsMenu"><i class="fas fa-bell" matBadge="15" matBadgeColor="warn"></i></button>
             <mat-menu #notificationsMenu="matMenu" xPosition="before">
               <button mat-menu-item><i class="fas fa-circle status-light avaliable"></i>Disponible</button>
@@ -12,14 +13,14 @@
               <button mat-menu-item>Cerrar sesión</button>
             </mat-menu>
           </div>
-        <div>
+        <div [hidden]="!existoken">
             <i class="fas fa-user-circle toolbar-user-icon"></i><br>
         </div>
-        <div>
+        <div [hidden]="!existoken">
           <p class="toolbar-username">{{user.Username}}</p>
           <p class="toolbar-user-status"><i class="fas fa-circle status-light" [style.color]="getStatus()" ></i>{{user.Puesto}}</p>
         </div>
-        <div>
+        <div [hidden]="!existoken">
             <button mat-icon-button [matMenuTriggerFor]="beforeMenu"><i class="fas fa-chevron-down"></i></button>
             <mat-menu #beforeMenu="matMenu" xPosition="before">
                 <button mat-menu-item><i class="fas fa-circle status-light avaliable"></i>Disponible</button>
@@ -29,14 +30,16 @@
               <button mat-menu-item (click) = "logout()">Cerrar sesión</button>
             </mat-menu>
         </div>
-      </mat-toolbar>
+</mat-toolbar>
       
-      
-      <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav class="fixed blur" #snav [mode]="mobileQuery.matches ? 'side' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+
+      <mat-sidenav-container  class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        
+        <mat-sidenav class="fixed blur" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
           <div class="header-sidenav">
             <img src="../../assets/MiClinica3.png" class="logo img-sidenav" (click)="snav.toggle()" alt="Mi Clínica">
           </div>
+          <div [hidden]="!existoken">
           <nav mat-tab-nav-bar  class="full nav-menu">
             <table class="full table-menu">
               <tbody class="full">
@@ -60,8 +63,9 @@
               </tbody>
             </table>
           </nav>
+        </div>
         </mat-sidenav>
-    
+      
         <mat-sidenav-content class="content-content">
           <div class="content">
             <router-outlet>
@@ -69,4 +73,5 @@
           </div>
         </mat-sidenav-content>
       </mat-sidenav-container>
+ 
       

@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="title-row">
+    <h2>{{funcion}}</h2>
+  </div>
+</div>
+<form #medicoForm="ngForm"  (ngSubmit)="onSubmit()">
+<mat-card class="medic-card">
+  <mat-card-header>
+    <mat-card-subtitle>Datos generales</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <mat-form-field appearance="outline" style="width: 300px" >
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="asistente.nombre"  required cdkFocusInitial [formControl]="nombre_fc"
+        name="nombre">
+        <mat-error *ngIf="nombre_fc.hasError('required')">
+            Este campo es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 250px" >
+        <mat-label>Apellido paterno</mat-label>
+        <input matInput [(ngModel)]="asistente.ap_paterno" required  name="apellidop"
+         [formControl]="apaterno_fc">
+        <mat-error *ngIf="apaterno_fc.hasError('required')">
+            Este campo es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>            
+      <mat-form-field appearance="outline" style="width: 250px">
+        <mat-label>Apellido materno</mat-label>
+        <input matInput [(ngModel)]="asistente.ap_materno" required name="apellidom"
+        [formControl]="amaterno_fc">
+        <mat-error *ngIf="amaterno_fc.hasError('required')">
+            Este campo es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+    </div> 
+  </mat-card-content>
+</mat-card>
+<!-- ******* DOMICILIO ******* -->
+<mat-card class="medic-card">
+  <mat-card-header>
+    <mat-card-subtitle>Domicilio</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <mat-form-field appearance="outline" style="width: 300px" >
+        <mat-label>Calle</mat-label>
+        <input matInput [(ngModel)]="asistente.calle" name="calle" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 100px">
+        <mat-label>No. exterior</mat-label>
+        <input matInput [(ngModel)]="asistente.no_ext"  name="ext"
+         required>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 100px">
+        <mat-label>No. interior</mat-label>
+        <input matInput [(ngModel)]="asistente.no_int"  name="int"
+        [errorStateMatcher]="matcher">
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 300px">
+        <mat-label>Colonia</mat-label >
+        <input matInput [(ngModel)]="asistente.colonia" name="colonia" required>
+      </mat-form-field>
+    </div> 
+</mat-card-content>
+</mat-card>
+<!-- ******* CONTACTO ******* -->
+<mat-card class="medic-card">
+  <mat-card-header>
+    <mat-card-subtitle>Contacto</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <mat-form-field appearance="outline" style="width: 300px">
+        <mat-label>Teléfono</mat-label>
+        <input matInput [(ngModel)]="asistente.telefono" required  name="telefono" minlength="10" maxlength="10">
+        
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 300px">
+        <mat-label>Celular</mat-label>
+        <input matInput [(ngModel)]="asistente.tel_add"  required  name="celular" minlength="10" maxlength="10">
+     
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!--  ******* OPCIONES ******-->
+<mat-card class="medic-card">
+    <mat-card-content>
+      <div style="text-align: right;">
+          <button mat-button (click)="onNoClick()">Cancelar</button>
+          <button mat-button color="primary" (click)="registrarAsistente()" [disabled]="!medicoForm.form.valid">Guardar</button>
+          <mat-error *ngIf="!medicoForm.form.valid">
+              Complete todos los campos requeridos
+          </mat-error>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</form>

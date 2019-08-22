@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="title-row">
+      <h2>Médicos </h2>
+      <button mat-flat-button class="btn-add" (click)="openAddDialog(0)"><i class=" fas fa-plus"></i> registrar médico</button>
+    </div>
+  </div>
+
+
+  <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            MEDICOS
+          </mat-panel-title>
+          <mat-panel-description>
+            listado de Medicos
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div style="width: 100%">
+            <table mat-table [dataSource]="dataSource" style="width: 100%; background: #f6f7fb;">
+                <ng-container matColumnDef="identifier" >
+                  <th mat-header-cell *matHeaderCellDef style="width: 10%"> ID </th>
+                  <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;" > {{element.id_medico}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="name" >
+                  <th mat-header-cell *matHeaderCellDef style="width: 30%;"> Nombre </th>
+                  <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px; "> {{element.nombre}} {{element.ap_paterno}} {{element.ap_materno}} </td>
+                </ng-container>
+      
+                <ng-container matColumnDef="options">
+                  <th mat-header-cell *matHeaderCellDef style="width: 10%"> Permisos </th>
+                  <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px; ">
+                    <button mat-icon-button color="primary" (click)="openDetalles(element)" matTooltip="Asignar Permisos" matTooltipPosition="right" aria-label="Editar datos de médico">
+                      <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+         
+      </mat-expansion-panel>
+
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            ASISTENTES
+          </mat-panel-title>
+          <mat-panel-description>
+            Lista de Asistentes
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+ 

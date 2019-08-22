@@ -25,7 +25,7 @@ export class AppComponent implements OnInit{
   public empresa : string;
   public usuario : string;
   mobileQuery: MediaQueryList;
-  existoken: boolean;
+  existoken: boolean = true;
   permisos: any;
   
   fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
@@ -38,7 +38,9 @@ export class AppComponent implements OnInit{
     new Ruta("medicos", "Médicos", "", false, true),
     new Ruta("consultorios", "Consultorios", "", false, true),
     new Ruta("especialidades", "Especialidades", "local_hospital", true, true),
-    new Ruta("chat", "Chat", "forum", true, true)
+    new Ruta("chat", "Chat", "forum", true, true),
+    new Ruta("permisos", "Permisos","build", true, true),
+    new Ruta("asistente", "Asistentes","supervisor_account", true, true)
   ]
 
   
@@ -52,8 +54,16 @@ export class AppComponent implements OnInit{
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     registerLocaleData(localeMX);
-    this.token =JSON.parse(localStorage.getItem("tok"));
-    this.permisos =JSON.parse(localStorage.getItem("permisos"));
+    
+    if (localStorage.getItem("tok") === null) {    
+      this.existoken = false;
+      this.permisos = "0,0,0,0,0,0,0,0,0,0"
+    } else{
+      this.existoken = true;
+      console.log(localStorage.getItem("permisos"));
+      this.token =JSON.parse(localStorage.getItem("tok"));
+      this.permisos =JSON.parse(localStorage.getItem("permisos")); }
+    
     this.setPermisos()
   }
  
@@ -106,6 +116,7 @@ export class AppComponent implements OnInit{
     this.into = null;
     this.token = null;
     this.router.navigate(['/login']);
+    window.location.reload()
   }
   
 }

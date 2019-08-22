@@ -26,6 +26,11 @@ import {RegistroCitaComponent} from './citas/modulos/registro-cita/registro-cita
 import { TimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { DateTimePicker } from '@syncfusion/ej2-calendars';
 import { ChatComponent } from './chat/chat.component';
+import { PermisosComponent, PermisosDetalle} from './permisos/permisos.component';
+import { AsistenteComponent } from './asistente/asistente.component';
+import { AsistentelistComponent } from './asistente/asistentelist/asistentelist.component';
+import { AsistenteregistroComponent } from './asistente/asistenteregistro/asistenteregistro.component';
+
 
 
 
@@ -54,6 +59,11 @@ import { ChatComponent } from './chat/chat.component';
     RegistroCitaComponent,
     CitaDetalle,
     ChatComponent,
+    PermisosComponent,
+    PermisosDetalle,
+    AsistenteComponent,
+    AsistentelistComponent,
+    AsistenteregistroComponent
      
   ],
   imports: [
@@ -74,7 +84,8 @@ import { ChatComponent } from './chat/chat.component';
     AddConsulDialog,
     EditConsulDialog,
     DeleteConsulDialog,
-    CitaDetalle
+    CitaDetalle,
+    PermisosDetalle
 
   ],
   

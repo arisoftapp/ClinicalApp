@@ -16,6 +16,7 @@ export class Medico{
     email = "";
     id_consultorio = 0;
     calle;
+    permisos;
     no_ext = "";
     no_int = "";
     estado_id;
@@ -38,4 +39,5 @@ export class Medico{
     nombre_consultorio;
     nombre_estado;
     nombre_municipio;
+    tipo_usuario;
 }

@@ -11,6 +11,7 @@ import { Cita } from '../models/CitaModel';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CitasService } from '../services/citas.service';
 import { MatDatepickerInputEvent } from '@angular/material';
+import { AsistenteService } from '../services/asistente.service';
 
 
 @Component({
@@ -32,15 +33,76 @@ export class CitasComponent implements OnInit {
   citas_hoy: any [] = [];
   respaldo_citas: any [] =[];
   cita: Cita;
+  tipo_usuario: any;
 
-  constructor(private medic_service : MedicoService, public citas_serv : CitasService, private _snackBar: MatSnackBar,
+  constructor(private asis_serv: AsistenteService, private medic_service : MedicoService, public citas_serv : CitasService, private _snackBar: MatSnackBar,
     private router : Router, public addDialog: MatDialog) { 
+      
         
     }
 
   ngOnInit() {
-    this.getMedicos();
-    this.getCitas();
+    this.tipo_usuario =JSON.parse(localStorage.getItem("puesto"));
+    console.log(this.tipo_usuario);
+    
+    if( this.tipo_usuario == "Médico"){
+      this.getMedicos();
+      this.getCitas();
+    }else{
+      this.getCitas();
+      this.getMedicos();
+      
+    }
+  }
+
+  getAsisMedic(){
+    let med_asis: any[] = [];
+    this.asis_serv.getAsistenteMedico(1).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto); 
+        if (!jey.success){
+          this.success = jey.success; 
+          this.SnackBarError(jey.message);
+
+        }else {
+          let data: any = jey.data;
+          
+          for(let dato of data){
+            for(let med of this.Medicos){
+              if(dato.id_medico == med.id_medico){
+                med_asis.push(med)
+              }
+            }
+          }
+          console.log(med_asis);
+          this.Medicos = med_asis
+          this.getCitasAsistente(data);
+        }
+        error => {
+        console.log(<any>error);
+      }
+      });
+  }
+
+
+
+  getCitasAsistente(data: any[]){
+    let new_cita: any[]= [];
+    console.log("llegue")
+    let result: any = [];
+    console.log(this.citas);
+    
+    for(let dato of data){
+      for(let cita of this.citas){
+        if(dato.id_medico == cita.id_medico){
+          new_cita.push(cita)
+        }
+      }
+    }
+    console.log(new_cita)
+    this.citas = new_cita;
     
   }
 
@@ -64,7 +126,7 @@ export class CitasComponent implements OnInit {
             }
             // a must be equal to b
             return 0;
-          });
+          }); 
           this.respaldo_citas = this.citas;
           this.getCitasDia(this.dia);
         }
@@ -95,7 +157,11 @@ export class CitasComponent implements OnInit {
           // a must be equal to b
           return 0;
         });
+        if( this.tipo_usuario != "Médico"){
+          this.getAsisMedic();
+        }
       }
+      
     error => {
       console.log(<any>error);
     }
@@ -142,7 +208,6 @@ export class CitasComponent implements OnInit {
       for(let cita of this.respaldo_citas){
         fecha_cita = cita.fecha.substring(0,10);
         if(fecha_hoy == fecha_cita){
-         
           this.citas_hoy.push(cita) 
         }
       }

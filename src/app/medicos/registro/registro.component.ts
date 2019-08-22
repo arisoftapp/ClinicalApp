@@ -103,16 +103,20 @@ export class RegistrarMedicoComponent implements OnInit {
     if (this.medico.id_medico === "0"){
       this.detalles = false;
       this.funcion = "Registar médico"
+      this.getEstados();
+      this.getEspecialidades();
+      this.getEspecialidadesDos();
     } else {
       this.detalles = true;
       this.funcion = "Detalles de médico"
       this.getMedico();
+      this.getEstados();
+    this.getEspecialidades();
+    this.getEspecialidadesDos();
 
     }
 
-    this.getEstados();
-    this.getEspecialidades();
-    this.getEspecialidadesDos();
+    
   } 
 
   getEstados(){
@@ -131,6 +135,7 @@ export class RegistrarMedicoComponent implements OnInit {
   }
 
   getMedico(){
+    console.log(this.medico.id_medico)
     this.medic_service.getMedico(this.medico.id_medico).subscribe(
       (response : any)  => {
         var Resp = response;
@@ -238,7 +243,6 @@ export class RegistrarMedicoComponent implements OnInit {
       }
     });
   } 
-
   SnackBarError(message: string) {
     this._snackBar.open(message, "Aceptar", {
       duration: 5000,

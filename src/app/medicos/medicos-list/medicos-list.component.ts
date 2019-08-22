@@ -81,6 +81,7 @@ export class MedicosListComponent implements OnInit  {
   }
 
   openAddDialog(id_medico): void {
+    console.log(id_medico)
     this.router.navigate(['medicos/registrarMedico/' + id_medico]);
   }
 

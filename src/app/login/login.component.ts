@@ -55,7 +55,6 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     try{
       this.Login = this.SaveLogin();
-      //console.log(this.Login);
       this.service.logUser(this.Login).subscribe(response => {
         this.Resp = response;
         this.texto = this.Resp._body;

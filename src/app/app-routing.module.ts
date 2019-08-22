@@ -17,10 +17,20 @@ import { RegistroCitaComponent } from './citas/modulos/registro-cita/registro-ci
 import { CitasListComponent } from './citas/citas-list/citas-list.component';
 import{ChatComponent} from './chat/chat.component';
 import {AuthService} from './services/auth.service';
+import{PermisosComponent} from './permisos/permisos.component';
+import{AsistenteComponent} from './asistente/asistente.component'
+import{AsistentelistComponent} from './asistente/asistentelist/asistentelist.component'
+import{AsistenteregistroComponent} from './asistente/asistenteregistro/asistenteregistro.component'
 
 const routes: Routes = [
   { path : 'chat', component : ChatComponent, canActivate: [AuthService]  },
+  {path : 'permisos', component : PermisosComponent, canActivate: [AuthService]  },
+
   { path : 'inicio', component : InicioComponent, canActivate: [AuthService]},
+  { path : 'asistente', component : AsistenteComponent, canActivate: [AuthService], children: [
+    {path : '', component : AsistentelistComponent},
+    {path : "registrarAsistente/:clave", component : AsistenteregistroComponent}
+  ] },
   { path : 'citas', component : CitasListComponent, canActivate: [AuthService], children: [
     {path : '', component : CitasComponent},
     {path : "registrarCita", component : RegistroCitaComponent}
