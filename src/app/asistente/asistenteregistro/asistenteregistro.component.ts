@@ -128,7 +128,8 @@ export class AsistenteregistroComponent implements OnInit {
     });
   }
 
-  postAsistente(){ 
+  postAsistente(){
+    this.asistente.permisos = '0,0,0,0,0,0,0,0,0,0'
     console.log(this.asistente);
     this.asis_serv.postAsistente(this.asistente).subscribe(
       (response : any)  => {
