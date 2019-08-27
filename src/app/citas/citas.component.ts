@@ -194,11 +194,11 @@ export class CitasComponent implements OnInit {
   getCitasDia(dia){
     if(this.dia == '1'){
       var hoy = new Date();
-      this.CitasDia(hoy, this.id)
+      this.CitasDia(hoy, this.id_medic)
     }else if(this.dia == '2'){
       var hoy = new Date();
       hoy.setDate(hoy.getDate() + 1);
-      this.CitasDia(hoy, this.id);
+      this.CitasDia(hoy, this.id_medic);
     }
 
   }
