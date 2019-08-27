@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material';
 import { Medico } from 'src/app/models/MedicoModel';
 import { Router, ActivatedRoute } from '@angular/router';
 import { isDate } from 'util';
+import { AsistenteService } from 'src/app/services/asistente.service';
 
 @Component({
   selector: 'app-registro-cita',
@@ -33,9 +34,12 @@ export class RegistroCitaComponent implements OnInit {
   minutos: any = [];
   min_f: any;
   min: any;
+  id: any = 2;
+  tipo_usuario: any;
 
   constructor(private citas_serv: CitasService,private _snackBar: MatSnackBar, private paciente_serv: PacienteService,
-    private medic_service: MedicoService, private  entidad_serv: EntidadService,  private router : Router) {
+    private medic_service: MedicoService, private  entidad_serv: EntidadService,  private router : Router,
+    private asis_serv: AsistenteService) {
       for(let i = 1; i<=24; i++){
         if(i<10){
           let num ="0"+ i;
@@ -57,6 +61,7 @@ export class RegistroCitaComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.tipo_usuario =JSON.parse(localStorage.getItem("puesto"));
     this.data_paciente = new Paciente;
     this.cita = new Cita;
     this.cita.duracion = 30;
@@ -78,6 +83,36 @@ export class RegistroCitaComponent implements OnInit {
 
   }
 
+  getAsisMedic(){
+    let med_asis: any[] = [];
+    this.asis_serv.getAsistenteMedico(this.id).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto); 
+        if (!jey.success){
+          this.success = jey.success; 
+          this.SnackBarError(jey.message);
+
+        }else {
+          let data: any = jey.data;
+          
+          for(let dato of data){
+            for(let med of this.medicos){
+              if(dato.id_medico == med.id_medico){
+                med_asis.push(med)
+              }
+            }
+          }
+          this.medicos = med_asis
+          //cargar las citas del asistente
+         
+        }
+        error => {
+        console.log(<any>error);
+      }
+      });
+  }
   reagendar(){
    
   }
@@ -189,7 +224,9 @@ export class RegistroCitaComponent implements OnInit {
         this.SnackBarError(jey.message);
       }else {
         this.medicos = jey.data;
-      
+        if( this.tipo_usuario != "Médico"){
+          this.getAsisMedic();
+        }
       }
     error => {
       console.log(<any>error);

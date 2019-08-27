@@ -2,15 +2,17 @@
   <div class="row">
     <div class="title-row">
       <h2>Citas </h2>
-      <mat-form-field class="combo" appearance=" ">
+      
+      <mat-form-field class="combo" appearance=" "  *ngIf="selec === true">
         <span matPrefix class="nav-icon fas fa-user-md combo-icon"></span>
-        <mat-select [(value)]="medico.id_medico" #medico [(ngModel)]="id_medico" (selectionChange)='getMedicoCitas(medico.id_medico)' placeholder="-- Seleccione médico --">
+        <mat-select  [(value)]="medico.id_medico" #medico [(ngModel)]="id_medic" (selectionChange)='getMedicoCitas(medico.id_medico)' placeholder="-- Seleccione médico --">
           <mat-option value = "0">General</mat-option>
           <mat-option *ngFor="let medico of Medicos" [value]="medico.id_medico">
             {{medico.nombre}} {{medico.ap_paterno}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+ 
       <mat-form-field class="combo" appearance=" ">
           <span matPrefix class="nav-icon far fa-calendar combo-icon"></span>
           <mat-select [(value)]="dia" (selectionChange)='getCitasDia(dia)' style="padding-bottom: 10px">
@@ -28,6 +30,7 @@
       <button mat-flat-button class="btn-add" (click)="openAddDialog(cita)"><i class=" fas fa-plus"></i> nueva cita</button>
     </div>
   </div> 
+  
   <div [hidden]="(citas).length" style="text-align: center;" ><span class="span-nocitas"> <mat-icon class="material-icons-rounded">warning</mat-icon> <p>No hay citas registradas para este día</p> </span></div>
   <div align = "right" [hidden]="!(citas).length">
     <mat-button-toggle-group  #view="matButtonToggleGroup" value="card">

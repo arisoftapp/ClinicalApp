@@ -23,7 +23,9 @@ import { AsistenteService } from '../services/asistente.service';
 
 export class CitasComponent implements OnInit {
   Medicos : Medico [];
-  id_medico : any;
+  selec : boolean = false;
+  id : any;
+  id_medic : any= '0';
   medico : Medico;
   mas_citas: Date;
   private success : boolean;
@@ -36,28 +38,27 @@ export class CitasComponent implements OnInit {
   tipo_usuario: any;
 
   constructor(private asis_serv: AsistenteService, private medic_service : MedicoService, public citas_serv : CitasService, private _snackBar: MatSnackBar,
-    private router : Router, public addDialog: MatDialog) { 
-      
-        
+    private router : Router, public addDialog: MatDialog) {       
     }
 
   ngOnInit() {
     this.tipo_usuario =JSON.parse(localStorage.getItem("puesto"));
-    console.log(this.tipo_usuario);
-    
+    this.id=JSON.parse(localStorage.getItem('id'))
     if( this.tipo_usuario == "Médico"){
+      this.id_medic = this.id
       this.getMedicos();
       this.getCitas();
+      this.selec = false;
     }else{
       this.getCitas();
       this.getMedicos();
-      
+      this.selec = true;
     }
   }
-
+//Asignar los medicos que le corresponden al asistente
   getAsisMedic(){
     let med_asis: any[] = [];
-    this.asis_serv.getAsistenteMedico(1).subscribe(
+    this.asis_serv.getAsistenteMedico(this.id).subscribe(
       (response : any)  => {
         var Resp = response;
         var texto = Resp._body;
@@ -76,8 +77,8 @@ export class CitasComponent implements OnInit {
               }
             }
           }
-          console.log(med_asis);
           this.Medicos = med_asis
+          //cargar las citas del asistente
           this.getCitasAsistente(data);
         }
         error => {
@@ -87,25 +88,26 @@ export class CitasComponent implements OnInit {
   }
 
 
-
+//cargar las citas que solo le corresponden a los medicos del asistnte
   getCitasAsistente(data: any[]){
     let new_cita: any[]= [];
-    console.log("llegue")
     let result: any = [];
-    console.log(this.citas);
     
     for(let dato of data){
-      for(let cita of this.citas){
+      for(let cita of this.respaldo_citas){
         if(dato.id_medico == cita.id_medico){
           new_cita.push(cita)
+
         }
       }
     }
-    console.log(new_cita)
     this.citas = new_cita;
+    this.respaldo_citas = this.citas
+    var hoy = new Date();
+    this.CitasDia(hoy, 0)
     
   }
-
+//obtener las citas de la base de datos
   getCitas(){
     this.citas_serv.getCita().subscribe(
       (response : any)  => {
@@ -124,18 +126,22 @@ export class CitasComponent implements OnInit {
             if (a.hora < b.hora) {
               return -1;
             }
-            // a must be equal to b
             return 0;
           }); 
-          this.respaldo_citas = this.citas;
-          this.getCitasDia(this.dia);
+            this.respaldo_citas = this.citas;
+            //cargar las citas del dia de hoy
+            this.getCitasDia(this.dia);
+          if( this.tipo_usuario == "Médico"){
+            //filtrar solo las cintas del medico logueado **en caso de ser medico**
+            this.getCitasMedico(this.id);
+          }
         }
       error => {
         console.log(<any>error);
       }
       });
   }
-
+//obtener los medicos de la base de datos
   getMedicos(){
     this.medic_service.getMedicos().subscribe(
     (response : any)  => {
@@ -154,9 +160,9 @@ export class CitasComponent implements OnInit {
           if (a.nombre < b.nombre) {
             return -1;
           }
-          // a must be equal to b
           return 0;
         });
+        //asignar los medicos correspondientes al asistente
         if( this.tipo_usuario != "Médico"){
           this.getAsisMedic();
         }
@@ -168,11 +174,19 @@ export class CitasComponent implements OnInit {
     });
   }
 
-  getMedicoCitas(id_medico){
+  //filtrado de citas por medico
+  getCitasMedico(id_medico: any){
+    this.respaldo_citas = this.respaldo_citas.filter(cita => cita.id_medico == id_medico);
+  }
+
+  //citas de una fecha distinta
+  getMedicoCitas(id_medico: any){
     if(this.dia < '3'){
+      //citas por hoy y por mañana
       this.getCitasDia(this.dia)
     }else{
-      this.CitasDia(this.mas_citas, this.id_medico)
+      //cita de una fecha seleccionada
+      this.CitasDia(this.mas_citas, this.id_medic)
     }
     
   }
@@ -180,11 +194,11 @@ export class CitasComponent implements OnInit {
   getCitasDia(dia){
     if(this.dia == '1'){
       var hoy = new Date();
-      this.CitasDia(hoy, this.id_medico)
+      this.CitasDia(hoy, this.id)
     }else if(this.dia == '2'){
       var hoy = new Date();
       hoy.setDate(hoy.getDate() + 1);
-      this.CitasDia(hoy, this.id_medico);
+      this.CitasDia(hoy, this.id);
     }
 
   }
@@ -204,7 +218,7 @@ export class CitasComponent implements OnInit {
       let yy = hoy.getFullYear();
       let fecha_hoy = yy +"-"+mm+"-"+dd
       let fecha_cita;
-
+      
       for(let cita of this.respaldo_citas){
         fecha_cita = cita.fecha.substring(0,10);
         if(fecha_hoy == fecha_cita){
@@ -222,7 +236,7 @@ export class CitasComponent implements OnInit {
   CitasxMed(){
     this.citas = [];
     for(let cita of this.citas_hoy){
-      if(this.id_medico == cita.id_medico){
+      if(this.id_medic == cita.id_medico){
         this.citas.push(cita) 
       }
     }
@@ -239,7 +253,7 @@ export class CitasComponent implements OnInit {
   }
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.CitasDia(this.mas_citas, this.id_medico)
+    this.CitasDia(this.mas_citas, this.id_medic)
   }
 
   openDialog(cita: any) {
