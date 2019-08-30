@@ -82,13 +82,17 @@ export class LoginComponent implements OnInit {
   }
 
   SaveLogin(){
+    if(this.emailFormControl.value != "" || this.passFormControl.value != ""){
     const SaveLogin = {
       Username : this.emailFormControl.value,
       Password : this.passFormControl.value,
     }
     console.log(SaveLogin);
-
-    return SaveLogin;
+    return SaveLogin;}
+    else{
+      return null;
+    }
+  
   }
 
   openSnackBar(message: string) {

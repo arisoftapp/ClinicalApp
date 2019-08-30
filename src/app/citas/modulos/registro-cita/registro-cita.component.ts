@@ -34,7 +34,7 @@ export class RegistroCitaComponent implements OnInit {
   minutos: any = [];
   min_f: any;
   min: any;
-  id: any = 2;
+  id: any;
   tipo_usuario: any;
 
   constructor(private citas_serv: CitasService,private _snackBar: MatSnackBar, private paciente_serv: PacienteService,
@@ -62,6 +62,7 @@ export class RegistroCitaComponent implements OnInit {
 
   ngOnInit() {
     this.tipo_usuario =JSON.parse(localStorage.getItem("puesto"));
+    this.id =JSON.parse(localStorage.getItem("id"));
     this.data_paciente = new Paciente;
     this.cita = new Cita;
     this.cita.duracion = 30;
@@ -226,6 +227,11 @@ export class RegistroCitaComponent implements OnInit {
         this.medicos = jey.data;
         if( this.tipo_usuario != "Médico"){
           this.getAsisMedic();
+        }else{
+          console.log(this.id);
+          
+          this.medicos = this.medicos.filter(medic => medic.id_medico == this.id)
+          console.log(this.medicos)
         }
       }
     error => {

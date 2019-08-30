@@ -143,7 +143,7 @@ export class PermisosDetalle implements OnInit{
 
     ngOnInit() {
       this.data = this.data.user
-
+      
       console.log(this.data);
       this.username = this.data.username;
       this.password = this.data.password;

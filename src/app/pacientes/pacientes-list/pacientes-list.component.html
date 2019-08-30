@@ -6,7 +6,7 @@
        <!--Autocompletable--> 
        <div align = "right">
         <form class="example-form">
-          <mat-form-field class="example-full-width">
+          <mat-form-field appearance="outline" style="width: 200px" >
             <input type="text" placeholder="Buscar Paciente" [(ngModel)]="unico" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)='prueba($event.option.value)'>
               <mat-option *ngFor="let option of filteredOptions | async" [value]="option">

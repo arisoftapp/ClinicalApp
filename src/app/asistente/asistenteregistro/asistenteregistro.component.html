@@ -6,8 +6,41 @@
 <form #medicoForm="ngForm"  (ngSubmit)="onSubmit()">
 <mat-card class="medic-card">
   <mat-card-header>
-    <mat-card-subtitle>Datos generales</mat-card-subtitle>
+    <mat-card-subtitle>Asignar Médicos</mat-card-subtitle>
   </mat-card-header>
+  <mat-card-content>
+  <form class="example-form">
+    <mat-form-field appearance="outline" style="width: 200px" >
+      <input type="text" placeholder="Buscar Médico" [(ngModel)]="unico" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)='prueba($event.option.value)'>
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.completo}} 
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</mat-card-content>
+<mat-card-actions>
+    <mat-form-field class="example-chip-list" style="width: 500px">
+        <mat-chip-list #chipList aria-label="">
+          <mat-chip *ngFor="let item of asignar" [selectable]="selectable"
+                   [removable]="removable" (removed)="remove(item)">
+            {{item.medico}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Médicos Asinados"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+</mat-card-actions>
+</mat-card>
+<mat-card class="medic-card">
+    <mat-card-header>
+        <mat-card-subtitle>Datos generales</mat-card-subtitle>
+      </mat-card-header>
   <mat-card-content>
     <div>
       <mat-form-field appearance="outline" style="width: 300px" >

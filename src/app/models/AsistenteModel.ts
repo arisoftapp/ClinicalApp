@@ -12,4 +12,5 @@ export class Asistente{
     telefono;
     tel_add;
     permisos;
+    asignar= [];
 }

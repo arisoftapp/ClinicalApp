@@ -5,6 +5,14 @@ import { MyErrorStateMatcher } from 'src/app/login/login.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AsistenteService } from 'src/app/services/asistente.service';
 import { MatSnackBar } from '@angular/material';
+import { startWith, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { MedicoService } from 'src/app/services/medico.service';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material';
+
+
+
 
 @Component({
   selector: 'app-asistenteregistro',
@@ -47,19 +55,30 @@ export class AsistenteregistroComponent implements OnInit {
   adicional_fc = new FormControl('', [
     Validators.pattern("^[0-9]*$")
   ]);
-
+  myControl = new FormControl();
   public funcion : string = "";
   matcher = new MyErrorStateMatcher();
   est_respaldo: any;
   mun_respaldo: any;
   id : any;
-  
+  filteredOptions: Observable<any[]>;
+  medicos: any[];
   asistente: Asistente
   asistentes: Asistente[] =[]
   detalles: boolean;
   success: any;
+  unico: any;
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  asignar: any[] = [];
+
+ 
+
   constructor(private actiavatedRouter: ActivatedRoute, private router : Router,
-     private asis_serv: AsistenteService,  private _snackBar: MatSnackBar) 
+     private asis_serv: AsistenteService,  private _snackBar: MatSnackBar, private medic_service: MedicoService) 
   { 
 
   }
@@ -70,6 +89,13 @@ export class AsistenteregistroComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.medicos = [];
+    this.getMedicos();
+    this.filteredOptions = this.myControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
     this.asistente = new Asistente
     this.id = this.actiavatedRouter.snapshot.paramMap.get('clave');
     if (this.id === "0"){
@@ -83,6 +109,63 @@ export class AsistenteregistroComponent implements OnInit {
     }
   }
 
+  private _filter(value: string): any[] {
+    const filterValue = value;
+    if (value == ""){
+      console.log("esta vacio");
+      this.getMedicos();
+    }else{ return  this.medicos.filter(option => option.completo.toLowerCase().includes(filterValue) );}
+   
+  }
+
+  prueba(medico: any){  
+      this.unico = medico.nombre
+      this.asignar.push({medico: medico.nombre,
+      id_medic: medico.id_medico});
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+//add medico
+    if ((value || '').trim()) {
+      this.asignar.push({name: value.trim()});
+    }
+
+  //reset input
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(medico: any): void {
+    const index = this.asignar.indexOf(medico);
+
+    if (index >= 0) {
+      this.asignar.splice(index, 1);
+    }
+  }
+  getMedicos(){
+    this.medic_service.getMedicos().subscribe(
+    (response : any)  => {
+      var Resp = response;
+      var texto = Resp._body;
+      var jey = JSON.parse(texto); 
+      if (!jey.success){
+        this.success = jey.success; 
+        this.SnackBarError(jey.message);
+      }else {
+        this.medicos = jey.data;
+        for(let data of this.medicos){
+          data.completo = data.nombre +" " + data.ap_paterno;
+          }
+      }
+    error => {
+      console.log(<any>error);
+    }
+    }); 
+  }
 
   getAsistente(){
     this.asis_serv.getAsistente(this.id).subscribe(
@@ -114,7 +197,6 @@ export class AsistenteregistroComponent implements OnInit {
   }
 
   putAsistente(){
-    console.log(this.asistente);
     this.asis_serv.putAsistente(this.asistente).subscribe(
       (response : any)  => {
         var Resp = response;
@@ -129,6 +211,7 @@ export class AsistenteregistroComponent implements OnInit {
   }
 
   postAsistente(){
+    this.asistente.asignar = this.asignar
     this.asistente.permisos = '0,0,0,0,0,0,0,0,0,0'
     console.log(this.asistente);
     this.asis_serv.postAsistente(this.asistente).subscribe(

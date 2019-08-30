@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 
 
 
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     //const isSubmitted = form && form.submitted;
@@ -34,6 +35,7 @@ export class PacientesListComponent implements OnInit {
   displayedColumns = ['identifier', 'name', 'phone', 'email', 'options'];
   success;
   filteredOptions: Observable<Paciente[]>;
+
 
   constructor(private pac_service : PacienteService, private _snackBar: MatSnackBar,
     private router : Router) {
