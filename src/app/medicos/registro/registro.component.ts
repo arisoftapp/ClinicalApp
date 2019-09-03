@@ -70,6 +70,9 @@ export class RegistrarMedicoComponent implements OnInit {
     Validators.required,
     Validators.email
   ]);
+  calle_fc= new FormControl('', [
+    Validators.required
+  ]);
   
   telefono_fc = new FormControl('', [
     Validators.required,

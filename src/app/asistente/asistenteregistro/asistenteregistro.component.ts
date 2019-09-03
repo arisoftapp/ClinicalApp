@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import {Asistente} from '../../models/AsistenteModel'
 import { Validators, FormControl } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/login/login.component';
@@ -55,7 +55,10 @@ export class AsistenteregistroComponent implements OnInit {
   adicional_fc = new FormControl('', [
     Validators.pattern("^[0-9]*$")
   ]);
-  myControl = new FormControl();
+
+  myControl = new FormControl('', [
+    Validators.required
+  ]);
   public funcion : string = "";
   matcher = new MyErrorStateMatcher();
   est_respaldo: any;
@@ -74,7 +77,7 @@ export class AsistenteregistroComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   asignar: any[] = [];
-
+ 
  
 
   constructor(private actiavatedRouter: ActivatedRoute, private router : Router,
@@ -82,6 +85,12 @@ export class AsistenteregistroComponent implements OnInit {
   { 
 
   }
+
+  /*@HostListener('window:keyup', ['$event']) keyEvent(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+     this.registrarAsistente();
+   }
+  }*/
 
   onSubmit(){
     console.log("exito");
@@ -189,13 +198,10 @@ export class AsistenteregistroComponent implements OnInit {
   }
 
   registrarAsistente(){
-    console.log("registro")
-    if(this.id==0){
-      this.postAsistente();
-    }else{
-      this.putAsistente();
-    }
+    console.log(this.asistente)
+    
   }
+
 
   putAsistente(){
     this.asis_serv.putAsistente(this.asistente).subscribe(

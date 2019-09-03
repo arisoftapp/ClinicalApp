@@ -61,37 +61,37 @@
       <div>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Calle</mat-label>
-          <input matInput [(ngModel)]="medico.calle" name="calle">
+          <input matInput [(ngModel)]="medico.calle" [formControl]="calle_fc">
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 100px">
           <mat-label>No. exterior</mat-label>
-          <input matInput [(ngModel)]="medico.no_ext" [formControl]="noext_fc" name="ext"
+          <input matInput [(ngModel)]="medico.no_ext" [formControl]="noext_fc" required
           [errorStateMatcher]="matcher">
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 100px">
           <mat-label>No. interior</mat-label>
-          <input matInput [(ngModel)]="medico.no_int" [formControl]="noint_fc" name="int"
+          <input matInput [(ngModel)]="medico.no_int" [formControl]="noint_fc" required
           [errorStateMatcher]="matcher">
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Localidad</mat-label>
-          <input matInput [(ngModel)]="medico.ciudad" name="localidad">
+          <input matInput [(ngModel)]="medico.ciudad" name="localidad" required>
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Colonia</mat-label>
-          <input matInput [(ngModel)]="medico.colonia" name="colonia">
+          <input matInput [(ngModel)]="medico.colonia" name="colonia" required>
         </mat-form-field>
       </div>
       <div>
-        <mat-form-field appearance="outline" style="width: 300px">
+        <mat-form-field appearance="outline" style="width: 300px" >
           <mat-label>Estado</mat-label>
-          <mat-select  [(value)]="medico.estado_id" #entidad (selectionChange)='getMunicipios(entidad.value)'>
-            <mat-option *ngFor="let estado of Estados" [value]="estado.id_estado">
+          <mat-select  [(value)]="medico.estado_id" #entidad required (selectionChange)='getMunicipios(entidad.value)'>
+            <mat-option *ngFor="let estado of Estados" [value]="estado.id_estado" >
               {{estado.nombre_estado}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 300px">
+        <mat-form-field appearance="outline" style="width: 300px" >
           <mat-label>Municipio</mat-label>
           <mat-select [(value)]="medico.municipio_id">
             <mat-option *ngFor="let mun of Municipios" [value]="mun.id_municipio">
@@ -150,7 +150,7 @@
       <div>
         <mat-form-field appearance="outline" style="width: 400px">
           <mat-label>Universidad</mat-label>
-          <input matInput [(ngModel)]="medico.universidad" name="universidad">
+          <input matInput [(ngModel)]="medico.universidad" name="universidad" required>
         </mat-form-field>
       </div>
       <div>

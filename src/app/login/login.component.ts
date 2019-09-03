@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { UserService } from '../services/user.service';
@@ -44,6 +44,12 @@ export class LoginComponent implements OnInit {
     this.user = new Usuario ();
    }
 
+  @HostListener('window:keyup', ['$event']) keyEvent(event: KeyboardEvent) {
+         if (event.keyCode === 13) {
+          this.onSubmit();
+        }
+  }
+  
   ngOnInit() {
     this.into = this.service.getLogin();
       if (this.into){
