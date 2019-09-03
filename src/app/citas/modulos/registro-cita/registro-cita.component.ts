@@ -12,6 +12,8 @@ import { Medico } from 'src/app/models/MedicoModel';
 import { Router, ActivatedRoute } from '@angular/router';
 import { isDate } from 'util';
 import { AsistenteService } from 'src/app/services/asistente.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registro-cita',
@@ -20,6 +22,7 @@ import { AsistenteService } from 'src/app/services/asistente.service';
 })
 export class RegistroCitaComponent implements OnInit {
   Pacientes: Paciente [];
+  myControl = new FormControl();
   Tipos: any [];
   Estados : Entidad [];
   paciente : Paciente;
@@ -36,6 +39,8 @@ export class RegistroCitaComponent implements OnInit {
   min: any;
   id: any;
   tipo_usuario: any;
+  unico: any;
+  filteredOptions: Observable<Paciente[]>;
 
   constructor(private citas_serv: CitasService,private _snackBar: MatSnackBar, private paciente_serv: PacienteService,
     private medic_service: MedicoService, private  entidad_serv: EntidadService,  private router : Router,
@@ -70,7 +75,13 @@ export class RegistroCitaComponent implements OnInit {
     this.getMedicos();
     this.getPrioriadad();
     this.getTipo();
-  
+    //Filtrado de Paciententes autocompletado
+    this.filteredOptions = this.myControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
+
     if (localStorage.getItem("reagendar") === null) { 
       console.log("no existe");
     } else{ 
@@ -84,6 +95,18 @@ export class RegistroCitaComponent implements OnInit {
 
   }
 
+  private _filter(value: string): Paciente[] {
+    let filterValue: any = value;
+    
+    if (value == ""){
+      console.log("esta vacio");
+      this.getPacientes();
+    }else{ 
+     
+      return  this.Pacientes.filter(option => option.completo.toLowerCase().includes(filterValue));}
+   
+  }
+
   getAsisMedic(){
     let med_asis: any[] = [];
     this.asis_serv.getAsistenteMedico(this.id).subscribe(
@@ -94,7 +117,6 @@ export class RegistroCitaComponent implements OnInit {
         if (!jey.success){
           this.success = jey.success; 
           this.SnackBarError(jey.message);
-
         }else {
           let data: any = jey.data;
           
@@ -137,11 +159,14 @@ export class RegistroCitaComponent implements OnInit {
   }
 
   loadPaciente(paciente: any){
-    let pas = paciente;
+    this.unico = paciente.completo
+    let pas = paciente.id_paciente;
+    this.cita.id_paciente = paciente.id_paciente;
     let data_pac = this.Pacientes.filter(paciente => paciente.id_paciente == pas);
     this.data_paciente = data_pac[0];
     this.data = true  
   }
+
   getPacientes(){
     this.paciente_serv.getPacientes().subscribe(
       (response : any)  => {
@@ -150,6 +175,9 @@ export class RegistroCitaComponent implements OnInit {
         var jey = JSON.parse(texto); 
         if (jey.success){
           this.Pacientes = jey.data;
+          for(let data of this.Pacientes){
+            data.completo = data.nombre +" " + data.ap_paterno;
+            }
         }
       error => {
         console.log(<any>error);
@@ -310,6 +338,10 @@ export class RegistroCitaComponent implements OnInit {
     this.router.navigate(['/citas']); 
   }
   prueba(){
-    console.log(this.cita.fecha);
+    console.log(this.cita);
+  }
+
+  openAddDialog(id_pac) {
+    this.router.navigate(['pacientes/registrarPaciente/' + id_pac]);
   }
 }

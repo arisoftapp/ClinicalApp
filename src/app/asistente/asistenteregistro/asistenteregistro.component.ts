@@ -94,7 +94,7 @@ export class AsistenteregistroComponent implements OnInit {
     this.filteredOptions = this.myControl.valueChanges
     .pipe(
       startWith(''),
-      map(value => this._filter(value))
+      map(value => this._filterMedico(value))
     );
     this.asistente = new Asistente
     this.id = this.actiavatedRouter.snapshot.paramMap.get('clave');
@@ -109,13 +109,14 @@ export class AsistenteregistroComponent implements OnInit {
     }
   }
 
-  private _filter(value: string): any[] {
-    const filterValue = value;
+  private _filterMedico(value: string): any[] {
+    let filterValue = value;
     if (value == ""){
       console.log("esta vacio");
       this.getMedicos();
-    }else{ return  this.medicos.filter(option => option.completo.toLowerCase().includes(filterValue) );}
-   
+    }else{ 
+      filterValue = filterValue.toLowerCase();
+      return  this.medicos.filter(option => option.completo.toLowerCase().includes(filterValue) );}   
   }
 
   prueba(medico: any){  

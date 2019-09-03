@@ -5,28 +5,36 @@
 </div>
 <form #citaForm="ngForm"  (ngSubmit)="onSubmit()">
   <mat-card class="medic-card">
+    <mat-card-header>
+      <mat-card-subtitle>Información Médico</mat-card-subtitle>
+    </mat-card-header>
+    <div>
+      <mat-form-field appearance="outline" style="width: 300px; ">
+        <mat-label>Medico</mat-label>
+            <mat-select matInput [(ngModel)]="cita.id_medico" name="medico" >
+              <mat-option *ngFor="let medico of medicos" [value]="medico.id_medico">
+                {{medico.nombre}} {{medico.ap_paterno}} {{medico.ap_materno}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+  <mat-card class="medic-card" style="margin-top: 1rem">
   <mat-card-header>
-    <mat-card-subtitle>Información Paciente/Medico</mat-card-subtitle>
+    <mat-card-subtitle>Información Paciente <button mat-flat-button class="btn-add" (click)="openAddDialog(0)"><i class=" fas fa-plus"></i> registrar paciente</button></mat-card-subtitle>
   </mat-card-header>
   <div>
-  <mat-form-field appearance="outline" style="width: 300px">
-    <mat-label>Paciente</mat-label>
-        <mat-select matInput [(ngModel)]="cita.id_paciente" name="paciente" (selectionChange)='loadPaciente(cita.id_paciente)'>
-          <mat-option *ngFor="let pas of Pacientes" [value]="pas.id_paciente">
-            {{pas.nombre}}
-        </mat-option>
-      </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="outline" style="width: 300px; margin-left: 1rem">
-      <mat-label>Medico</mat-label>
-          <mat-select matInput [(ngModel)]="cita.id_medico" name="medico" >
-            <mat-option *ngFor="let medico of medicos" [value]="medico.id_medico">
-              {{medico.nombre}} {{medico.ap_paterno}} {{medico.ap_materno}}
+    <form class="example-form">
+      <mat-form-field appearance="outline" style="width: 300px" >
+        <input type="text" placeholder="Buscar Paciente" [(ngModel)]="unico" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)='loadPaciente($event.option.value)'>
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option.completo}} 
           </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-   
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
   </div>
 </mat-card>
 

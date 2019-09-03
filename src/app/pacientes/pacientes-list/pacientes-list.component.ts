@@ -54,11 +54,12 @@ export class PacientesListComponent implements OnInit {
     }
   
     private _filter(value: string): Paciente[] {
-      const filterValue = value;
+      let filterValue = value;
       if (value == ""){
         console.log("esta vacio");
         this.getPacientes();
-      }else{ return  this.pacientes.filter(option => option.completo.toLowerCase().includes(filterValue) );}
+      }else{ 
+        return  this.pacientes.filter(option => option.completo.toLowerCase().includes(filterValue) );}
      
     }
  
