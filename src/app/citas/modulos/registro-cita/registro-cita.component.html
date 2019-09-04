@@ -11,138 +11,137 @@
     <div>
       <mat-form-field appearance="outline" style="width: 300px; ">
         <mat-label>Medico</mat-label>
-            <mat-select matInput [(ngModel)]="cita.id_medico" name="medico" >
-              <mat-option *ngFor="let medico of medicos" [value]="medico.id_medico">
-                {{medico.nombre}} {{medico.ap_paterno}} {{medico.ap_materno}}
-            </mat-option>
-          </mat-select>
+        <mat-select matInput [(ngModel)]="cita.id_medico" name="medico" >
+          <mat-option *ngFor="let medico of medicos" [value]="medico.id_medico">
+            {{medico.nombre}} {{medico.ap_paterno}} {{medico.ap_materno}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
   </mat-card>
 
   <mat-card class="medic-card" style="margin-top: 1rem">
-  <mat-card-header>
-    <mat-card-subtitle>Información Paciente <button mat-flat-button class="btn-add" (click)="openAddDialog(0)"><i class=" fas fa-plus"></i> registrar paciente</button></mat-card-subtitle>
-  </mat-card-header>
-  <div>
-    <form class="example-form">
-      <mat-form-field appearance="outline" style="width: 300px" >
-        <input type="text" placeholder="Buscar Paciente" [(ngModel)]="unico" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)='loadPaciente($event.option.value)'>
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option.completo}} 
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </form>
-  </div>
-</mat-card>
-
-<!--Datos del Paciente-->
-<div  [hidden]="!data" >
-<mat-card class="paciente-card" style="margin-top: 1rem">
-    <mat-card-header>
-      <mat-card-subtitle>Datos del paciente</mat-card-subtitle>
-    </mat-card-header>
-    <div>
-      <table class="egt">
-          <tr style="margin-left: 3rem !important">
-            <td>
-                <img src="../../../../assets/paciente.jpg" alt="" style="width: 100px; height: 100px;">
-            </td>
-            <td>
-              <mat-label  style="margin-left: 3rem !important">Nombre Completo: {{data_paciente.nombre}} {{data_paciente.ap_paterno}} {{data_paciente.ap_materno}}</mat-label>
-              <br> <mat-label  style="margin-left: 3rem !important">Enfermedades Cronicas: {{data_paciente.cronicas}} </mat-label>
-              <br><mat-label  style="margin-left: 3rem !important">Telefono: {{data_paciente.tel_cel}} </mat-label>
-            </td>
-          </tr>
-      </table> 
-    </div><br>
-</mat-card>
-</div>
-<!--ASIGNAR FECHA Y HORA DE LA CITA-->
-<mat-card class="medic-card" style="margin-top: 1rem">
-    <mat-card-header>
-        <mat-card-subtitle>Fecha</mat-card-subtitle>
+      <mat-card-header>
+        <mat-card-subtitle>Información Paciente <button mat-flat-button class="btn-add" (click)="openAddDialog(0)"><i class=" fas fa-plus"></i> registrar paciente</button></mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content>
-          <div style="width: 600px">
-            <mat-form-field appearance="outline" style="width: 200px" >
-                <mat-label>Fecha De la cita</mat-label> 
-                <input matInput [matDatepicker]="fecha" [(ngModel)]="cita.fecha" name="fecha" (change)="prueba()">
-                <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
-                <mat-datepicker #fecha disabled="false"></mat-datepicker>
-            </mat-form-field> <br>
-              <mat-label>Hora de incio</mat-label> <br>
-              <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem;" >
-                  <mat-label>Hora </mat-label>
-                      <mat-select matInput [(ngModel)]="cita.hora" name="hora"  (selectionChange)='setHora(cita.hora)'>
-                        <mat-option *ngFor="let hora of horas" [value]="hora">
-                          {{hora}} 
-                      </mat-option>
-                    </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="outline" style="width: 100px;">
-                  <mat-label>Minutos</mat-label>
-                      <mat-select matInput [(ngModel)]="min" name="min" (selectionChange)='actualizarHora()' >
-                        <mat-option *ngFor="let minut of minutos" [value]="minut">
-                          {{minut}} 
-                      </mat-option>
-                    </mat-select>
-              </mat-form-field> 
-              <br>
-              <mat-label>Hora de Fin</mat-label> <br>
-              <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem;">
-                  <mat-label>Hora </mat-label>
-                      <mat-select matInput [(ngModel)]="cita.hora_f" name="hora_f" (selectionChange)='actualizarDuracion()'>
-                        <mat-option *ngFor="let hora of horas_f" [value]="hora">
-                          {{hora}} 
-                      </mat-option>
-                    </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="outline" style="width: 100px; margin-right: 3rem">
-                  <mat-label>Minutos</mat-label>
-                      <mat-select matInput [(ngModel)]="min_f" name="min_f" (selectionChange)='actualizarDuracion()'>
-                        <mat-option *ngFor="let minut of minutos" [value]="minut">
-                          {{minut}} 
-                      </mat-option>
-                    </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="outline" style="width: 100px"  >
-                  <mat-label>Duración</mat-label>
-                  <input matInput type="number" [(ngModel)]="cita.duracion" min="1" max="120" name="duracion" (change)="actualizarHora()">    
-              </mat-form-field >
-            </div>
-      </mat-card-content>
-</mat-card>
+      <div>
+        <form class="example-form">
+        <mat-form-field appearance="outline" style="width: 300px" >
+          <input type="text" placeholder="Buscar Paciente" [(ngModel)]="unico" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)='loadPaciente($event.option.value)'>
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option.completo}} 
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        </form>
+      </div>
+  </mat-card>
 
-<!-- ******* INFORMACIÓN DE LA CITA ******* -->
-<mat-card class="medic-card" style="margin-top: 1rem">
+  <!--Datos del Paciente-->
+  <div  [hidden]="!data" >
+    <mat-card class="paciente-card" style="margin-top: 1rem">
+      <mat-card-header>
+        <mat-card-subtitle>Datos del paciente</mat-card-subtitle>
+      </mat-card-header>
+      <div>
+        <table class="egt">
+            <tr style="margin-left: 3rem !important">
+              <td>
+                  <img src="../../../../assets/paciente.jpg" alt="" style="width: 100px; height: 100px;">
+              </td>
+              <td>
+                <mat-label  style="margin-left: 3rem !important">Nombre Completo: {{data_paciente.nombre}} {{data_paciente.ap_paterno}} {{data_paciente.ap_materno}}</mat-label>
+                <br> <mat-label  style="margin-left: 3rem !important">Enfermedades Cronicas: {{data_paciente.cronicas}} </mat-label>
+                <br><mat-label  style="margin-left: 3rem !important">Telefono: {{data_paciente.tel_cel}} </mat-label>
+              </td>
+            </tr>
+        </table> 
+      </div><br>
+    </mat-card>
+  </div>
+  <!--ASIGNAR FECHA Y HORA DE LA CITA-->
+  <mat-card class="medic-card" style="margin-top: 1rem">
+    <mat-card-header>
+      <mat-card-subtitle>Fecha</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div style="width: 600px">
+        <mat-form-field appearance="outline" style="width: 200px" >
+          <mat-label>Fecha De la cita</mat-label> 
+          <input matInput [matDatepicker]="fecha" [(ngModel)]="cita.fecha" name="fecha" (change)="prueba()">
+          <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
+          <mat-datepicker #fecha disabled="false"></mat-datepicker>
+        </mat-form-field> <br>
+        <mat-label>Hora de incio</mat-label> <br>
+          <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem;" >
+            <mat-label>Hora </mat-label>
+            <mat-select matInput [(ngModel)]="cita.hora" name="hora"  (selectionChange)='setHora(cita.hora)'>
+              <mat-option *ngFor="let hora of horas" [value]="hora">
+                {{hora}} 
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 100px;">
+            <mat-label>Minutos</mat-label>
+            <mat-select matInput [(ngModel)]="min" name="min" (selectionChange)='actualizarHora()' >
+              <mat-option *ngFor="let minut of minutos" [value]="minut">
+                {{minut}} 
+              </mat-option>
+            </mat-select>
+          </mat-form-field> 
+          <br>
+          <mat-label>Hora de Fin</mat-label> <br>
+          <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem;">
+            <mat-label>Hora </mat-label>
+            <mat-select matInput [(ngModel)]="cita.hora_f" name="hora_f" (selectionChange)='actualizarDuracion()'>
+              <mat-option *ngFor="let hora of horas_f" [value]="hora">
+                {{hora}} 
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 100px; margin-right: 3rem">
+            <mat-label>Minutos</mat-label>
+              <mat-select matInput [(ngModel)]="min_f" name="min_f" (selectionChange)='actualizarDuracion()'>
+                <mat-option *ngFor="let minut of minutos" [value]="minut">
+                  {{minut}} 
+                </mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 100px"  >
+            <mat-label>Duración</mat-label>
+            <input matInput type="number" [(ngModel)]="cita.duracion" min="1" max="120" name="duracion" (change)="actualizarHora()">    
+          </mat-form-field >
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- ******* INFORMACIÓN DE LA CITA ******* -->
+  <mat-card class="medic-card" style="margin-top: 1rem">
     <mat-card-header>
       <mat-card-subtitle>Información médica</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <div>
-        <mat-form-field appearance="outline" style="width: 300px;">
-            <mat-label>Prioridad de la cita</mat-label>
-                <mat-select matInput [(ngModel)]="cita.id_prioridad" name="prioridad" >
-                  <mat-option *ngFor="let prio of prioridades" [value]="prio.id_prioridad">
-                    {{prio.prioridad}} 
-                </mat-option>
-              </mat-select>
-          </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 300px;">
+        <mat-label>Prioridad de la cita</mat-label>
+        <mat-select matInput [(ngModel)]="cita.id_prioridad" name="prioridad" >
+            <mat-option *ngFor="let prio of prioridades" [value]="prio.id_prioridad">
+              {{prio.prioridad}} 
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
       </div>
       <div>
-          <mat-form-field appearance="outline" style="width: 300px;">
-              <mat-label>Tipo de Cita</mat-label>
-                  <mat-select matInput [(ngModel)]="cita.id_tipo" name="tipo" >
-                    <mat-option *ngFor="let tipo of Tipos" [value]="tipo.id_tipo">
-                      {{tipo.tipo}} 
-                  </mat-option>
-              </mat-select>
-          </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 300px;">
+          <mat-label>Tipo de Cita</mat-label>
+          <mat-select matInput [(ngModel)]="cita.id_tipo" name="tipo" >
+            <mat-option *ngFor="let tipo of Tipos" [value]="tipo.id_tipo">
+                          {{tipo.tipo}} 
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-  
       <div>
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Sintomas</mat-label>
@@ -150,17 +149,17 @@
         </mat-form-field>
       </div>
     </mat-card-content>
-</mat-card>
+  </mat-card>
 
-<!--  ******* OPCIONES ******-->
-<mat-card class="medic-card">
+  <!--  ******* OPCIONES ******-->
+  <mat-card class="medic-card">
     <mat-card-content>
       <div style="text-align: right;">
-          <button mat-button (click)="cancelar()">Cancelar</button>
-          <button mat-button color="primary" [disabled]="!citaForm.form.valid" (click)="registrar()">Guardar</button>
-          <mat-error *ngIf="!citaForm.form.valid">
-              Complete todos los campos requeridos
-          </mat-error>
+        <button mat-button (click)="cancelar()">Cancelar</button>
+        <button mat-button color="primary" [disabled]="!citaForm.form.valid" (click)="registrar()">Guardar</button>
+        <mat-error *ngIf="!citaForm.form.valid">
+          Complete todos los campos requeridos
+        </mat-error>
       </div>
     </mat-card-content>
   </mat-card>
