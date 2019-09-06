@@ -100,6 +100,7 @@ export class RegistroCitaComponent implements OnInit {
     
     if (value == ""){
       console.log("esta vacio");
+      this.loadPaciente("vacio")
       this.getPacientes();
     }else{ 
      
@@ -159,12 +160,18 @@ export class RegistroCitaComponent implements OnInit {
   }
 
   loadPaciente(paciente: any){
-    this.unico = paciente.completo
+    if(paciente == "vacio"){
+      this.data = false  
+    }
+    else{
+      this.unico = paciente.completo
     let pas = paciente.id_paciente;
     this.cita.id_paciente = paciente.id_paciente;
     let data_pac = this.Pacientes.filter(paciente => paciente.id_paciente == pas);
     this.data_paciente = data_pac[0];
     this.data = true  
+    }
+   
   }
 
   getPacientes(){

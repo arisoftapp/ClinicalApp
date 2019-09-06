@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -32,6 +32,15 @@ export class TelErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./pacientes-registro.component.css']
 })
 export class PacientesRegistroComponent implements OnInit {
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+     
+    }
+
+  }
+  
   paciente : Paciente;
   public message : string;
   Estados : Entidad [];
@@ -40,6 +49,7 @@ export class PacientesRegistroComponent implements OnInit {
   funcion : string;
   success;
   detalles: boolean;
+  guardar: boolean= true; 
   nombre_fc = new FormControl('', [
     Validators.required,
   ]);
@@ -79,6 +89,7 @@ export class PacientesRegistroComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   tel_matcher = new TelErrorStateMatcher();
 
+
   constructor(public entidad_serv : EntidadService, private activatedRouter: ActivatedRoute, private pac_service : PacienteService, 
     private _snackBar: MatSnackBar, private router : Router ) { 
     registerLocaleData(localeMX); 
@@ -102,6 +113,7 @@ export class PacientesRegistroComponent implements OnInit {
     this.getEstados();
   } 
 
+
   getPaciente(){
     this.pac_service.getPaciente(this.paciente.id_paciente).subscribe(
       (response : any)  => {
@@ -124,12 +136,13 @@ export class PacientesRegistroComponent implements OnInit {
   }
 
   onSubmit(){
-    if( this.paciente.id_paciente === "0" ) {
+   if( this.paciente.id_paciente === "0" ) {
       this.postPaciente();
     } else {
       this.putPaciente();
     }
   }
+ 
 
   putPaciente(){
     this.pac_service.putPaciente(this.paciente).subscribe(

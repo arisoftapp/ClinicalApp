@@ -123,7 +123,7 @@
 <mat-card class="medic-card">
     <mat-card-content>
       <div style="text-align: right;">
-          <button mat-button (click)="onNoClick()">Cancelar</button>
+          <button type="button" mat-button (click)="onNoClick()">Cancelar</button>
           <button mat-button color="primary" (click)="registrarAsistente()" [disabled]="!medicoForm.form.valid">Guardar</button>
           <mat-error *ngIf="!medicoForm.form.valid">
               Complete todos los campos requeridos

@@ -56,6 +56,8 @@ export class PermisosComponent implements OnInit {
           for(let i in this.asistentes){
             this.asistentes[i].tipo_usuario = 2;
           }
+          this.dataSource2 = new MatTableDataSource(this.asistentes);
+          this.dataSource2.paginator = this.paginator2;
         }
         error => {
         console.log(<any>error);
@@ -77,7 +79,9 @@ export class PermisosComponent implements OnInit {
         for(let i in this.medicos){
           this.medicos[i].tipo_usuario = 1;
         }    
-       
+        this.dataSource = new MatTableDataSource(this.medicos);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
       error => {
       console.log(<any>error);
@@ -104,14 +108,10 @@ export class PermisosComponent implements OnInit {
 
   prueba(tipo: any){
     if( tipo == 'maestro'){
-      this.dataSource = new MatTableDataSource(this.medicos);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      this.getMedicos()
     }else{
-      console.log(this.asistentes)
-      this.dataSource = new MatTableDataSource(this.asistentes);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      this.getAsistentes()
+     
     }
     
   }
