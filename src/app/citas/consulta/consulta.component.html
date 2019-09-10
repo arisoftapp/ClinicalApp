@@ -1,0 +1,64 @@
+<mat-card class="medic-card" style="margin-top: 1rem">
+  <mat-card-header>
+    <mat-card-subtitle>Información médica</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+    <!--Peso-->
+    <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
+        <mat-label>Peso/KG</mat-label>
+        <input matInput required cdkFocusInitial name="nombre">
+    </mat-form-field>
+    <!--Altura-->
+    <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
+        <mat-label>Altura/Cm</mat-label>
+        <input matInput required cdkFocusInitial name="nombre">
+    </mat-form-field>
+    <!--Presion-->
+    <mat-form-field appearance="outline" style="width: 100px" >
+        <mat-label>Presión</mat-label>
+        <input matInput required cdkFocusInitial name="nombre">
+    </mat-form-field>
+    <!--Azucar-->
+    <mat-form-field appearance="outline" style="width: 100px" >
+        <mat-label>Azucar</mat-label>
+        <input matInput required cdkFocusInitial name="nombre">
+    </mat-form-field>
+    </div>
+
+    <!--SINTOMAS-->
+    <div> 
+    <mat-form-field appearance="outline" style="width: 300px">
+      <mat-label>Sintomas</mat-label>
+      <textarea matInput [(ngModel)]="sintomas" name="alergia"></textarea>
+    </mat-form-field>
+  </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="medic-card" style="margin-top: 1rem">
+    <mat-card-header>
+      <mat-card-subtitle>Diagnostico</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+    <!--Diagnostico-->
+    <div> 
+        <mat-form-field appearance="outline" style="width: 300px">
+          <mat-label>Diagnostico</mat-label>
+          <textarea matInput [(ngModel)]="sintomas" name="alergia"></textarea>
+        </mat-form-field>
+    </div>
+      
+    </mat-card-content>
+</mat-card> 
+
+<!--  ******* OPCIONES CANCELAR/GUARDAR ******-->
+<mat-card class="medic-card">
+  <mat-card-content>
+    <div style="text-align: right;">
+      <button type="button" mat-button (click)="cancelar()">Cancelar</button>
+      <button mat-button color="primary"  (click)="registrar()">Guardar</button>
+    </div>
+  </mat-card-content>
+</mat-card>

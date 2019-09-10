@@ -15,6 +15,7 @@ import { AsistenteService } from '../services/asistente.service';
 })
 
 export class PermisosComponent implements OnInit {
+  dialogRef;
   success: any;
   medicos : Medico [];
   asistentes :any [];
@@ -39,7 +40,6 @@ export class PermisosComponent implements OnInit {
   ngOnInit() { 
     this.getMedicos();
     this.getAsistentes();
-    
   }
 
   getAsistentes(){
@@ -96,10 +96,10 @@ export class PermisosComponent implements OnInit {
 
 
   openDetalles(user: any, tipo: any){
+    let medic: any = this.medicos;
+    let asistent: any = this.asistentes;
     const dialogRef = this.PermisosDialog.open(PermisosDetalle, {
-      data:{user}
-      
-     
+      data:{user, medic, asistent}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getMedicos()
@@ -111,9 +111,7 @@ export class PermisosComponent implements OnInit {
       this.getMedicos()
     }else{
       this.getAsistentes()
-     
     }
-    
   }
   
 }
@@ -135,19 +133,23 @@ export class PermisosDetalle implements OnInit{
   username: any;
   password: any;
   success: any;
-
-  constructor( public asis_serv: AsistenteService, public permisosDialog: MatDialogRef<PermisosDetalle>,private _snackBar: MatSnackBar,private medic_service: MedicoService, private router : Router,
+  user: any;
+  asistents: any;
+  medics: any;
+  user_extist: boolean = false;
+  constructor( public asis_serv: AsistenteService, public permisosDialog: MatDialogRef<PermisosDetalle>,
+    private _snackBar: MatSnackBar,private medic_service: MedicoService, private router : Router,
     @Inject (MAT_DIALOG_DATA) public data: any) {
       this.permisos = new Permisos;
     }
 
     ngOnInit() {
-      this.data = this.data.user
-      
-      console.log(this.data);
-      this.username = this.data.username;
-      this.password = this.data.password;
-      this.arrayPermisos = this.data.permisos.split(",");
+      this.user = this.data.user;
+      this.medics = this.data.medic;
+      this.asistents = this.data.asistent;
+      this.username = (this.user.username == "" || this.user.username == "null") ?  "": this.user.username;
+      this.password = (this.user.username == "" || this.user.username == "null") ?  "": this.user.password;
+      this.arrayPermisos = this.user.permisos.split(",");
       this.permisos.inicio = this.arrayPermisos[0]>0?  true: false;
       this.permisos.citas = this.arrayPermisos[1]>0?  true: false;
       this.permisos.calendario = this.arrayPermisos[2]>0?  true: false;
@@ -173,21 +175,61 @@ export class PermisosDetalle implements OnInit{
           cadena += ",0"
         }
       }
+      if (this.username=="" || this.username == undefined){
+        if(this.user.tipo_usuario == 1){
+          this.putMedico();
+          this.permisosDialog.close();
+        }else{
+          this.putAsistentes();
+          this.permisosDialog.close();
+        }
 
-      this.data.permisos = cadena;
-      this.data.username = this.username;
-      this.data.password = this.password;
-      console.log(this.data);
-      if(this.data.tipo_usuario == 1){
-        this.putMedico()
-      }else{
-        this.putAsistentes();
+      }else{   
+        this.user.permisos = cadena;
+        this.user.username = this.username;
+        this.user.password = this.password;
+        let user_name = this.username
+        
+        if(this.user.tipo_usuario == 1){
+          let id_user = this.user.id_medico
+          let exist = this.medics.find(function(element){ 
+            if(element.username == user_name && element.id_medico != id_user){
+              return true;
+            }else{
+              return false;
+            }
+          });
+
+          if (exist == undefined || exist == null){
+            this.putMedico();
+            this.permisosDialog.close();
+          }else{
+            this.user_extist= true;
+          }
+        }else{
+          let id_user = this.user.id_asistente
+          let exist = this.asistents.find(function(element){ 
+            if(element.username == user_name && element.id_asistente != id_user){
+              return true;
+            }else{
+              return false;
+            }
+          });
+          
+          if (exist == undefined || exist == null){
+            this.putAsistentes();
+            this.permisosDialog.close();
+          }else{
+            this.user_extist= true;
+          }
+        }
       }
+     
       
     }
 
     putAsistentes(){
-      this.asis_serv.putAsistente(this.data).subscribe(
+      this.asis_serv.putAsistente(this.user).subscribe(
         (response : any)  => {
           var Resp = response;
           var texto = Resp._body;
@@ -201,7 +243,7 @@ export class PermisosDetalle implements OnInit{
     } 
 
     putMedico(){
-       this.medic_service.putMedico(this.data).subscribe(
+       this.medic_service.putMedico(this.user).subscribe(
          (response : any)  => {
            var Resp = response;
            var texto = Resp._body;

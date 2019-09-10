@@ -30,6 +30,7 @@ import { PermisosComponent, PermisosDetalle} from './permisos/permisos.component
 import { AsistenteComponent } from './asistente/asistente.component';
 import { AsistentelistComponent } from './asistente/asistentelist/asistentelist.component';
 import { AsistenteregistroComponent } from './asistente/asistenteregistro/asistenteregistro.component';
+import { ConsultaComponent } from './citas/consulta/consulta.component';
 
 
 
@@ -63,7 +64,8 @@ import { AsistenteregistroComponent } from './asistente/asistenteregistro/asiste
     PermisosDetalle,
     AsistenteComponent,
     AsistentelistComponent,
-    AsistenteregistroComponent
+    AsistenteregistroComponent,
+    ConsultaComponent
      
   ],
   imports: [

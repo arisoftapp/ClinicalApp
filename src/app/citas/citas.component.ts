@@ -268,10 +268,12 @@ export class CitasComponent implements OnInit {
   templateUrl: './dialogs/detalles_cita.html',
   styleUrls: ['./citas.component.css']
 })
-export class CitaDetalle{
+export class CitaDetalle implements OnInit{
+  
   dtl_cita: any;
   dtl_status: boolean;
   success: any;
+  tipo: any;
   constructor( public citas_serv : CitasService, private _snackBar: MatSnackBar, private router : Router,
     public CitaDialog: MatDialogRef<CitaDetalle>,
     @Inject (MAT_DIALOG_DATA) public data: any) {
@@ -282,6 +284,23 @@ export class CitaDetalle{
         this.dtl_status = false;
       };
     }
+
+    ngOnInit(): void {
+     const usuario = JSON.parse(localStorage.getItem("puesto")) 
+   
+     if(usuario == "Médico"){
+       this.tipo == true
+     }else{
+       this.tipo= false
+     }
+     
+   }
+
+   iniciarConsulta(){
+   
+      this.router.navigate(['/citas/consultaMedica']); 
+   }
+
 
     putStatus(id: number){
       if(this.dtl_status == false){

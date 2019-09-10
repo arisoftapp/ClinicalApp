@@ -15,6 +15,7 @@ import { ConsultoriosComponent } from './consultorios/consultorios.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
 import { RegistroCitaComponent } from './citas/modulos/registro-cita/registro-cita.component';
 import { CitasListComponent } from './citas/citas-list/citas-list.component';
+import { ConsultaComponent } from './citas/consulta/consulta.component';
 import{ChatComponent} from './chat/chat.component';
 import {AuthService} from './services/auth.service';
 import{PermisosComponent} from './permisos/permisos.component';
@@ -33,7 +34,8 @@ const routes: Routes = [
   ] },
   { path : 'citas', component : CitasListComponent, canActivate: [AuthService], children: [
     {path : '', component : CitasComponent},
-    {path : "registrarCita", component : RegistroCitaComponent}
+    {path : "registrarCita", component : RegistroCitaComponent},
+    {path : "consultaMedica", component : ConsultaComponent}
   ] },
   { path : 'calendario', component : CalendarioComponent , canActivate: [AuthService]},
   { path : 'pacientes', component : PacientesComponent, canActivate: [AuthService], children : [

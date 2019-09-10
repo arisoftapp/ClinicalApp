@@ -29,7 +29,7 @@
 </mat-card-content>
 <mat-card-actions>
   <button  mat-raised-button (click)="putStatus(1)" matDialogClose> <a [hidden] ="!dtl_status" > Cancelar Cita </a> <a [hidden] ="dtl_status" > Activar Cita </a></button>
- 
-  <button mat-raised-button color="primary" (click)="reagendar()" matDialogClose>Reagendar cita</button>
+  <button mat-raised-button color="primary" (click)="iniciarConsulta()" *ngIf="!tipo" matDialogClose>Iniciar consulta</button>
+  <button mat-raised-button color="primary" (click)="reagendar()" *ngIf="tipo" matDialogClose>Reagendar cita</button>
 </mat-card-actions>
 </mat-card>
