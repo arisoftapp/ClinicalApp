@@ -273,7 +273,7 @@ export class CitaDetalle implements OnInit{
   dtl_cita: any;
   dtl_status: boolean;
   success: any;
-  tipo: any;
+  tipo: boolean;
   constructor( public citas_serv : CitasService, private _snackBar: MatSnackBar, private router : Router,
     public CitaDialog: MatDialogRef<CitaDetalle>,
     @Inject (MAT_DIALOG_DATA) public data: any) {
@@ -283,16 +283,20 @@ export class CitaDetalle implements OnInit{
       }else{
         this.dtl_status = false;
       };
+      const usuario = JSON.parse(localStorage.getItem("puesto")) 
+   
+     if(usuario == "Médico"){
+       console.log(usuario);
+       
+       this.tipo = true
+     }else{
+      console.log(usuario);
+       this.tipo= false
+     }
     }
 
     ngOnInit(): void {
-     const usuario = JSON.parse(localStorage.getItem("puesto")) 
-   
-     if(usuario == "Médico"){
-       this.tipo == true
-     }else{
-       this.tipo= false
-     }
+     
      
    }
 
