@@ -36,9 +36,12 @@ export class CitasComponent implements OnInit {
   respaldo_citas: any [] =[];
   cita: Cita;
   tipo_usuario: any;
+  checked: boolean = false;
+  title_check = "Mostrar Todos"
 
   constructor(private asis_serv: AsistenteService, private medic_service : MedicoService, public citas_serv : CitasService, private _snackBar: MatSnackBar,
-    private router : Router, public addDialog: MatDialog) {       
+    private router : Router, public addDialog: MatDialog) {   
+       
     }
 
   ngOnInit() {
@@ -54,7 +57,21 @@ export class CitasComponent implements OnInit {
       this.getMedicos();
       this.selec = true;
     }
+  
   }
+
+  onChange() {
+    if(this.checked == true){
+      this.title_check = "Mostrar Activos";
+      this.getCitas();
+    }else{
+      this.title_check = "Mostrar Todos";
+      this.checked = true
+      this.citas = this.citas.filter(cita => cita.status == 1);
+    }
+  } 
+
+  
 //Asignar los medicos que le corresponden al asistente
   getAsisMedic(){
     let med_asis: any[] = [];
@@ -66,7 +83,6 @@ export class CitasComponent implements OnInit {
         if (!jey.success){
           this.success = jey.success; 
           this.SnackBarError(jey.message);
-
         }else {
           let data: any = jey.data;
           
@@ -135,6 +151,11 @@ export class CitasComponent implements OnInit {
             //filtrar solo las cintas del medico logueado **en caso de ser medico**
             this.getCitasMedico(this.id);
           }
+          if(this.checked== true){
+            this.checked = false;
+          }else{
+            this.onChange()
+          }
         }
       error => {
         console.log(<any>error);
@@ -175,7 +196,7 @@ export class CitasComponent implements OnInit {
   }
 
   //filtrado de citas por medico
-  getCitasMedico(id_medico: any){
+  getCitasMedico(id_medico: any){ 
     this.respaldo_citas = this.respaldo_citas.filter(cita => cita.id_medico == id_medico);
   }
 
@@ -240,6 +261,7 @@ export class CitasComponent implements OnInit {
         this.citas.push(cita) 
       }
     }
+    
   } 
 
   SnackBarError(message: string) {
@@ -278,26 +300,25 @@ export class CitaDetalle implements OnInit{
     public CitaDialog: MatDialogRef<CitaDetalle>,
     @Inject (MAT_DIALOG_DATA) public data: any) {
       this.dtl_cita = data.cita;
+      console.log(this.dtl_cita);
+      localStorage.setItem('cita', this.dtl_cita.id_cita);
+      localStorage.setItem('paciente', this.dtl_cita.id_paciente);
       if(this.dtl_cita.status == 1){
         this.dtl_status = true;
       }else{
         this.dtl_status = false;
       };
-      const usuario = JSON.parse(localStorage.getItem("puesto")) 
-   
-     if(usuario == "Médico"){
-       console.log(usuario);
-       
-       this.tipo = true
-     }else{
-      console.log(usuario);
-       this.tipo= false
-     }
+      const usuario = JSON.parse(localStorage.getItem("puesto")); 
+      if(usuario == "Médico"){
+        console.log(usuario);
+        this.tipo = true
+      }else{
+        console.log(usuario);
+        this.tipo= false
+      }
     }
 
-    ngOnInit(): void {
-     
-     
+  ngOnInit(): void { 
    }
 
    iniciarConsulta(){
@@ -306,26 +327,26 @@ export class CitaDetalle implements OnInit{
    }
 
 
-    putStatus(id: number){
-      if(this.dtl_status == false){
-        this.dtl_cita.status = 1;
-      }else if(this.dtl_status == true){
-        this.dtl_cita.status = 2;
-      }
-       this.citas_serv.putStatus(this.dtl_cita).subscribe(
-         (response : any)  => {
-           var Resp = response;
-           var texto = Resp._body;
-           var jey = JSON.parse(texto);
-           this.success = jey.success;
-           this.SnackBarError(jey.message);
-           if (jey.success){
-             if(id != 2){
-              this.router.navigate(['citas']);
-             }
+   putStatus(id: number){
+    if(this.dtl_status == false){
+      this.dtl_cita.status = 1;
+    }else if(this.dtl_status == true){
+      this.dtl_cita.status = 2;
+    }
+     this.citas_serv.putStatus(this.dtl_cita).subscribe(
+       (response : any)  => {
+         var Resp = response;
+         var texto = Resp._body;
+         var jey = JSON.parse(texto);
+         this.success = jey.success;
+         this.SnackBarError(jey.message);
+         if (jey.success){
+           if(id != 2){
+            this.router.navigate(['citas']);
            }
-       });
-     } 
+         }
+     });
+   } 
 
      reagendar(){
       if(this.dtl_status == true){

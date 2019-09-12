@@ -2,8 +2,8 @@
   <div class="row">
     <div class="title-row">
       <h2>Citas </h2>
-      
-      <mat-form-field class="combo" appearance=" "  *ngIf="selec === true">
+      <!--SELECCIONAR MEDICO-->
+      <mat-form-field matTooltip="Filtrar citas por médico" class="combo" appearance=" "  *ngIf="selec === true">
         <span matPrefix class="nav-icon fas fa-user-md combo-icon"></span>
         <mat-select  [(value)]="medico.id_medico" #medico [(ngModel)]="id_medic" (selectionChange)='getMedicoCitas(medico.id_medico)' placeholder="-- Seleccione médico --">
           <mat-option value = "0">General</mat-option>
@@ -12,8 +12,8 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
- 
-      <mat-form-field class="combo" appearance=" ">
+      <!--FECHA-->
+      <mat-form-field matTooltip="Filtrar citas por fecha" class="combo" appearance=" ">
           <span matPrefix class="nav-icon far fa-calendar combo-icon"></span>
           <mat-select [(value)]="dia" (selectionChange)='getCitasDia(dia)' style="padding-bottom: 10px">
             <mat-option value = "1">Hoy</mat-option>
@@ -26,23 +26,24 @@
           <mat-datepicker-toggle matSuffix [for]="fecha_cita" ></mat-datepicker-toggle>
           <mat-datepicker #fecha_cita disabled="false" ></mat-datepicker>
         </mat-form-field>
-          
-      <button mat-flat-button class="btn-add" (click)="openAddDialog(cita)"><i class=" fas fa-plus"></i> nueva cita</button>
+        <!--NUEVA CITA-->
+      <button mat-flat-button matTooltip="Agendar nueva cita" class="btn-add" (click)="openAddDialog(cita)"><i class=" fas fa-plus"></i> nueva cita</button>
     </div>
   </div> 
-  
+  <!--VER OTRA FECHA-->
   <div [hidden]="(citas).length" style="text-align: center;" ><span class="span-nocitas"> <mat-icon class="material-icons-rounded">warning</mat-icon> <p>No hay citas registradas para este día</p> </span></div>
   <div align = "right" [hidden]="!(citas).length">
     <mat-button-toggle-group  #view="matButtonToggleGroup" value="card">
-      <mat-button-toggle value="card" aria-label="Text align left" >
+      <mat-slide-toggle matTooltip="Filtrar citas canceladas" (change)="onChange()">{{title_check}}</mat-slide-toggle>
+      <mat-button-toggle  matTooltip="Mostrar Citas en Formato Carta" value="card" aria-label="Text align left" >
         <mat-icon>view_module</mat-icon>
       </mat-button-toggle>
-      <mat-button-toggle value="list" aria-label="Text align center">
+      <mat-button-toggle matTooltip="Mostrar Citas en Formato Lista"  value="list" aria-label="Text align center">
         <mat-icon>reorder</mat-icon>
       </mat-button-toggle>
     </mat-button-toggle-group>
   </div>
- 
+ <!--CARD VIEW-->
   <div *ngIf="view.value === 'card'">
     
     <mat-card  *ngFor="let cita of citas" class="example-card" >
@@ -68,6 +69,7 @@
       </mat-card-actions>
     </mat-card>
   </div>
+  <!--TABLA-->
   <div *ngIf="view.value === 'list'" style="width: 100%">
     <table mat-table [dataSource]="citas"  style="width: 100%; background: #f6f7fb;">
         <ng-container matColumnDef="time" >
