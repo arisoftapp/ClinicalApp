@@ -57,6 +57,7 @@
       <mat-divider></mat-divider>
       <mat-card-actions style="text-align: center;">
         <button mat-button (click)="openAddDialog(pas.id_paciente)" color="primary">Ver detalles</button>
+        <button mat-button (click)="openHistorial(pas.id_paciente)" color="primary">Ver historial</button>
       </mat-card-actions>
     </mat-card>
   </div>
@@ -76,12 +77,12 @@
             </ng-container>
 
             <ng-container matColumnDef="phone" >
-              <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Teléfono </th>
+              <th mat-header-cell *matHeaderCellDef style="width: 10%;"> Teléfono </th>
               <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px; "> {{element.tel_fijo}} </td>
             </ng-container>
 
             <ng-container matColumnDef="email" >
-                <th mat-header-cell *matHeaderCellDef style="width: 25%;"> Correo electrónico </th>
+                <th mat-header-cell *matHeaderCellDef style="width: 20%;"> Correo electrónico </th>
                 <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px; "> {{element.email}} </td>
               </ng-container>
         
@@ -91,9 +92,17 @@
                 <button mat-icon-button color="primary" (click)="openAddDialog(element.id_paciente)" matTooltip="Ver más detalles" matTooltipPosition="right" aria-label="Editar datos de médico">
                   <mat-icon>more_horiz</mat-icon>
                 </button>
-                
               </td>
             </ng-container>
+
+              <ng-container matColumnDef="historial">
+                  <th mat-header-cell *matHeaderCellDef style="width: 10%"> Historial Médico </th>
+                  <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px; ">
+                    <button mat-icon-button color="primary" (click)="openHistorial(element.id_paciente)" matTooltip="Ver Historial Médico" matTooltipPosition="right" aria-label="Editar datos de médico">
+                        <mat-icon>event_note</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>

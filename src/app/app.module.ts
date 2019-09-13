@@ -31,6 +31,7 @@ import { AsistenteComponent } from './asistente/asistente.component';
 import { AsistentelistComponent } from './asistente/asistentelist/asistentelist.component';
 import { AsistenteregistroComponent } from './asistente/asistenteregistro/asistenteregistro.component';
 import { ConsultaComponent } from './citas/consulta/consulta.component';
+import { HistorialMedComponent } from './pacientes/historial-med/historial-med.component';
 
 
 
@@ -65,7 +66,8 @@ import { ConsultaComponent } from './citas/consulta/consulta.component';
     AsistenteComponent,
     AsistentelistComponent,
     AsistenteregistroComponent,
-    ConsultaComponent
+    ConsultaComponent,
+    HistorialMedComponent
      
   ],
   imports: [

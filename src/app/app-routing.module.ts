@@ -22,6 +22,7 @@ import{PermisosComponent} from './permisos/permisos.component';
 import{AsistenteComponent} from './asistente/asistente.component'
 import{AsistentelistComponent} from './asistente/asistentelist/asistentelist.component'
 import{AsistenteregistroComponent} from './asistente/asistenteregistro/asistenteregistro.component'
+import{HistorialMedComponent} from './pacientes/historial-med/historial-med.component'
 
 const routes: Routes = [
   { path : 'chat', component : ChatComponent, canActivate: [AuthService]  },
@@ -40,7 +41,8 @@ const routes: Routes = [
   { path : 'calendario', component : CalendarioComponent , canActivate: [AuthService]},
   { path : 'pacientes', component : PacientesComponent, canActivate: [AuthService], children : [
     { path : '', component : PacientesListComponent },
-    { path : 'registrarPaciente/:clavePaciente', component : PacientesRegistroComponent }
+    { path : 'registrarPaciente/:clavePaciente', component : PacientesRegistroComponent },
+    { path : 'historialMed/:clavePaciente', component : HistorialMedComponent }
   ]},
   { path : 'medicos', component : MedicosComponent, canActivate: [AuthService], children : [
     { path : '', component : MedicosListComponent },

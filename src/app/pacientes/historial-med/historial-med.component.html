@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+      
+    <div class="title-row">
+        <h4>Historial Medico de: {{paciente_historia}}</h4>
+    </div>
+  </div>
+</div>
+<div style="width: 100%">
+  <table mat-table [dataSource]="dataSource" style="width: 100%; background: #f6f7fb;">
+
+    <!-- Fecha de la cita-->
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef style="width: 25%"> Fecha </th>
+      <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;" >  {{element.fecha | date:'MM/dd/yyyy'}}-{{element.hora}} </td>
+    </ng-container>
+
+    <!-- Doctor de la cita -->
+    <ng-container matColumnDef="doctor">
+      <th mat-header-cell *matHeaderCellDef style="width: 25%"> Doctor </th>
+      <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;" > {{element.medico}} {{element.ap_medico}} </td>
+    </ng-container>
+
+    <!-- Estatus de la cita -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef style="width: 10%"> Estatus</th>
+      <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;"> {{element.estado}} </td>
+    </ng-container>
+
+    <!-- Detalles -->
+    <ng-container matColumnDef="consulta">
+      <th mat-header-cell *matHeaderCellDef style="width: 10%"> Detalles </th>
+      <td mat-cell *matCellDef="let element"  style="border-bottom-width: 0px; ">
+        <button mat-icon-button color="primary" (click)="OpenDetalles(element.id_medico)" matTooltip="Ver detalles de la consulta" matTooltipPosition="right" aria-label="Editar datos de médico">
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

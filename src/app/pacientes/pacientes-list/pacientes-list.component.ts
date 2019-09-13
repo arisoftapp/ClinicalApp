@@ -32,7 +32,7 @@ export class PacientesListComponent implements OnInit {
   paciente : Paciente;
   unico: any;
   options : string[] = ["One", "Dos", "Tres"]
-  displayedColumns = ['identifier', 'name', 'phone', 'email', 'options'];
+  displayedColumns = ['identifier', 'name', 'phone', 'email', 'options', 'historial'];
   success;
   filteredOptions: Observable<Paciente[]>;
 
@@ -102,6 +102,9 @@ export class PacientesListComponent implements OnInit {
 
   openAddDialog(id_pac) {
     this.router.navigate(['pacientes/registrarPaciente/' + id_pac]);
+  }
+  openHistorial(id_pac) {
+    this.router.navigate(['pacientes/historialMed/' + id_pac]);
   }
 
 }
