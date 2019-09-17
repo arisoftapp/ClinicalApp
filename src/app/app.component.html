@@ -4,13 +4,11 @@
         <img src="../../assets/MiClinica3.png" class="logo btn-toggle" (click)="snav.toggle()" alt="Mi Clínica">
         <span class="example-fill-remaining-space"></span>
         <div [hidden]="!existoken" class="toolbar-notifications">
-            <button mat-icon-button [matMenuTriggerFor]="notificationsMenu"><i class="fas fa-bell" matBadge="15" matBadgeColor="warn"></i></button>
+            <button mat-icon-button [matMenuTriggerFor]="notificationsMenu"> <mat-icon>settings</mat-icon></button>
             <mat-menu #notificationsMenu="matMenu" xPosition="before">
-              <button mat-menu-item><i class="fas fa-circle status-light avaliable"></i>Disponible</button>
-              <button mat-menu-item><i class="fas fa-circle status-light not-avaliable"></i>No disponible</button>
-              <button mat-menu-item><i class="fas fa-circle status-light busy"></i>Ocupado</button>
-              <mat-divider></mat-divider>
-              <button mat-menu-item>Cerrar sesión</button>
+              <button mat-menu-item (click)="ruta('permisos')"><mat-icon>build</mat-icon>Permisos</button>
+              <button mat-menu-item><mat-icon>local_hospital</mat-icon>Especialidades</button>
+              <button mat-menu-item><mat-icon></mat-icon>Consultorios</button>
             </mat-menu>
           </div>
         <div [hidden]="!existoken">

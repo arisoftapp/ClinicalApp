@@ -1,0 +1,25 @@
+<mat-card class="" style="width: 35rem;">
+    <mat-card-header >
+            <mat-card-title>Detalles de la Consulta</mat-card-title>
+            <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+    <div mat-dialog-content>
+        <h4>Fecha de la Consulta: {{dtl_consulta.fecha  | date:'MM/dd/yyyy'}}</h4>
+        <h4>Peso: {{dtl_consulta.peso}} </h4> 
+        <h4>Altura: {{dtl_consulta.altura}} </h4> 
+        <h4>Presión: {{dtl_consulta.presion}}</h4> 
+        <h4>Glucosa: {{dtl_consulta.glucosa}}</h4> 
+        <h4>Diagnostico:  </h4>
+        <h5>{{dtl_consulta.diagnostico}}</h5>
+    </div>
+    <div mat-dialog-content>
+        <h4>Medico: {{dtl_consulta.medico}} {{dtl_consulta.ap_medico}} </h4> 
+        <h4>Paciente: {{dtl_consulta.paciente}} {{dtl_consulta.ap_paciente}}</h4>
+    </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button  mat-raised-button matDialogClose> Cerrar Detalles</button>
+    </mat-card-actions>
+    </mat-card>

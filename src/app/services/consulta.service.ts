@@ -35,4 +35,25 @@ export class ConsultaService {
         }
       )
 }
+
+getConsultaPaciente(user){
+  console.log(user)
+  this.token = this.Uservice.getToken();
+  let URL = this.global.URL + 'consulta/' + user;
+  const headers = new Headers(
+    {
+      'Content-Type' : 'application/json',
+      'x-access-token' : this.token,
+    }
+  );
+
+  return this._http.get(
+    URL, {headers}).pipe(
+      res => {
+        res => res.json();
+        console.log(res);
+        return res;
+      }
+    )
+}
 }

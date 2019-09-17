@@ -31,7 +31,7 @@ import { AsistenteComponent } from './asistente/asistente.component';
 import { AsistentelistComponent } from './asistente/asistentelist/asistentelist.component';
 import { AsistenteregistroComponent } from './asistente/asistenteregistro/asistenteregistro.component';
 import { ConsultaComponent } from './citas/consulta/consulta.component';
-import { HistorialMedComponent } from './pacientes/historial-med/historial-med.component';
+import { HistorialMedComponent, ConsultaDetalle } from './pacientes/historial-med/historial-med.component';
 
 
 
@@ -67,7 +67,8 @@ import { HistorialMedComponent } from './pacientes/historial-med/historial-med.c
     AsistentelistComponent,
     AsistenteregistroComponent,
     ConsultaComponent,
-    HistorialMedComponent
+    HistorialMedComponent, 
+    ConsultaDetalle
      
   ],
   imports: [
@@ -89,7 +90,8 @@ import { HistorialMedComponent } from './pacientes/historial-med/historial-med.c
     EditConsulDialog,
     DeleteConsulDialog,
     CitaDetalle,
-    PermisosDetalle
+    PermisosDetalle,
+    ConsultaDetalle
 
   ],
   

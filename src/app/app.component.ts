@@ -67,6 +67,9 @@ export class AppComponent implements OnInit{
     this.setPermisos()
   }
  
+  ruta(link: any){
+    this.router.navigate(['/'+link]);
+  }
   setPermisos(){
     
     let Ruts: Ruta [] = [];
