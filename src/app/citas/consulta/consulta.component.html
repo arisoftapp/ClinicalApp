@@ -1,55 +1,84 @@
 <mat-card class="medic-card" style="margin-top: 1rem">
   <mat-card-header>
-    <mat-card-subtitle>Información médica</mat-card-subtitle>
+    <mat-card-subtitle>Signos Vitales</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+       <!--Frecuencia Cardiaca-->
+       <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
+          <mat-label>Frecuencia Cardiaca</mat-label>
+          <input matInput required cdkFocusInitial [(ngModel)]="consulta.FC" name="cardio">
+      </mat-form-field>
+       <!--Frecuencia Cardiaca-->
+       <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
+          <mat-label>Frecuencia Respiratoria</mat-label>
+          <input matInput required cdkFocusInitial [(ngModel)]="consulta.FR" name="respiracion">
+      </mat-form-field>
+      <!--Presion-->
+      <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
+          <mat-label>Presión</mat-label>
+          <input matInput required cdkFocusInitial [(ngModel)]="consulta.presion" name="presion">
+      </mat-form-field>
+      <!--Azucar-->
+      <mat-form-field appearance="outline" style="width: 100px" >
+          <mat-label>Azucar</mat-label>
+          <input matInput required cdkFocusInitial [(ngModel)]="consulta.glucosa" name="glucosa">
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="medic-card" style="margin-top: 1rem">
+  <mat-card-header>
+    <mat-card-subtitle>Exploración Física</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <div>
     <!--Peso-->
-    <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
+    <mat-form-field appearance="outline" (change)="calcularIMC()" style="width: 100px; margin-right: 1rem" >
         <mat-label>Peso/KG</mat-label>
         <input matInput required cdkFocusInitial [(ngModel)]="consulta.peso" name="peso">
     </mat-form-field>
     <!--Altura-->
     <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
         <mat-label>Altura/Cm</mat-label>
-        <input matInput required cdkFocusInitial [(ngModel)]="consulta.altura" name="altura">
+        <input matInput required cdkFocusInitial (change)="calcularIMC()" [(ngModel)]="consulta.altura" name="altura">
     </mat-form-field>
-    <!--Presion-->
+    <!--Talla-->
     <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
-        <mat-label>Presión</mat-label>
-        <input matInput required cdkFocusInitial [(ngModel)]="consulta.presion" name="presion">
-    </mat-form-field>
-    <!--Azucar-->
-    <mat-form-field appearance="outline" style="width: 100px" >
-        <mat-label>Azucar</mat-label>
-        <input matInput required cdkFocusInitial [(ngModel)]="consulta.glucosa" name="glucosa">
+      <mat-label>Talla/Cm</mat-label>
+      <input matInput required cdkFocusInitial [(ngModel)]="consulta.talla" name="talla">
     </mat-form-field>
     </div>
-
-    <!--SINTOMAS-->
-    <div> 
-    <mat-form-field appearance="outline" style="width: 300px">
-      <mat-label>Sintomas</mat-label>
-      <textarea matInput [(ngModel)]="sintomas" name="alergia"></textarea>
-    </mat-form-field>
-  </div>
   </mat-card-content>
 </mat-card>
 
 <mat-card class="medic-card" style="margin-top: 1rem">
     <mat-card-header>
-      <mat-card-subtitle>Diagnostico</mat-card-subtitle>
+      <mat-card-subtitle>Información de la Consulta</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-
+      <!--Motivo de la consulta-->
+    <div> 
+      <mat-form-field appearance="outline" style="width: 300px">
+        <mat-label>Motivo de la Consulta</mat-label>
+        <textarea matInput [(ngModel)]="consulta.motivo" name="motivos"></textarea>
+      </mat-form-field>
+    </div>
+    <!--Resumen de interrogatorio-->
+    <div> 
+      <mat-form-field appearance="outline" style="width: 300px">
+        <mat-label>Resumen de interrogatorio</mat-label>
+        <textarea matInput [(ngModel)]="consulta.interrogatorio" name="inter"></textarea>
+      </mat-form-field>
+    </div>
     <!--Diagnostico-->
     <div> 
         <mat-form-field appearance="outline" style="width: 300px">
           <mat-label>Diagnostico</mat-label>
-          <textarea matInput [(ngModel)]="consulta.diagnostico" name="alergia"></textarea>
+          <textarea matInput [(ngModel)]="consulta.diagnostico" name="diagnostico"></textarea>
         </mat-form-field>
     </div>
-      
     </mat-card-content>
 </mat-card> 
 

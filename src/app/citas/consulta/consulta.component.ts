@@ -27,9 +27,8 @@ export class ConsultaComponent implements OnInit {
     this.consulta =  new Consulta();
     this.consulta.id_medico = JSON.parse(localStorage.getItem("id")); 
     this.consulta.id_cita = JSON.parse(localStorage.getItem("cita"));
-    localStorage.removeItem("cita")
+   
     this.consulta.id_paciente = JSON.parse(localStorage.getItem("paciente"))
-    localStorage.removeItem("paciente")
   }
 
   addTratamiento(){
@@ -39,9 +38,23 @@ export class ConsultaComponent implements OnInit {
     this.tratamiento =  new Tratamiento();
   }
 
+  calcularIMC(){
+    let peso = Number(this.consulta.peso)
+    let altura = Number(this.consulta.altura)
+    
+    if(this.consulta.peso != undefined && this.consulta.altura != undefined){
+    if(Number.isNaN(peso) || Number.isNaN(altura)){
+      console.log("algo esta mal");
+    }else{
+      this.consulta.imc = (peso/Math.pow(altura/100, 2)).toFixed(1)
+      console.log(this.consulta.imc);
+    }
+  }
+      
+  }
+
   registrar(){
     this.consulta.tratamiento = this.arrayTratamiento;
-  
     console.log(this.consulta); 
     this.postConsulta();
   }
