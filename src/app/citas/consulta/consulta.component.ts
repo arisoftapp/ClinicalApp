@@ -5,6 +5,8 @@ import { Consulta } from 'src/app/models/ConsultaModel';
 import { ConsultaService } from 'src/app/services/consulta.service';
 import { Router } from '@angular/router';
 import { CitasService } from 'src/app/services/citas.service';
+import { Paciente } from 'src/app/models/PacienteModel';
+import { PacienteService } from 'src/app/services/paciente.service';
 
 @Component({
   selector: 'app-consulta',
@@ -14,21 +16,31 @@ import { CitasService } from 'src/app/services/citas.service';
 export class ConsultaComponent implements OnInit {
   consulta: Consulta
   tratamiento: Tratamiento
+  examen: any;
+  data_paciente: any;
   arrayTratamiento: Tratamiento[] = [];
   displayedColumns: string[] = ['medicamento', 'docis', 'via', 'frecuencia', 'duracion', 'opcion'];
   dataSource = new MatTableDataSource;
   success: any;
-  constructor(private consul_serv: ConsultaService, private cita_serv: CitasService, private router : Router, private _snackBar: MatSnackBar,) {
+  constructor(private consul_serv: ConsultaService, private cita_serv: CitasService,
+     private router : Router, private _snackBar: MatSnackBar, private paciente_serv: PacienteService,) {
     
    }
 
   ngOnInit() {
+    this.data_paciente = new Paciente;
     this.tratamiento =  new Tratamiento();
     this.consulta =  new Consulta();
     this.consulta.id_medico = JSON.parse(localStorage.getItem("id")); 
     this.consulta.id_cita = JSON.parse(localStorage.getItem("cita"));
    
     this.consulta.id_paciente = JSON.parse(localStorage.getItem("paciente"))
+    this.getPacientes();
+  }
+
+  addExamen(){
+    this.consulta.examenes.push(this.examen)
+    console.log(this.consulta.examenes)
   }
 
   addTratamiento(){
@@ -59,6 +71,33 @@ export class ConsultaComponent implements OnInit {
     this.postConsulta();
   }
 
+  getPacientes(){
+    console.log(this.consulta.id_paciente);
+    
+    this.paciente_serv.getPaciente(this.consulta.id_paciente).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto); 
+        if (jey.success){
+        
+          this.data_paciente = jey.data[0];
+          for(let data of this.data_paciente){
+            data.completo = data.nombre +" " + data.ap_paterno;
+            }
+          console.log(this.data_paciente);
+          
+        }
+      error => {
+        console.log(<any>error);
+      }
+      });
+  }
+
+
+  openHistorial() {
+    this.router.navigate(['pacientes/historialMed/' + this.consulta.id_paciente]);
+  }
 
   postConsulta(){ 
     this.consul_serv.postConsulta(this.consulta).subscribe(

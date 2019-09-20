@@ -1,17 +1,40 @@
 <mat-card class="medic-card" style="margin-top: 1rem">
   <mat-card-header>
+    <mat-card-subtitle>Información Del Paciente</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+      <div>
+          <table class="egt">
+              <tr style="margin-left: 3rem !important">
+                <td>
+                    <img src="../../../../assets/paciente.jpg" alt="" style="width: 100px; height: 100px;">
+                </td>
+                <td>
+                  <mat-label  style="margin-left: 3rem !important">Nombre Completo: {{data_paciente.nombre}} {{data_paciente.ap_paterno}} {{data_paciente.ap_materno}}</mat-label>
+                  <br> <mat-label  style="margin-left: 3rem !important">Enfermedades Cronicas: {{data_paciente.cronicas}} </mat-label>
+                  <br><mat-label  style="margin-left: 3rem !important">Telefono: {{data_paciente.tel_cel}} </mat-label>
+                </td>
+              </tr>
+          </table> 
+        </div><br>
+        <button mat-button (click)="openHistorial()" color="primary">Ver historial</button>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="medic-card" style="margin-top: 1rem">
+  <mat-card-header>
     <mat-card-subtitle>Signos Vitales</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <div>
        <!--Frecuencia Cardiaca-->
        <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
-          <mat-label>Frecuencia Cardiaca</mat-label>
+          <mat-label>FC</mat-label>
           <input matInput required cdkFocusInitial [(ngModel)]="consulta.FC" name="cardio">
       </mat-form-field>
        <!--Frecuencia Cardiaca-->
        <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
-          <mat-label>Frecuencia Respiratoria</mat-label>
+          <mat-label>FR</mat-label>
           <input matInput required cdkFocusInitial [(ngModel)]="consulta.FR" name="respiracion">
       </mat-form-field>
       <!--Presion-->
@@ -20,10 +43,15 @@
           <input matInput required cdkFocusInitial [(ngModel)]="consulta.presion" name="presion">
       </mat-form-field>
       <!--Azucar-->
-      <mat-form-field appearance="outline" style="width: 100px" >
+      <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
           <mat-label>Azucar</mat-label>
           <input matInput required cdkFocusInitial [(ngModel)]="consulta.glucosa" name="glucosa">
       </mat-form-field>
+       <!--Temperatura-->
+       <mat-form-field appearance="outline" style="width: 100px; margin-right: 1rem" >
+        <mat-label>Temperatura</mat-label>
+        <input matInput required cdkFocusInitial [(ngModel)]="consulta.temperatura" name="temperatura" >
+    </mat-form-field>
     </div>
   </mat-card-content>
 </mat-card>
@@ -79,13 +107,29 @@
           <textarea matInput [(ngModel)]="consulta.diagnostico" name="diagnostico"></textarea>
         </mat-form-field>
     </div>
+
+    <div>
+      <!--Examenes Médicos-->
+      <mat-form-field appearance="outline" style="width: 300px;" required>
+        <mat-label>Examenes Médicos</mat-label>
+        <mat-select matInput [(ngModel)]="examen" name="examen" >
+          <mat-option value="sin Asiganar" > Sin Asignar</mat-option>
+          <mat-option value="Sangre" > Analisis de sangre</mat-option>
+          <mat-option value="Orina" > Analisis de Orina</mat-option>
+          <mat-option value="Eses" > Analisis de Eses</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div style="text-align: right;">
+      <button mat-button color="primary" matTooltip="Agregar Examen"   (click)="addExamen()">Agregar Examen</button>
+  </div>
     </mat-card-content>
 </mat-card> 
 
 <!--Tratamiento-->
 <mat-card class="medic-card" style="margin-top: 1rem">
   <mat-card-header>
-    <mat-card-subtitle>Tratamiento</mat-card-subtitle>
+    <mat-card-subtitle>Medicamento</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <!--medicamento-->
