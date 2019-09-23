@@ -1,0 +1,54 @@
+<mat-card class="medic-card">
+  <mat-card-header>
+    <mat-card-subtitle>Antecedentes Familiares</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+      <mat-form-field appearance="outline" style="width: 300px; margin-right: 1rem">
+          <mat-label>Enferemdad</mat-label>
+          <input matInput [(ngModel)]="enfermedad" name="enfermedad" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 300px;" required>
+          <mat-label>Parentesco</mat-label>
+          <mat-select matInput [(ngModel)]="parentesco" name="parentesco" >
+            <mat-option value="Abuelo(a) Paterno" > Abuelo(a) Paterno</mat-option>
+            <mat-option value="Abuelo(a) Materno" > Abuelo(a) Materno</mat-option>
+            <mat-option value="Padre" > Padre</mat-option>
+            <mat-option value="Madre" > Madre</mat-option>
+            <mat-option value="Hermano(a)" >Hermano(a)</mat-option>
+
+          </mat-select>
+        </mat-form-field> 
+  </mat-card-content>
+  <button mat-flat-button class="btn-add" (click)="addAntecedente()"><i class=" fas fa-plus"></i> Agregar Antecedente</button>
+</mat-card>
+
+<mat-card class="medic-card" style="margin-top: 1rem">
+  <mat-card-header>
+    <mat-card-subtitle>Antecedentes</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <mat-form-field appearance="outline" style="width: 300px;margin-right: 1rem" >
+        <mat-label>Antecedentes no Patológicos</mat-label>
+        <textarea matInput [(ngModel)]="anp" name="anp" style="height: 100px;"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style=" width: 300px;margin-right: 1rem">
+        <mat-label>Antecedentes Patológicos</mat-label>
+        <textarea matInput [(ngModel)]="ap" name="ap" style="height: 100px;"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width: 300px;margin-right: 1rem">
+        <mat-label>Antecedentes Prenatales</mat-label>
+        <textarea matInput [(ngModel)]="apre" name="apre" style="height: 100px;"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style=" width: 300px;margin-right: 1rem">
+        <mat-label>Antecedentes Neonatales</mat-label>
+        <textarea matInput [(ngModel)]="aneo" name="aneo" style="height: 100px;"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style=" width: 300px;margin-right: 1rem">
+          <mat-label>Problemas Neonatales</mat-label>
+          <textarea matInput [(ngModel)]="problemasneo_neo" name="problemas_neo" style="height: 100px;"></textarea>
+        </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>

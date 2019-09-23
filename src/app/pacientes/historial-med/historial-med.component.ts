@@ -22,6 +22,7 @@ export class HistorialMedComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   paciente_data: any;
+  modificar: boolean = true;
 
 
   constructor(private activatedRouter: ActivatedRoute, private citas_serv: CitasService,
@@ -34,7 +35,14 @@ export class HistorialMedComponent implements OnInit {
     console.log(this.paciente);
     this.getCnsultas()
   }
-
+  onChange(){
+    if(this.modificar){
+      this.modificar = false;
+    }else{
+      this.modificar = true;
+    }
+   
+  }
   getCitas(){
     this.citas_serv.getCitasPaciente(this.paciente).subscribe(
       (response : any)  => {
@@ -141,4 +149,6 @@ export class ConsultaDetalle implements OnInit{
 
   ngOnInit(): void { 
    }
+
+  
 }

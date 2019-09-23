@@ -41,9 +41,6 @@ export class PacientesListComponent implements OnInit {
     private router : Router) {
       registerLocaleData(localeMX);
     }
-
-   
-
     ngOnInit() {
       this.getPacientes();
       this.filteredOptions = this.myControl.valueChanges
@@ -103,8 +100,13 @@ export class PacientesListComponent implements OnInit {
   openAddDialog(id_pac) {
     this.router.navigate(['pacientes/registrarPaciente/' + id_pac]);
   }
+
   openHistorial(id_pac) {
     this.router.navigate(['pacientes/historialMed/' + id_pac]);
+  }
+
+  openRegistro() {
+    this.router.navigate(['pacientes/registroHistorial/']);
   }
 
 }

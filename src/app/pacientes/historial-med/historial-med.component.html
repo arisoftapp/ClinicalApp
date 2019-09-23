@@ -2,44 +2,113 @@
   <div class="row">
       
     <div class="title-row">
-        <h4>Historial Medico de: {{paciente_historia}}</h4>
+        <h4>Historial Medico de: {{paciente_historia}}</h4> <br>
+    </div>
+    <div class="row">
+        <mat-slide-toggle matTooltip="Filtrar citas canceladas" (change)="onChange()">Modificar Información</mat-slide-toggle>
     </div>
   </div>
 </div>
-<div style="width: 100%">
-  <table mat-table [dataSource]="dataSource" style="width: 100%; background: #f6f7fb;">
-
-    <!-- Fecha de la cita-->
-    <ng-container matColumnDef="fecha">
-      <th mat-header-cell *matHeaderCellDef style="width: 25%"> Fecha </th>
-      <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;" >  {{element.fecha | date:'MM/dd/yyyy'}}-{{element.hora}} </td>
-    </ng-container>
-
-    <!-- Doctor de la cita -->
-    <ng-container matColumnDef="doctor">
-      <th mat-header-cell *matHeaderCellDef style="width: 25%"> Médico</th>
-      <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;" > {{element.medico}} {{element.ap_medico}} </td>
-    </ng-container>
-
-    <!-- Estatus de la cita -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef style="width: 10%"> Estatus</th>
-      <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;"> {{element.estado}} </td>
-    </ng-container>
-
-    <!-- Detalles -->
-    <ng-container matColumnDef="consulta">
-      <th mat-header-cell *matHeaderCellDef style="width: 10%"> Detalles </th>
-      <td mat-cell *matCellDef="let element"  style="border-bottom-width: 0px; ">
-        <button mat-icon-button color="primary" (click)="OpenDialog(element)" matTooltip="Ver detalles de la consulta" matTooltipPosition="right" aria-label="Editar datos de médico">
-          <mat-icon>more_horiz</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<div [hidden]="modificar">
+<mat-card class="medic-card">
+    <mat-card-header>
+      <mat-card-subtitle>Antecedentes Familiares</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field appearance="outline" style="width: 300px; margin-right: 1rem">
+            <mat-label>Enferemdad</mat-label>
+            <input matInput [(ngModel)]="enfermedad" name="enfermedad" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" style="width: 300px;" required>
+            <mat-label>Parentesco</mat-label>
+            <mat-select matInput [(ngModel)]="parentesco" name="parentesco" >
+              <mat-option value="Abuelo(a) Paterno" > Abuelo(a) Paterno</mat-option>
+              <mat-option value="Abuelo(a) Materno" > Abuelo(a) Materno</mat-option>
+              <mat-option value="Padre" > Padre</mat-option>
+              <mat-option value="Madre" > Madre</mat-option>
+              <mat-option value="Hermano(a)" >Hermano(a)</mat-option>
+  
+            </mat-select>
+          </mat-form-field> 
+    </mat-card-content>
+    <button mat-flat-button class="btn-add" (click)="addAntecedente()"><i class=" fas fa-plus"></i> Agregar Antecedente</button>
+</mat-card>
 </div>
+
+
+<mat-card class="medic-card" style="margin-top: 1rem">
+    <mat-card-header>
+      <mat-card-subtitle>Antecedentes</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <mat-form-field appearance="outline" style="width: 300px;margin-right: 1rem" >
+          <mat-label>Antecedentes no Patológicos</mat-label>
+          <textarea matInput [(ngModel)]="anp" name="anp" style="height: 100px;" [disabled]="modificar"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style=" width: 300px;margin-right: 1rem">
+          <mat-label>Antecedentes Patológicos</mat-label>
+          <textarea matInput [(ngModel)]="ap" name="ap" style="height: 100px;" [disabled]="modificar"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 300px;margin-right: 1rem">
+          <mat-label>Antecedentes Prenatales</mat-label>
+          <textarea matInput [(ngModel)]="apre" name="apre" style="height: 100px;"  [disabled]="modificar"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style=" width: 300px;margin-right: 1rem">
+          <mat-label>Antecedentes Neonatales</mat-label>
+          <textarea matInput [(ngModel)]="aneo" name="aneo" style="height: 100px;"  [disabled]="modificar"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style=" width: 300px;margin-right: 1rem">
+            <mat-label>Problemas Neonatales</mat-label>
+            <textarea matInput [(ngModel)]="problemasneo_neo" name="problemas_neo" style="height: 100px;" [disabled]="modificar"></textarea>
+          </mat-form-field>
+      </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="medic-card" style="margin-top: 1rem">
+    <mat-card-header>
+      <mat-card-subtitle>Consultas</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      
+      <div style="width: 100%">
+        <table mat-table [dataSource]="dataSource" style="width: 100%; background: #f6f7fb;">
+
+          <!-- Fecha de la cita-->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef style="width: 25%"> Fecha </th>
+            <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;" >  {{element.fecha | date:'MM/dd/yyyy'}}-{{element.hora}} </td>
+          </ng-container>
+
+          <!-- Doctor de la cita -->
+          <ng-container matColumnDef="doctor">
+            <th mat-header-cell *matHeaderCellDef style="width: 25%"> Médico</th>
+            <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;" > {{element.medico}} {{element.ap_medico}} </td>
+          </ng-container>
+
+          <!-- Estatus de la cita -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef style="width: 10%"> Estatus</th>
+            <td mat-cell *matCellDef="let element" style="border-bottom-width: 0px;"> {{element.estado}} </td>
+          </ng-container>
+
+          <!-- Detalles -->
+          <ng-container matColumnDef="consulta">
+            <th mat-header-cell *matHeaderCellDef style="width: 10%"> Detalles </th>
+            <td mat-cell *matCellDef="let element"  style="border-bottom-width: 0px; ">
+              <button mat-icon-button color="primary" (click)="OpenDialog(element)" matTooltip="Ver detalles de la consulta" matTooltipPosition="right" aria-label="Editar datos de médico">
+                <mat-icon>more_horiz</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+</mat-card-content>
+</mat-card>
