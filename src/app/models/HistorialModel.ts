@@ -1,10 +1,11 @@
 export class Historial{
+    id_paciente;
     af: any =[];
-    ap: any =[];
-    anp: any =[];
-    at: any;
-    apre: any;
-    aneo: any;
-    prblemas_neo: any;
-    alergias;
+    ap;
+    anp;
+    at;
+    apre;
+    aneo;
+    prblemas_neo;
+    alimentacion;
 }

@@ -183,3 +183,13 @@ mat-form-field {
 .mat-button-toggle-standalone.mat-button-toggle-appearance-standard, .mat-button-toggle-group-appearance-standard {
     border: none;
 }
+.medic-card{
+    margin-bottom: 30px;
+}
+.btn-add{
+    
+    margin-top: 20px;
+    margin-left:80%;
+    background: transparent;
+    color: #1e88e5;
+}
