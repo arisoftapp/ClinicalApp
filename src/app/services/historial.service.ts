@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Global } from '../models/global';
-import { Historial } from '../models/HistorialModel';
-import { UserService } from './user.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
+import 'rxjs';
+import { Global }  from '../models/global';
+import { UserService } from '../services/user.service';
+import { Cita } from 'src/app/models/CitaModel';
+import { Historial } from '../models/HistorialModel';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,14 +12,14 @@ export class HistorialService {
   private token;
   public global : Global;
   constructor(private _http : Http,private Uservice : UserService) {
-   }
+    this.global = new Global;
+    console.log(this.global.URL);
+    
+  }
 
-
-   postHistorial(historial: any)  {
-    console.log("entro");
+  postHistorial(historial: Historial)  {
     this.token = this.Uservice.getToken();
-    let URL = 'localhost:3005/' + 'historial';
-    console.log(URL);
+    let URL = this.global.URL + 'historial';
     const newpres = JSON.stringify(historial);
     const headers = new Headers(
       {
@@ -37,10 +38,9 @@ export class HistorialService {
 }
 
 putHistorial(historial: any) {
-  console.log("entro");
   
   this.token = this.Uservice.getToken();
-  let URL = 'localhost:3005/' + 'historialPaciente';
+  let URL = this.global.URL + 'historialPaciente';
   const newpres = JSON.stringify(historial);
   const headers = new Headers(
     {
@@ -53,7 +53,6 @@ putHistorial(historial: any) {
     URL, newpres, {headers}).pipe(
       res => {
         res => res.json();
-        
         return res;
       }
     )

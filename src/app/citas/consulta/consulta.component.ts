@@ -16,9 +16,14 @@ import { Historial } from 'src/app/models/HistorialModel';
   styleUrls: ['./consulta.component.css']
 })
 export class ConsultaComponent implements OnInit {
+  historial: Historial
+  enfermedad: any;
+  parentesco: any;
+  
   consulta: Consulta
   tratamiento: Tratamiento
   examen: any;
+  most_historial: boolean = false;
   data_paciente: any;
   arrayTratamiento: Tratamiento[] = [];
   displayedColumns: string[] = ['medicamento', 'docis', 'via', 'frecuencia', 'duracion', 'opcion'];
@@ -26,11 +31,13 @@ export class ConsultaComponent implements OnInit {
   success: any;
   constructor(private consul_serv: ConsultaService, private cita_serv: CitasService,
     private router : Router, private _snackBar: MatSnackBar,
-    private paciente_serv: PacienteService,public addDialog: MatDialog) {
+    private paciente_serv: PacienteService,public addDialog: MatDialog,
+    public hist_serv : HistorialService) {
     
    }
 
   ngOnInit() {
+    this.historial = new Historial();
     this.data_paciente = new Paciente;
     this.tratamiento =  new Tratamiento();
     this.consulta =  new Consulta();
@@ -39,6 +46,17 @@ export class ConsultaComponent implements OnInit {
    
     this.consulta.id_paciente = JSON.parse(localStorage.getItem("paciente"))
     this.getPacientes();
+  }
+
+  addAntecedente(){
+    this.historial.af.push(
+    {
+      id_paciente: this.data_paciente.id_paciente,
+      parentesco: this.parentesco,
+      enfermedad: this.enfermedad});
+      console.log(this.historial.af);
+      this.parentesco = "";
+      this.enfermedad = "";
   }
 
   addExamen(){
@@ -69,6 +87,29 @@ export class ConsultaComponent implements OnInit {
   }
 
   registrar(){
+    this.hist_serv.postHistorial(this.historial).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto);
+        this.success = jey.success;
+        this.SnackBarError(jey.message);
+        if (jey.success){
+          this.hist_serv.putHistorial(this.historial).subscribe(
+            (response : any)  => {
+              var Resp = response;
+              var texto = Resp._body;
+              var jey = JSON.parse(texto);
+              this.success = jey.success;
+              this.SnackBarError(jey.message);
+              if (jey.success){
+                console.log("bien hecho");
+                
+              }
+          }); 
+        }
+    });;
+  
     this.consulta.tratamiento = this.arrayTratamiento;
     console.log(this.consulta); 
     this.postConsulta();
@@ -90,8 +131,11 @@ export class ConsultaComponent implements OnInit {
             }
           console.log(this.data_paciente.historial);
           if(this.data_paciente.historial==1){
+            this.historial.id_paciente= this.data_paciente.id_paciente
             console.log("es primeriso");
-            this.openDialog(this.data_paciente)
+            this.most_historial= true;
+          }else{
+            this.most_historial= false;
           }
          
         }
@@ -183,7 +227,7 @@ export class HistorialDialog implements OnInit{
       {
         id_paciente: this.data.paciente.id_paciente,
         parentesco: this.parentesco,
-        enfermendad: this.enfermedad});
+        enfermedad: this.enfermedad});
         console.log(this.historial.af);
         
         this.parentesco = "";
@@ -196,8 +240,30 @@ export class HistorialDialog implements OnInit{
     }
 
     onNoClick(): void {
-      this.hist_serv.postHistorial(this.historial);
-      this.hist_serv.putHistorial(this.historial);
+      console.log("realizar");
+      
+      this.hist_serv.postHistorial(this.historial).subscribe(
+        (response : any)  => {
+          var Resp = response;
+          var texto = Resp._body;
+          var jey = JSON.parse(texto);
+          this.success = jey.success;
+          this.SnackBarError(jey.message);
+          if (jey.success){
+            this.hist_serv.putHistorial(this.historial).subscribe(
+              (response : any)  => {
+                var Resp = response;
+                var texto = Resp._body;
+                var jey = JSON.parse(texto);
+                this.success = jey.success;
+                this.SnackBarError(jey.message);
+                if (jey.success){
+                   this.router.navigate(['citas']);
+                }
+            }); 
+          }
+      });
+    
     }
 }
 
