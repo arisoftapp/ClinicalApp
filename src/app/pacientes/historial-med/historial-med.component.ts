@@ -7,6 +7,8 @@ import { PacienteService } from 'src/app/services/paciente.service';
 import { Paciente } from 'src/app/models/PacienteModel';
 import { CitasService } from 'src/app/services/citas.service';
 import { ConsultaService } from 'src/app/services/consulta.service';
+import { HistorialService } from 'src/app/services/historial.service';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
 @Component({
@@ -23,17 +25,22 @@ export class HistorialMedComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   paciente_data: any;
   modificar: boolean = true;
+  historial: any= {};
+  af: any= [];
 
 
   constructor(private activatedRouter: ActivatedRoute, private citas_serv: CitasService,
   private _snackBar: MatSnackBar, private pac_service : PacienteService,
-   private conslt_srv: ConsultaService,  public addDialog: MatDialog) { }
+   private conslt_srv: ConsultaService,  public addDialog: MatDialog,private hist_serv: HistorialService,
+   private router : Router) { }
 
 
   ngOnInit() {
+   
     this.paciente = this.activatedRouter.snapshot.paramMap.get('clavePaciente');
     console.log(this.paciente);
-    this.getCnsultas()
+    this.getCnsultas();
+    this.getHistorial();
   }
   onChange(){
     if(this.modificar){
@@ -43,6 +50,39 @@ export class HistorialMedComponent implements OnInit {
     }
    
   }
+
+  getHistorial(){
+    this.hist_serv.getHistorialPaciente(this.paciente).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto); 
+        if (!jey.success){
+          this.success = jey.success; 
+          this.SnackBarError(jey.message);
+          this.historial = {};
+        }else {
+          this.historial = jey.data[0];
+          this.af = jey.data;
+          if(this.historial == undefined){
+            this.historial = {};
+            this.af = [];
+          }
+        
+          
+          
+        }
+      error => {
+        console.log(<any>error);
+      }
+    });
+  }
+
+  openConsulta(){
+    localStorage.setItem('paciente', this.paciente);
+    this.router.navigate(['/citas/consultaMedica']); 
+  }
+
   getCitas(){
     this.citas_serv.getCitasPaciente(this.paciente).subscribe(
       (response : any)  => {
@@ -66,7 +106,7 @@ export class HistorialMedComponent implements OnInit {
             }
             
           }
-          console.log(jey.data);
+
           this.dataSource = new MatTableDataSource<any>(this.paciente_data);
           this.dataSource.paginator = this.paginator;
         }
@@ -99,7 +139,6 @@ export class HistorialMedComponent implements OnInit {
             }
             
           }
-          console.log(jey.data);
           this.dataSource = new MatTableDataSource<any>(this.paciente_data);
           this.dataSource.paginator = this.paginator;
         }
@@ -113,6 +152,7 @@ export class HistorialMedComponent implements OnInit {
     console.log(id);
     
   }
+
   SnackBarError(message: string) {
     this._snackBar.open(message, "Aceptar", {
       duration: 5000,
@@ -143,7 +183,6 @@ export class ConsultaDetalle implements OnInit{
     public ConsultaDialog: MatDialogRef<ConsultaDetalle>,
     @Inject (MAT_DIALOG_DATA) public data: any) {
       this.dtl_consulta= this.data.consulta
-      console.log(this.dtl_consulta);
      
     }
 

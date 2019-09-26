@@ -136,7 +136,12 @@ export class PacientesRegistroComponent implements OnInit {
   }
 
   onSubmit(){
-   if( this.paciente.id_paciente === "0" ) {
+    console.log("yeeh");
+    
+  }
+
+  registrar(){
+    if( this.paciente.id_paciente === "0" ) {
       this.postPaciente();
     } else {
       this.putPaciente();

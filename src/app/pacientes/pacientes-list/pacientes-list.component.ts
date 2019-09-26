@@ -105,8 +105,4 @@ export class PacientesListComponent implements OnInit {
     this.router.navigate(['pacientes/historialMed/' + id_pac]);
   }
 
-  openRegistro() {
-    this.router.navigate(['pacientes/registroHistorial/']);
-  }
-
 }

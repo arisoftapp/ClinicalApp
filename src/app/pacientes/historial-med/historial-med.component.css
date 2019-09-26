@@ -2,9 +2,21 @@
     margin-bottom: 30px;
 }
 .btn-add{
-    
-    margin-top: 20px;
     margin-left:80%;
     background: transparent;
     color: #1e88e5;
+}
+
+.btn-consul{
+    
+    margin-top: 20px;
+    margin-left:10%;
+    background: transparent;
+    color: #1e88e5;
+}
+.textarea:disabled{
+ color : black;
+}
+textarea:disabled{
+    color: black;
 }
