@@ -129,6 +129,7 @@ export class HistorialMedComponent implements OnInit {
         }else {
           this.paciente_data = jey.data;
           this.paciente_historia = this.paciente_data[0].paciente+" "+this.paciente_data[0].ap_paciente
+         
           for(let item  of this.paciente_data){
             if(item.status == 1){
               item.estado = "Pendiente"
@@ -161,8 +162,10 @@ export class HistorialMedComponent implements OnInit {
 
   OpenDialog(consulta: any) {
     const dialogRef = this.addDialog.open(ConsultaDetalle, {
+      width: '1000px',
       data:{consulta}
     });
+    
   }
   
   
@@ -174,20 +177,73 @@ export class HistorialMedComponent implements OnInit {
   styleUrls: ['./historial-med.component.css']
 })
 export class ConsultaDetalle implements OnInit{
-  
+  displayedColumns: string[] = ['medicamento', 'docis', 'via', 'frecuencia', 'duracion'];
+  dataSource = new MatTableDataSource;
   dtl_consulta: any;
   dtl_status: boolean;
   success: any;
   tipo: boolean;
+  examenes: any[] = [];
+  tratamiento: any = [];
   constructor(private _snackBar: MatSnackBar, private router : Router,
-    public ConsultaDialog: MatDialogRef<ConsultaDetalle>,
+    private conslt_srv: ConsultaService, public ConsultaDialog: MatDialogRef<ConsultaDetalle>,
     @Inject (MAT_DIALOG_DATA) public data: any) {
       this.dtl_consulta= this.data.consulta
+      console.log(this.dtl_consulta)
      
     }
+  //consulta de los examenes solicitados en la consulta y su tratamiento
+  getExtra(){
+
+  }
 
   ngOnInit(): void { 
-   }
+    this.getExamenes();
+    this.getTratamiento();
+  }
 
-  
+  getTratamiento(){
+    this.conslt_srv.getDetallesConsulta(this.dtl_consulta.id_consulta,1).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto); 
+        if (!jey.success){
+          this.success = jey.success; 
+          this.SnackBarError(jey.message);
+        }else {
+          this.tratamiento= jey.data;
+          console.log(jey.data);  
+          this.dataSource = new MatTableDataSource(this.tratamiento);
+        }
+      error => {
+        console.log(<any>error);
+      }
+    });
+  }
+
+  getExamenes(){
+    this.conslt_srv.getDetallesConsulta(this.dtl_consulta.id_consulta,2).subscribe(
+      (response : any)  => {
+        var Resp = response;
+        var texto = Resp._body;
+        var jey = JSON.parse(texto); 
+        if (!jey.success){
+          this.success = jey.success; 
+          this.SnackBarError(jey.message);
+        }else {
+          this.examenes= jey.data;
+          console.log(jey.data);  
+        }
+      error => {
+        console.log(<any>error);
+      }
+    });
+  }
+
+  SnackBarError(message: string) {
+    this._snackBar.open(message, "Aceptar", {
+      duration: 5000,
+    });
+  }
 }

@@ -27,6 +27,7 @@ export class ConsultaComponent implements OnInit {
   data_paciente: any;
   arrayTratamiento: Tratamiento[] = [];
   displayedColumns: string[] = ['medicamento', 'docis', 'via', 'frecuencia', 'duracion', 'opcion'];
+  displayedColumn: string[] = ['medicamento', 'docis', 'via', 'frecuencia', 'duracion'];
   dataSource = new MatTableDataSource;
   success: any;
   constructor(private consul_serv: ConsultaService, private cita_serv: CitasService,

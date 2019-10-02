@@ -34,6 +34,7 @@ import { ConsultaComponent, HistorialDialog } from './citas/consulta/consulta.co
 import { HistorialMedComponent, ConsultaDetalle } from './pacientes/historial-med/historial-med.component';
 import { HistorialRegistroComponent } from './pacientes/historial-registro/historial-registro.component';
 
+import {NgxPrintModule} from 'ngx-print';
 
 
 
@@ -83,7 +84,8 @@ import { HistorialRegistroComponent } from './pacientes/historial-registro/histo
     SchedulerModule,
     FormsModule,
     ReactiveFormsModule,
-    TimePickerModule
+    TimePickerModule,
+    NgxPrintModule
   ],
   entryComponents: [
     AddEspDialog,

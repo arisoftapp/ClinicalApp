@@ -56,4 +56,25 @@ getConsultaPaciente(user){
       }
     )
 }
+
+getDetallesConsulta(user,tipo){
+  console.log(user)
+  this.token = this.Uservice.getToken();
+  let URL = this.global.URL + 'detallesConsulta/' + user+'/'+tipo;
+  const headers = new Headers(
+    {
+      'Content-Type' : 'application/json',
+      'x-access-token' : this.token,
+    }
+  );
+
+  return this._http.get(
+    URL, {headers}).pipe(
+      res => {
+        res => res.json();
+        console.log(res);
+        return res;
+      }
+    )
+}
 }
